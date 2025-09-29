@@ -25,7 +25,7 @@
                         <select name="couple_id" id="couple_id" class="form-control" required>
                             <option value="">Select Couple</option>
                             @foreach($couples as $couple)
-                                <option value="{{ $couple->id }}" {{ old('couple_id') == $couple->id ? 'selected' : '' }}>
+                                <option value="{{ $couple->id }}" {{ old('couple_id') == $couple->id ? 'selected' : '' }} >
                                     {{ $couple->groom_name }} & {{ $couple->bride_name }}
                                 </option>
                             @endforeach

@@ -26,7 +26,7 @@
                                     <p class="card-text">{{ $package->description }}</p>
                                     <ul class="list-unstyled">
                                         <li><strong>Price:</strong> Rp{{ number_format($package->price, 0, ',', '.') }}</li>
-                                        <li><strong>Duration:</strong> {{ $package->duration_days }} days</li>
+                                        <li><strong>Duration:</strong> {{ $package->period }} days</li>
                                     </ul>
                                 </div>
                                 <div class="card-footer">

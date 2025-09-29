@@ -68,6 +68,7 @@
                 <a class="collapse-item {{ request()->routeIs('guest-messages.*') ? 'active' : '' }}" href="{{ route('guest-messages.index') }}">Guest Messages</a>
                 @else
                 <a class="collapse-item {{ request()->routeIs('my-couples.*') ? 'active' : '' }}" href="{{ route('my-couples.index') }}">My Couples</a>
+                <a class="collapse-item {{ request()->routeIs('my-people.*') ? 'active' : '' }}" href="{{ route('my-people.index') }}">People</a>
                 <a class="collapse-item {{ request()->routeIs('my-wedding-events.*') ? 'active' : '' }}" href="{{ route('my-wedding-events.index') }}">My Events</a>
                 <a class="collapse-item {{ request()->routeIs('my-locations.*') ? 'active' : '' }}" href="{{ route('my-locations.index') }}">Locations</a>
                 <a class="collapse-item {{ request()->routeIs('my-gallery-images.*') ? 'active' : '' }}" href="{{ route('my-gallery-images.index') }}">Gallery Images</a>

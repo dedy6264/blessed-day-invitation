@@ -195,6 +195,18 @@ class GalleryImageController extends CrudController
     public function destroy($id): RedirectResponse
     {
         $record = GalleryImage::findOrFail($id);
+        
+        // Delete the image file from storage if it exists
+        if ($record->image_url && file_exists(public_path($record->image_url))) {
+            unlink(public_path($record->image_url));
+        }
+        
+        // Also delete thumbnail if it exists and is different from image
+        if ($record->thumbnail_url && $record->thumbnail_url !== $record->image_url && 
+            file_exists(public_path($record->thumbnail_url))) {
+            unlink(public_path($record->thumbnail_url));
+        }
+        
         $record->delete();
 
         return redirect()->route( $this->getRoutePrefix().'.index')

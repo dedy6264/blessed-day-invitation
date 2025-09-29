@@ -11,12 +11,12 @@ class Package extends Model
         'name',
         'description',
         'price',
-        'duration_days',
+        'period',
     ];
 
     protected $casts = [
         'price' => 'decimal:2',
-        'duration_days' => 'integer',
+        'period' => 'integer',
     ];
 
     /**

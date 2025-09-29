@@ -12,6 +12,8 @@ class Transaction extends Model
     protected $fillable = [
         'couple_id',
         'package_id',
+        'period',
+        'package_name',
         'order_date',
         'status',
         'total_amount',
@@ -34,7 +36,7 @@ class Transaction extends Model
     {
         $prefix = 'INV'; // INV for invoice
         $timestamp = now()->format('ymd'); // YYMMDD format
-        $random = Str::upper(Str::random(6)); // 6 random characters
+        $random = Str::upper(Str::random(4)); // 6 random characters
         
         $referenceNo = $prefix . $timestamp . $random;
         

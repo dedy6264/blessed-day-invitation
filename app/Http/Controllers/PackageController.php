@@ -13,7 +13,15 @@ class PackageController extends CrudController
     {
         $this->model = Package::class;
         $this->routePrefix = 'packages';
-        $this->columns = ['id', 'name', 'description', 'price', 'duration_days', 'created_at', 'updated_at'];
+        $this->columns = [
+            'id',
+            'name',
+            'description',
+            'price',
+            'period',
+            'created_at',
+            'updated_at',
+        ];
     }
     
     /**
@@ -27,7 +35,7 @@ class PackageController extends CrudController
         return view('admin.crud.index', [
             'records' => $records,
             'title' => $title,
-            'columns' => ['name', 'description', 'price', 'duration_days'],
+            'columns' => ['name', 'description', 'price', 'period'],
             'createRoute' => route('packages.create'),
             'editRoute' => 'packages.edit',
             'deleteRoute' => 'packages.destroy',
@@ -43,7 +51,7 @@ class PackageController extends CrudController
         
         return view('admin.crud.create', [
             'title' => $title,
-            'columns' => ['name', 'description', 'price', 'duration_days'],
+            'columns' => ['name', 'description', 'price', 'period'],
             'storeRoute' => route('packages.store'),
         ]);
     }
@@ -57,7 +65,7 @@ class PackageController extends CrudController
             'name' => 'required|string|max:100',
             'description' => 'nullable|string',
             'price' => 'required|numeric',
-            'duration_days' => 'required|integer',
+            'period' => 'required|integer',
         ]);
 
         Package::create($request->all());
@@ -77,7 +85,7 @@ class PackageController extends CrudController
         return view('admin.crud.show', [
             'record' => $record,
             'title' => $title,
-            'columns' => ['name', 'description', 'price', 'duration_days', 'created_at', 'updated_at'],
+            'columns' => ['name', 'description', 'price', 'period', 'created_at', 'updated_at'],
         ]);
     }
 
@@ -92,7 +100,7 @@ class PackageController extends CrudController
         return view('admin.crud.edit', [
             'record' => $record,
             'title' => $title,
-            'columns' => ['name', 'description', 'price', 'duration_days'],
+            'columns' => ['name', 'description', 'price', 'period'],
             'updateRoute' => route('packages.update', $record->id),
         ]);
     }
@@ -106,7 +114,7 @@ class PackageController extends CrudController
             'name' => 'required|string|max:100',
             'description' => 'nullable|string',
             'price' => 'required|numeric',
-            'duration_days' => 'required|integer',
+            'period' => 'required|integer',
         ]);
 
         $record = Package::findOrFail($id);

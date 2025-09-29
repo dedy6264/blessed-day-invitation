@@ -216,16 +216,17 @@ class OrderController extends Controller
         try {
             // Generate a unique reference number
             $referenceNo = Transaction::generateReferenceNo();
-            
+
             // Create transaction with pending status
             $transaction = Transaction::create([
                 'couple_id' => $coupleId,
                 'package_id' => $packageId,
+                'period' => $package->period,
+                'package_name' => $package->name,
                 'reference_no' => $referenceNo,
                 'status' => 'pending',
                 'total_amount' => $totalAmount,
             ]);
-
             // Create payment transaction
             PaymentTransaction::create([
                 'transaction_id' => $transaction->id,
@@ -269,6 +270,8 @@ class OrderController extends Controller
             // Rollback the transaction on error
             DB::rollback();
 
+            $couple = Couple::findOrFail($coupleId);
+            $couple->delete();
             return redirect()->back()
                 ->with('error', 'Failed to create order. Please try again.')
                 ->withInput();

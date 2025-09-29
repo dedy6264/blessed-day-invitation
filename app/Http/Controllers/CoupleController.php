@@ -39,12 +39,12 @@ class CoupleController extends CrudController
         
         // Get couples with their client and latest transaction
         $records = Couple::with(['client', 'transactions' => function($query) {
-                $query->latest()->limit(1);
+                $query->latest();
             }])
             ->latest()
             ->paginate(10);
         $title = 'Couples';
-        
+
         return view('couples.index', [
             'records' => $records,
             'title' => $title,
@@ -185,6 +185,8 @@ class CoupleController extends CrudController
             $transaction = Transaction::create([
                 'couple_id' => $couple->id,
                 'package_id' => $package->id,
+                'period' => $package->period,
+                'package_name' => $package->name,
                 'reference_no' => $referenceNo,
                 'status' => 'pending', // Default status, will update based on payment method
                 'total_amount' => $totalAmount,

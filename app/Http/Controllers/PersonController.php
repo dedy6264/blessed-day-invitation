@@ -45,7 +45,14 @@ class PersonController extends CrudController
     public function create(): View
     {
         $title = 'Create Person';
-        $couples = Couple::all();
+        $couples = Couple::where('transactions.status', 'paid')
+        ->join('transactions', 'transactions.couple_id','=','couples.id')
+        ->get();
+        // $couples = Couple::with([ 'transactions' => function($query) {
+        //          $query->where('status', 'paid')->latest();
+        //     }])
+        //     ->latest()->get();
+        //     dd($couples);
         $storeRoute = route($this->getRoutePrefix().'.store');
         $indexRoute = route($this->getRoutePrefix().'.index');
         return view('people.create', compact('title', 'couples','storeRoute','indexRoute'));
@@ -221,6 +228,17 @@ class PersonController extends CrudController
     public function destroy($id): RedirectResponse
     {
         $record = Person::findOrFail($id);
+        // Delete the image file from storage if it exists
+        if ($record->image_url && file_exists(public_path($record->image_url))) {
+            unlink(public_path($record->image_url));
+        }
+        
+        // Also delete thumbnail if it exists and is different from image
+        if ($record->thumbnail_url && $record->thumbnail_url !== $record->image_url && 
+            file_exists(public_path($record->thumbnail_url))) {
+            unlink(public_path($record->thumbnail_url));
+        }
+        
         $record->delete();
 
         return redirect()->route($this->getRoutePrefix().'.index')

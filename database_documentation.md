@@ -135,7 +135,7 @@ This document describes the database structure for the wedding invitation applic
 - name (VARCHAR(100), NOT NULL)
 - description (TEXT)
 - price (DECIMAL(12,2), NOT NULL)
-- duration_days (INT, NOT NULL) - active period in days
+- period (INT, NOT NULL) - active period in days
 - created_at (TIMESTAMP, DEFAULT CURRENT_TIMESTAMP)
 - updated_at (TIMESTAMP, DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)
 

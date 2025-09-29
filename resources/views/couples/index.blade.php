@@ -22,6 +22,7 @@
                 <h6 class="m-0 font-weight-bold text-primary">{{ $title ?? 'Couples' }}</h6>
             </div>
             <div class="card-body">
+                {{-- @dd($records) --}}
                 @if (isset($records) && count($records) > 0)
                     <div class="table-responsive">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">

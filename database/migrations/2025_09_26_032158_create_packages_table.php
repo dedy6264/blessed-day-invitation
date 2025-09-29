@@ -15,10 +15,10 @@ class CreatePackagesTable extends Migration
     {
         Schema::create('packages', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name', 100);
             $table->text('description')->nullable();
-            $table->decimal('price', 12, 2);  // DECIMAL(12,2)
-            $table->integer('duration_days');  // masa aktif dalam hari
+            $table->decimal('price', 12, 2);
+            $table->integer('period');  // masa aktif dalam hari
             $table->timestamps();
         });
     }

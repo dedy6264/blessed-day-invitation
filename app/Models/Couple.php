@@ -58,4 +58,9 @@ class Couple extends Model
     {
         return $this->hasMany(Transaction::class);
     }
+    public function lastTransaction()
+    {
+        return $this->hasOne(Transaction::class)->latest(); 
+    }
+    
 }

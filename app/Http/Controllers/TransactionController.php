@@ -15,7 +15,7 @@ class TransactionController extends CrudController
     {
         $this->model = Transaction::class;
         $this->routePrefix = 'transactions';
-        $this->columns = ['id', 'couple_id', 'package_id', 'order_date', 'status', 'total_amount', 'paid_at', 'expired_at', 'created_at', 'updated_at'];
+        $this->columns = ['id', 'couple_id', 'package_id', 'order_date', 'status', 'total_amount', 'paid_at','period', 'expired_at', 'created_at', 'updated_at'];
     }
     
     /**
@@ -29,7 +29,7 @@ class TransactionController extends CrudController
         return view('admin.crud.index', [
             'records' => $records,
             'title' => $title,
-            'columns' => ['couple_id', 'package_id', 'order_date', 'status', 'total_amount', 'paid_at', 'expired_at'],
+            'columns' => ['couple_id', 'package_id', 'order_date', 'status', 'total_amount', 'paid_at','period', 'expired_at'],
             'createRoute' => route('transactions.create'),
             'editRoute' => 'transactions.edit',
             'deleteRoute' => 'transactions.destroy',
@@ -62,14 +62,20 @@ class TransactionController extends CrudController
         $request->validate([
             'couple_id' => 'required|exists:couples,id',
             'package_id' => 'required|exists:packages,id',
+            'period' => 'required|integer',
+            'package_name' => 'required|string|max:100',
             'order_date' => 'nullable|date',
             'status' => 'nullable|string|max:20',
             'total_amount' => 'required|numeric',
             'paid_at' => 'nullable|date',
-            'expired_at' => 'nullable|date',
         ]);
 
-        Transaction::create($request->all());
+        $data = $request->validated();
+        
+        // Calculate expired_at based on current date + period (in days)
+        $data['expired_at'] = now()->addDays($data['period']);
+        
+        Transaction::create($data);
 
         return redirect()->route('transactions.index')
             ->with('success', 'Transaction created successfully.');
@@ -86,7 +92,7 @@ class TransactionController extends CrudController
         return view('admin.crud.show', [
             'record' => $record,
             'title' => $title,
-            'columns' => ['couple_id', 'package_id', 'order_date', 'status', 'total_amount', 'paid_at', 'expired_at', 'created_at', 'updated_at'],
+            'columns' => ['couple_id', 'package_id', 'order_date', 'status', 'total_amount', 'paid_at', 'perios','expired_at', 'created_at', 'updated_at'],
         ]);
     }
 
@@ -103,7 +109,7 @@ class TransactionController extends CrudController
         return view('admin.crud.edit', [
             'record' => $record,
             'title' => $title,
-            'columns' => ['couple_id', 'package_id', 'order_date', 'status', 'total_amount', 'paid_at', 'expired_at'],
+            'columns' => ['couple_id', 'package_id', 'order_date', 'status', 'total_amount', 'paid_at','period', 'expired_at'],
             'updateRoute' => route('transactions.update', $record->id),
             'couples' => $couples,
             'packages' => $packages,
@@ -118,15 +124,23 @@ class TransactionController extends CrudController
         $request->validate([
             'couple_id' => 'required|exists:couples,id',
             'package_id' => 'required|exists:packages,id',
+            'period' => 'required|integer',
+            'package_name' => 'required|string|max:100',
             'order_date' => 'nullable|date',
             'status' => 'nullable|string|max:20',
             'total_amount' => 'required|numeric',
             'paid_at' => 'nullable|date',
-            'expired_at' => 'nullable|date',
         ]);
 
         $record = Transaction::findOrFail($id);
-        $record->update($request->all());
+        $data = $request->validated();
+        
+        // If period is being updated, recalculate expired_at based on current date + period (in days)
+        if (isset($data['period'])) {
+            $data['expired_at'] = now()->addDays($data['period']);
+        }
+        
+        $record->update($data);
 
         return redirect()->route('transactions.index')
             ->with('success', 'Transaction updated successfully.');
