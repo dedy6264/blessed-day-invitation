@@ -80,6 +80,7 @@
                 <a class="collapse-item {{ request()->routeIs('timeline-events.*') ? 'active' : '' }}" href="{{ route('timeline-events.index') }}">Timeline Events</a>
                 <a class="collapse-item {{ request()->routeIs('bank-accounts.*') ? 'active' : '' }}" href="{{ route('bank-accounts.index') }}">Bank Accounts</a>
                 <a class="collapse-item {{ request()->routeIs('guests.*') ? 'active' : '' }}" href="{{ route('guests.index') }}">Guests</a>
+                <a class="collapse-item {{ request()->routeIs('guest-attendants.*') ? 'active' : '' }}" href="{{ route('guest-attendants.index') }}">Guest Attendants</a>
                 <a class="collapse-item {{ request()->routeIs('invitations.*') ? 'active' : '' }}" href="{{ route('invitations.index') }}">Invitations</a>
                 <a class="collapse-item {{ request()->routeIs('guest-messages.*') ? 'active' : '' }}" href="{{ route('guest-messages.index') }}">Guest Messages</a>
                 @else
@@ -91,6 +92,7 @@
                 <a class="collapse-item {{ request()->routeIs('my-timeline-events.*') ? 'active' : '' }}" href="{{ route('my-timeline-events.index') }}">Timeline Events</a>
                 <a class="collapse-item {{ request()->routeIs('my-bank-accounts.*') ? 'active' : '' }}" href="{{ route('my-bank-accounts.index') }}">Bank Accounts</a>
                 <a class="collapse-item {{ request()->routeIs('my-guests.*') ? 'active' : '' }}" href="{{ route('my-guests.index') }}">Guests</a>
+                <a class="collapse-item {{ request()->routeIs('my-guest-attendants.*') ? 'active' : '' }}" href="{{ route('my-guest-attendants.index') }}">Guest Attendants</a>
                 <a class="collapse-item {{ request()->routeIs('my-invitations.*') ? 'active' : '' }}" href="{{ route('my-invitations.index') }}">Invitations</a>
                 <a class="collapse-item {{ request()->routeIs('my-guest-messages.*') ? 'active' : '' }}" href="{{ route('my-guest-messages.index') }}">Guest Messages</a>
                 @endif

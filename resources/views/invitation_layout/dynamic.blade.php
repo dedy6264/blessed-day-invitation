@@ -216,28 +216,7 @@
       font-size: 3rem;
       font-family: "Lavishly Yours", cursive;
     }
-      
-    /* Responsive map */
-    #location .map-container {
-      position: relative;
-      width: 100%;
-      max-width: 900px;   /* biar map ga terlalu lebar di desktop */
-      margin: 0 auto;
-      padding-bottom: 56.25%; /* rasio 16:9 */
-      height: 0;
-      overflow: hidden;
-      border-radius: 16px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-    }
-
-    #location .map-container iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border: 0;
-    }
+     
     /* Story */
     #story { 
       padding-top: 8rem;
@@ -561,6 +540,28 @@
       }
     }
     @media(max-width: 768px) {
+        
+      /* Responsive map */
+      #location .map-container {
+        position: relative;
+        width: 100%;
+        max-width: 900px;   /* biar map ga terlalu lebar di desktop */
+        margin: 0 auto;
+        padding-bottom: 56.25%; /* rasio 16:9 */
+        height: 0;
+        overflow: hidden;
+        border-radius: 16px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      }
+
+      #location .map-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
       .profile-card {
           background: rgba(255, 255, 255, 0.2); /* transparan */
           backdrop-filter: blur(10px);          /* efek blur */
@@ -661,6 +662,28 @@
       }
     }
     @media(max-width: 576px) {
+        
+      /* Responsive map */
+      #location .map-container {
+        position: relative;
+        width: 100%;
+        max-width: 900px;   /* biar map ga terlalu lebar di desktop */
+        margin: 0 auto;
+        padding-bottom: 56.25%; /* rasio 16:9 */
+        height: 0;
+        overflow: hidden;
+        border-radius: 16px;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+      }
+
+      #location .map-container iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
       .profile-card {
           background: rgba(255, 255, 255, 0.2); /* transparan */
           backdrop-filter: blur(10px);          /* efek blur */
@@ -817,7 +840,7 @@
     {{-- </div> --}}
   </section>
 
-  <audio id="bg-music">
+  {{-- <audio id="bg-music">
       <source src="{{  asset('audio/default.mp3') }}" type="audio/mpeg">
   </audio>
   <!-- Audio -->
@@ -827,7 +850,7 @@
       <i id="icon-sound-on" class="bi bi-volume-up-fill"></i>
       <!-- Ikon OFF -->
       <i id="icon-sound-off" class="bi bi-volume-mute-fill d-none"></i>
-  </button>
+  </button> --}}
 
   <!-- INFO -->
   <section id="info" class="fade-section">

@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\{
-   AdminUserController,
+    AdminUserController,
     DashboardController,
     ClientController,
     CoupleController,
@@ -14,6 +14,7 @@ use App\Http\Controllers\{
     TimelineEventController,
     BankAccountController,
     GuestController,
+    GuestAttendantController,
     InvitationController,
     QrCodeController,
     GuestMessageController,
@@ -72,6 +73,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('timeline-events', TimelineEventController::class);
     Route::resource('bank-accounts', BankAccountController::class);
     Route::resource('guests', GuestController::class);
+    Route::resource('guest-attendants', GuestAttendantController::class)->only(['index', 'destroy']);
     Route::resource('invitations', InvitationController::class);
     Route::get('qr-codes/{id}/invitation-card', [QrCodeController::class, 'showInvitationCard'])->name('qr-codes.invitation-card');
     Route::resource('qr-codes', QrCodeController::class)->only(['index']);
@@ -110,6 +112,7 @@ Route::middleware(['auth', 'client'])->group(function () {
     Route::resource('my-guests', GuestController::class);
     Route::get('my-guests-present',[InvitationController::class, 'present'])->name('my-invitation.present');
     Route::post('my-guests-attendant',[GuestController::class, 'attendant'])->name('my-guests.attendant');
+    Route::resource('my-guest-attendants', GuestAttendantController::class)->only(['index', 'destroy']);
     Route::resource('my-invitations', InvitationController::class);
     Route::resource('my-guest-messages', GuestMessageController::class);
     Route::resource('my-transactions', TransactionController::class);
