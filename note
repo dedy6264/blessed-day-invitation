@@ -226,12 +226,17 @@ CREATE TABLE guest_attendants (
     guest_id INT NOT NULL,
     wedding_event_id INT NOT NULL,
     guest_name VARCHAR(100),
+    guest_attendant_index VARCHAR UNIQUE NOT NULL, --kombinasi dari guest_id dan wedding_event_id
     checked_in_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (guest_id) REFERENCES guests(id) ON DELETE CASCADE,
     FOREIGN KEY (wedding_event_id) REFERENCES wedding_events(id) ON DELETE CASCADE
 );
+ALTER TABLE guest_attendants
+ADD COLUMN guest_attendant_index TEXT GENERATED ALWAYS AS (
+    guest_id::text || wedding_event_id::text
+) STORED UNIQUE NOT NULL;
 
 -- =========================
 -- Packages (jenis paket)
@@ -302,3 +307,4 @@ CREATE TABLE payment_transactions (
     FOREIGN KEY (transaction_id) REFERENCES transactions(id) ON DELETE CASCADE,
     FOREIGN KEY (payment_method_id) REFERENCES payment_methods(id) ON DELETE CASCADE
 );
+

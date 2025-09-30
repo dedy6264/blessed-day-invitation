@@ -136,14 +136,14 @@
 
         // 🚫 stop scanning sementara
         isScanning = false;
-        responseData.innerText += "\n⏳ Tunggu 30 detik sebelum scan berikutnya...";
+        responseData.innerText += "\n⏳ Tunggu 5 detik sebelum scan berikutnya...";
         
         // aktifkan kembali setelah 30 detik
         clearTimeout(cooldownTimer);
         cooldownTimer = setTimeout(() => {
           isScanning = true;
           responseData.innerText = "Silakan scan lagi.";
-        }, 30000);
+        }, 5000);
       } else {
         responseData.innerText = `Warning: ${data.message}`;
       }

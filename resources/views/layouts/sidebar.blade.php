@@ -44,6 +44,22 @@
             <span>Clients</span>
         </a>
     </li>
+    
+    <!-- Nav Item - Attendant -->
+    <li class="nav-item {{ request()->routeIs('invitation.*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('invitation.present') }}">
+            <i class="fas fa-fw fa-users"></i>
+            <span>Attendant</span>
+        </a>
+    </li>
+    @else
+     <!-- Nav Item - Attendant -->
+    <li class="nav-item {{ request()->routeIs('my-invitation.*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{ route('my-invitation.present') }}">
+            <i class="fas fa-fw fa-users"></i>
+            <span>Attendant</span>
+        </a>
+    </li>
     @endif
     
     <!-- Nav Item - Wedding Data Collapse Menu -->

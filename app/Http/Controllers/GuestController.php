@@ -224,7 +224,7 @@ class GuestController extends CrudController
         if ($existingAttendance) {
             return response()->json([
                 'success' => false,
-                'message' => 'Guest has already been marked as attended.',
+                'message' => 'Guest has already been marked as attended.('.$guest->name.')',
                 'name' => $guest->name,
                 'status' => 'already_present',
                 'data' => [

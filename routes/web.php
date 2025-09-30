@@ -35,8 +35,8 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['au
 Route::post('invitations/{invitation}/send', [InvitationController::class, 'sendInvitation'])->name('invitations.send');
 Route::get('invitation/{id}', [InvitationController::class, 'showInvitation'])->name('invitation.show');
 Route::post('/api/guest-messages', [GuestMessageController::class, 'store'])->name('api.guest-messages.store');
-Route::get('my-guests/present',[InvitationController::class, 'present'])->name('invitation.present');
-Route::post('my-guests-attendant',[GuestController::class, 'attendant'])->name('my-guests.attendant');
+Route::get('guests-present',[InvitationController::class, 'present'])->name('invitation.present');
+Route::post('guests-attendant',[GuestController::class, 'attendant'])->name('my-guests.attendant');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -108,7 +108,7 @@ Route::middleware(['auth', 'client'])->group(function () {
     Route::resource('my-timeline-events', TimelineEventController::class);
     Route::resource('my-bank-accounts', BankAccountController::class);
     Route::resource('my-guests', GuestController::class);
-    Route::get('my-guests/present',[InvitationController::class, 'present'])->name('invitation.present');
+    Route::get('my-guests-present',[InvitationController::class, 'present'])->name('my-invitation.present');
     Route::post('my-guests-attendant',[GuestController::class, 'attendant'])->name('my-guests.attendant');
     Route::resource('my-invitations', InvitationController::class);
     Route::resource('my-guest-messages', GuestMessageController::class);
