@@ -762,7 +762,31 @@
     .fade-content:nth-child(15) { transition-delay: 0.2s; }
     .fade-content:nth-child(16) { transition-delay: 0.2s; }
     .fade-content:nth-child(17) { transition-delay: 0.2s; }
+    .btn-music {
+        position: fixed;
+        top: 50%;
+        right: 20px;
+        transform: translateY(-50%);
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        color: #fff;
+        z-index: 1050;
+        transition: background 0.3s ease;
+    }
+    .btn-music:hover {
+        background: rgba(255, 255, 255, 0.35);
+    }
+
   </style>
+
 </head>
 
 <body>
@@ -792,6 +816,18 @@
         <div class="mt-4 countdown simply-countdown-dark fade-content"></div>
     {{-- </div> --}}
   </section>
+
+  <audio id="bg-music">
+      <source src="{{  asset('audio/default.mp3') }}" type="audio/mpeg">
+  </audio>
+  <!-- Audio -->
+  <!-- Tombol Musik -->
+  <button id="music-toggle" class="btn btn-music">
+      <!-- Ikon ON -->
+      <i id="icon-sound-on" class="bi bi-volume-up-fill"></i>
+      <!-- Ikon OFF -->
+      <i id="icon-sound-off" class="bi bi-volume-mute-fill d-none"></i>
+  </button>
 
   <!-- INFO -->
   <section id="info" class="fade-section">
@@ -1173,7 +1209,51 @@
           });
         }
       });
-    </script>
+  </script>
+  <script>
+    const btn = document.getElementById("music-toggle");
+  const music = document.getElementById("bg-music");
+  const iconOn = document.getElementById("icon-sound-on");
+  const iconOff = document.getElementById("icon-sound-off");
+  const homeSection = document.getElementById("info");
+
+  let musicAllowed = true;  // baru true setelah user klik open
+  let musicStarted = false;  // biar cuma sekali jalan
+
+  
+  // Observer untuk home section
+  const observer1 = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+          if (entry.isIntersecting && musicAllowed && !musicStarted) {
+              music.play().then(() => {
+                  console.log("🎵 Musik mulai di #home");
+                  btn.classList.remove("d-none");
+                  iconOn.classList.remove("d-none");
+                  iconOff.classList.add("d-none");
+                  musicStarted = true;
+              }).catch(err => console.error("🚫 Musik gagal play:", err));
+          }
+      });
+  }, { threshold: 0.5 });
+
+  observer1.observe(homeSection);
+
+  // Toggle musik manual
+  btn.addEventListener("click", () => {
+      if (music.paused) {
+          music.play();
+          iconOn.classList.remove("d-none");
+          iconOff.classList.add("d-none");
+      } else {
+          music.pause();
+          iconOn.classList.add("d-none");
+          iconOff.classList.remove("d-none");
+      }
+  });
+  </script>
+
+
+
 </body>
 
 </html>
