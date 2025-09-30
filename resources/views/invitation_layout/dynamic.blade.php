@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Agus & Joy Intimate Wedding</title>
+  <title>{{ $couple->groom_name ?? 'Groom' }} & {{ $couple->bride_name ?? 'Bride' }} Intimate Wedding | {{ $brand }}</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="{{url('simplycountdown/dist/themes/dark.css')}}" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
@@ -362,14 +362,14 @@
     }
 
     /* Reservasi */
-    #reservation {
+    #invitation {
       display: flex;
       justify-content: center;
       padding: 50px 20px;
       background: #f5f5f5;
     }
 
-    #reservation .invitation-card {
+    #invitation .invitation-card {
       display: grid;
       grid-template-columns: 1fr 2fr;
       gap: 20px;
@@ -384,7 +384,7 @@
       overflow: hidden; /* supaya coakan rapi */
     }
 
-    #reservation .card-left {
+    #invitation .card-left {
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -394,32 +394,32 @@
       padding-right: 70px
     }
 
-    #reservation .card-left img {
+    #invitation .card-left img {
       width: 250px;
       height: 250px;
       margin-bottom: 15px;
     }
 
-    #reservation .card-left .code {
+    #invitation .card-left .code {
       font-size: 14px;
       letter-spacing: 1px;
       color: #ddd;
     }
 
-    #reservation .card-right {
+    #invitation .card-right {
       display: flex;
       flex-direction: column;
       justify-content: center;
       padding-left: 20px;
     }
 
-    #reservation .invite-header {
+    #invitation .invite-header {
       font-size: 24px;
       margin-bottom: 15px;
       color: #ffd700; /* aksen emas elegan */
     }
 
-    #reservation .invite-detail {
+    #invitation .invite-detail {
       margin: 5px 0;
       font-size: 16px;
       line-height: 1.5;
@@ -605,13 +605,13 @@
           width: calc(100% - 180px);
           float: right;
       }
-      #reservation .invitation-card {
+      #invitation .invitation-card {
         grid-template-columns: 1fr; /* dari 2 kolom jadi 1 */
         padding: 20px;
       }
 
       /* Coakan kiri */
-      #reservation .invitation-card::before {
+      #invitation .invitation-card::before {
         content: "";
         position: absolute;
         top: 49%;
@@ -624,7 +624,7 @@
       }
 
       /* Coakan kanan */
-      #reservation .invitation-card::after {
+      #invitation .invitation-card::after {
         content: "";
         position: absolute;
         top: 49%;
@@ -635,29 +635,29 @@
         background: #ccc;
         border-radius: 50%;
       }
-      #reservation .card-left {
+      #invitation .card-left {
         border-right: none;       /* hilangkan garis pemisah */
         border-bottom: 2px dashed rgba(255,255,255,0.2); /* ganti jadi garis bawah */
         padding: 20px;
         padding-bottom: 30px;
       }
 
-      #reservation .card-left img {
+      #invitation .card-left img {
         width: 180px; /* kecilkan QR code */
         height: 180px;
       }
 
-      #reservation .card-right {
+      #invitation .card-right {
         padding-left: 0;
         margin-top: 20px;
         text-align: center; /* center-kan teks di mobile */
       }
 
-      #reservation .invite-header {
+      #invitation .invite-header {
         font-size: 20px;
       }
 
-      #reservation .invite-detail {
+      #invitation .invite-detail {
         font-size: 14px;
       }
     }
@@ -723,13 +723,13 @@
           float: right;
           padding: 10px;
       }
-      #reservation .card-left img {
+      #invitation .card-left img {
         width: 150px;
         height: 150px;
       }
 
       /* Coakan kiri */
-      #reservation .invitation-card::before {
+      #invitation .invitation-card::before {
         content: "";
         position: absolute;
         top: 46%;
@@ -742,7 +742,7 @@
       }
 
       /* Coakan kanan */
-      #reservation .invitation-card::after {
+      #invitation .invitation-card::after {
         content: "";
         position: absolute;
         top: 46%;
@@ -939,8 +939,8 @@
     </div>
   </section>
   @endif
-  <!-- Reservation -->
-  <section id="reservation" class="fade-section">
+  <!-- Invitation -->
+  <section id="invitation" class="fade-section">
     <div class="fade-content">
       <h2 class="mb-4">Your Invitation</h2>
     </div>
@@ -948,7 +948,7 @@
     <!-- Bagian kiri: Barcode -->
       <div class="card-left">
         <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{ $invitation->invitation_code }}" 
-            alt="Reservation Barcode" />
+            alt="Invitation Barcode" />
         <p class="code">Kode: {{ $invitation->invitation_code }}</p>
       </div>
 
@@ -1006,7 +1006,90 @@
     </div>
   </section>
   @endif
-
+  <!-- RSVP -->
+  <section id="rsvp" class="fade-section">
+    <div class="container">
+      <div class="fade-content">
+        <h2 class="mb-4" style="color:#e83e8c;">RSVP</h2>
+        <p class="mb-5 text-center">Confirm your attendance to our special day</p>
+      </div>
+      
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="p-4 shadow card" style="border-radius:20px; background: #fff;">
+            <div class="card-body">
+              <!-- RSVP Form -->
+              <form id="rsvpForm">
+                <input type="hidden" name="invitation_id" value="{{ $invitation->id }}">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                
+                <div class="mb-4 text-center">
+                  <h4 class="mb-3">Will you be attending our wedding?</h4>
+                  <div class="gap-3 d-flex justify-content-center">
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="is_attending" id="attendingYes" value="1">
+                      <label class="form-check-label fs-5" for="attendingYes">Yes, I will be there!</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                      <input class="form-check-input" type="radio" name="is_attending" id="attendingNo" value="0">
+                      <label class="form-check-label fs-5" for="attendingNo">Sorry, I can't make it</label>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="mb-3">
+                  <label for="guest_count" class="form-label">Number of guests attending (including yourself)</label>
+                  <input type="number" class="form-control" id="guest_count" name="guest_count" min="1" max="10" value="1" required>
+                </div>
+                
+                <div class="mb-3">
+                  <label for="message" class="form-label">Message (optional)</label>
+                  <textarea class="form-control" id="message" name="message" rows="3" placeholder="Leave us a message..."></textarea>
+                </div>
+                
+                <div class="d-grid">
+                  <button type="submit" class="btn btn-pink" id="rsvpSubmitBtn">Confirm Attendance</button>
+                </div>
+              </form>
+              
+              <!-- RSVP Status Display -->
+              <div id="rsvpStatus" class="mt-4" style="display: none;">
+                <div class="text-center alert alert-success">
+                  <h5 class="mb-2">Thank you for your response!</h5>
+                  <p class="mb-0">Your attendance has been recorded.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {{-- <!-- Attendance Statistics -->
+          <div class="mt-4 text-center">
+            <h4>Attendance Status</h4>
+            <div class="row">
+              <div class="col-md-4">
+                <div class="p-3 card">
+                  <h5 class="text-success">{{ $invitation->is_attending !== null ? ($invitation->is_attending ? 'CONFIRMED' : 'REGRETFULLY ABSENT') : 'PENDING' }}</h5>
+                  <p>Your Status</p>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="p-3 card">
+                  <h5 id="attendingCount">0</h5>
+                  <p>Guests Attending</p>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="p-3 card">
+                  <h5 id="totalCount">0</h5>
+                  <p>Total Invited</p>
+                </div>
+              </div>
+            </div>
+          </div> --}}
+        </div>
+      </div>
+    </div>
+  </section>
   <!-- Gift -->
   <section id="gift" class="fade-section">
     <div class="container">
@@ -1092,7 +1175,7 @@
 
   <!-- FOOTER -->
   <footer class="p-3 text-center text-white bg-dark">
-    <p class="mb-0">© 2025 Agus & Joy Wedding Invitation | Powered by Digital Invitation</p>
+    <p class="mb-0">© 2025 {{ $couple->groom_name ?? 'Groom' }} & {{ $couple->bride_name ?? 'Bride' }} Invitation | Powered by {{ $brand }}</p>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -1273,6 +1356,97 @@
           iconOff.classList.remove("d-none");
       }
   });
+  </script>
+
+  <script>
+    // RSVP Form Handler
+    document.addEventListener('DOMContentLoaded', function() {
+      // Load attendance stats when page loads
+      loadAttendanceStats();
+      
+      const rsvpForm = document.getElementById('rsvpForm');
+      if (rsvpForm) {
+        rsvpForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          
+          const formData = {
+            invitation_id: this.invitation_id.value,
+            is_attending: this.is_attending.value==1?true:false,
+            guest_count: this.guest_count.value,
+            message: this.message.value,
+            _token: this._token.value
+          };
+          
+          // Show loading state
+          const submitBtn = document.getElementById('rsvpSubmitBtn');
+          const originalText = submitBtn.textContent;
+          submitBtn.textContent = 'Processing...';
+          submitBtn.disabled = true;
+          
+          fetch('/api/invitations/rsvp', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRF-TOKEN': formData._token
+            },
+            body: JSON.stringify(formData)
+          })
+          .then(response => response.json())
+          .then(data => {
+            if(data.success) {
+              // Show success message
+              document.getElementById('rsvpStatus').style.display = 'block';
+              
+              // Update attendance stats
+              loadAttendanceStats();
+              
+              // Disable form after successful submission
+              document.querySelectorAll('#rsvpForm input, #rsvpForm textarea, #rsvpForm button').forEach(el => {
+                el.disabled = true;
+              });
+              
+              alert('Thank you for confirming your attendance!');
+            } else {
+              alert('Error submitting RSVP: ' + (data.message || 'Unknown error'));
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while submitting your RSVP');
+          })
+          .finally(() => {
+            // Reset button state
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+          });
+        });
+      }
+      
+      // If invitation already has a response, disable the form
+      @if($invitation->is_attending !== null)
+        document.querySelectorAll('#rsvpForm input, #rsvpForm textarea, #rsvpForm button').forEach(el => {
+          el.disabled = true;
+        });
+        document.getElementById('rsvpStatus').style.display = 'block';
+      @endif
+    });
+    
+    // Function to load attendance stats
+    function loadAttendanceStats() {
+      // This would typically be an AJAX call to get the stats
+      // For now, we'll use a static count based on invitation data
+      fetch(`/api/invitations/${@json($invitation->id)}/stats`)
+        .then(response => response.json())
+        .then(data => {
+          if(data.success) {
+           console.log("Success");
+          }
+        })
+        .catch(error => {
+          console.error('Error loading stats:', error);
+          // Fallback: show information based on current invitation
+        });
+    }
   </script>
 
 

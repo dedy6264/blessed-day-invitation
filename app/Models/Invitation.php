@@ -14,6 +14,7 @@ class Invitation extends Model
         'invitation_code',
         'is_attending',
         'responded_at',
+        'guest_count',
     ];
 
     protected $casts = [

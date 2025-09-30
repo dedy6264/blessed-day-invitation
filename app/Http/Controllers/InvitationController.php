@@ -297,6 +297,7 @@ class InvitationController extends CrudController
 
         return view('invitation_layout.dynamic', [
         // return view('invitation_layout.index', [
+            'brand'=>env('APP_NAME','MAKARIOS'),
             'gifts'=>$gifts,
             'backgroundImages'=>$randomBg,
             'invitation' => $invitation,
@@ -342,5 +343,93 @@ class InvitationController extends CrudController
         return view('invitation_layout.attendant', [
             'presentGuests' => $presentGuests
         ]);
+    }
+    
+    /**
+     * Handle RSVP response from guest
+     */
+    public function rsvp(Request $request)
+    {
+        $request->validate([
+            'invitation_id' => 'required|exists:invitations,id',
+            'is_attending' => 'required|boolean',
+            'guest_count' => 'nullable|integer|min:1|max:10',
+            'message' => 'nullable|string|max:500',
+        ]);
+
+        try {
+            $invitation = Invitation::findOrFail($request->invitation_id);
+            // dd($request->all());
+            // Update the invitation with RSVP response
+            $invitation->update([
+                'guest_count' => $request->guest_count,
+                'is_attending' => $request->is_attending,
+                'responded_at' => now(),
+            ]);
+
+            // If there's a message, create a guest message
+            if ($request->filled('message')) {
+                \App\Models\GuestMessage::create([
+                    'guest_id' => $invitation->guest_id,
+                    'wedding_event_id' => $invitation->wedding_event_id,
+                    'guest_name' => $invitation->guest->name,
+                    'message' => $request->message,
+                    'is_approved' => true, // Auto-approve RSVP messages
+                ]);
+            }
+
+            return response()->json([
+                'success' => true,
+                'message' => 'RSVP response recorded successfully',
+                'data' => [
+                    'invitation_id' => $invitation->id,
+                    'is_attending' => $invitation->is_attending,
+                    'responded_at' => $invitation->responded_at,
+                ]
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error processing RSVP: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+    
+    /**
+     * Get attendance statistics for an invitation
+     */
+    public function getAttendanceStats($id)
+    {
+        try {
+            $invitation = Invitation::findOrFail($id);
+            
+            // Count how many guests have responded with is_attending = true (using guest_count)
+            $attendingCount = Invitation::where('wedding_event_id', $invitation->wedding_event_id)
+                                        ->where('is_attending', true)
+                                        ->sum('guest_count'); // Sum of all guest_count values for attending guests
+                                        
+            // Count total invitations for this wedding event
+            $totalCount = Invitation::where('wedding_event_id', $invitation->wedding_event_id)->count();
+
+            // Count total number of invitations that have responded (regardless of attendance)
+            $responseCount = Invitation::where('wedding_event_id', $invitation->wedding_event_id)
+                                        ->whereNotNull('responded_at')
+                                        ->count();
+                                        
+            return response()->json([
+                'success' => true,
+                'attending_guests' => $attendingCount, // Total number of attending guests based on guest_count
+                'attending_invitations' => Invitation::where('wedding_event_id', $invitation->wedding_event_id)
+                                                     ->where('is_attending', true)
+                                                     ->count(), // Number of invitations that confirmed attendance
+                'total_responded' => $responseCount, // Number of invitations that responded
+                'total_invited' => $totalCount, // Total number of invitations
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Error fetching attendance stats: ' . $e->getMessage()
+            ], 500);
+        }
     }
 }

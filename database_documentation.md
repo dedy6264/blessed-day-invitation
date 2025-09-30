@@ -109,6 +109,7 @@ This document describes the database structure for the wedding invitation applic
 - invitation_code (VARCHAR(50), UNIQUE, NOT NULL)
 - is_attending (BOOLEAN, DEFAULT NULL)
 - responded_at (TIMESTAMP, NULL)
+- guest_count (INT, DEFAULT 1)
 - created_at (TIMESTAMP, DEFAULT CURRENT_TIMESTAMP)
 - updated_at (TIMESTAMP, DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)
 

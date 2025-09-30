@@ -36,6 +36,8 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['au
 Route::post('invitations/{invitation}/send', [InvitationController::class, 'sendInvitation'])->name('invitations.send');
 Route::get('invitation/{id}', [InvitationController::class, 'showInvitation'])->name('invitation.show');
 Route::post('/api/guest-messages', [GuestMessageController::class, 'store'])->name('api.guest-messages.store');
+Route::post('/api/invitations/rsvp', [InvitationController::class, 'rsvp'])->name('api.invitations.rsvp');
+Route::get('/api/invitations/{id}/stats', [InvitationController::class, 'getAttendanceStats'])->name('api.invitations.stats');
 Route::get('guests-present',[InvitationController::class, 'present'])->name('invitation.present');
 Route::post('guests-attendant',[GuestController::class, 'attendant'])->name('my-guests.attendant');
 

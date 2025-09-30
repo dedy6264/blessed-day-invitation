@@ -29,6 +29,7 @@
                                     <th>Wedding Event</th>
                                     <th>Invitation Code</th>
                                     <th>Is Attending</th>
+                                    <th>Count of Persons</th>
                                     <th>Responded At</th>
                                     <th>Actions</th>
                                 </tr>
@@ -48,6 +49,7 @@
                                                 <span class="badge badge-danger">Not Attending</span>
                                             @endif
                                         </td>
+                                        <td>{{ $invitation->count }}</td>
                                         <td>{{ $invitation->responded_at ? $invitation->responded_at->format('d M Y, H:i') : 'N/A' }}</td>
                                         <td>
                                             @if(isset($showRoute))

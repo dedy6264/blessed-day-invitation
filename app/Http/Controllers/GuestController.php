@@ -243,12 +243,12 @@ class GuestController extends CrudController
         ]);
         
         // Also update the attendance status in the invitation
-        if (isset($invitation)) {
-            $invitation->update([
-                'is_attending' => true,
-                'responded_at' => now()
-            ]);
-        }
+        // if (isset($invitation)) {
+        //     $invitation->update([
+        //         'is_attending' => true,
+        //         'responded_at' => now()
+        //     ]);
+        // }
         
         return response()->json([
             'success' => true,

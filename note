@@ -181,13 +181,15 @@ CREATE TABLE invitations (
     wedding_event_id INT NOT NULL,
     invitation_code VARCHAR(50) UNIQUE NOT NULL,
     is_attending BOOLEAN DEFAULT NULL,
+    guest_count INT DEFAULT 0,
     responded_at TIMESTAMP NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (guest_id) REFERENCES guests(id) ON DELETE CASCADE,
     FOREIGN KEY (wedding_event_id) REFERENCES wedding_events(id) ON DELETE CASCADE
 );
-
+ALTER TABLE invitations
+ADD COLUMN guest_count INT DEFAULT 0;
 -- =========================
 -- QR Codes
 -- =========================
