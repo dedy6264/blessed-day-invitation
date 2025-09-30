@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/png" href="{{ asset('images/root/thumbnail_blessed_day.png') }}">
   <title>{{ $couple->groom_name ?? 'Groom' }} & {{ $couple->bride_name ?? 'Bride' }} Intimate Wedding | {{ $brand }}</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="{{url('simplycountdown/dist/themes/dark.css')}}" />
@@ -1175,6 +1176,7 @@
 
   <!-- FOOTER -->
   <footer class="p-3 text-center text-white bg-dark">
+    <img src="{{ asset('images/root/blessed_day.png') }}" alt="Footer Image" style="height: 80px; margin-bottom:10px;">
     <p class="mb-0">© 2025 {{ $couple->groom_name ?? 'Groom' }} & {{ $couple->bride_name ?? 'Bride' }} Invitation | Powered by {{ $brand }}</p>
   </footer>
 
@@ -1318,44 +1320,44 @@
   </script>
   <script>
     const btn = document.getElementById("music-toggle");
-  const music = document.getElementById("bg-music");
-  const iconOn = document.getElementById("icon-sound-on");
-  const iconOff = document.getElementById("icon-sound-off");
-  const homeSection = document.getElementById("info");
+    const music = document.getElementById("bg-music");
+    const iconOn = document.getElementById("icon-sound-on");
+    const iconOff = document.getElementById("icon-sound-off");
+    const homeSection = document.getElementById("info");
 
-  let musicAllowed = true;  // baru true setelah user klik open
-  let musicStarted = false;  // biar cuma sekali jalan
+    let musicAllowed = true;  // baru true setelah user klik open
+    let musicStarted = false;  // biar cuma sekali jalan
 
-  
-  // Observer untuk home section
-  const observer1 = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-          if (entry.isIntersecting && musicAllowed && !musicStarted) {
-              music.play().then(() => {
-                  console.log("🎵 Musik mulai di #home");
-                  btn.classList.remove("d-none");
-                  iconOn.classList.remove("d-none");
-                  iconOff.classList.add("d-none");
-                  musicStarted = true;
-              }).catch(err => console.error("🚫 Musik gagal play:", err));
-          }
-      });
-  }, { threshold: 0.5 });
+    
+    // Observer untuk home section
+    const observer1 = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && musicAllowed && !musicStarted) {
+                music.play().then(() => {
+                    console.log("🎵 Musik mulai di #home");
+                    btn.classList.remove("d-none");
+                    iconOn.classList.remove("d-none");
+                    iconOff.classList.add("d-none");
+                    musicStarted = true;
+                }).catch(err => console.error("🚫 Musik gagal play:", err));
+            }
+        });
+    }, { threshold: 0.5 });
 
-  observer1.observe(homeSection);
+    observer1.observe(homeSection);
 
-  // Toggle musik manual
-  btn.addEventListener("click", () => {
-      if (music.paused) {
-          music.play();
-          iconOn.classList.remove("d-none");
-          iconOff.classList.add("d-none");
-      } else {
-          music.pause();
-          iconOn.classList.add("d-none");
-          iconOff.classList.remove("d-none");
-      }
-  });
+    // Toggle musik manual
+    btn.addEventListener("click", () => {
+        if (music.paused) {
+            music.play();
+            iconOn.classList.remove("d-none");
+            iconOff.classList.add("d-none");
+        } else {
+            music.pause();
+            iconOn.classList.add("d-none");
+            iconOff.classList.remove("d-none");
+        }
+    });
   </script>
 
   <script>

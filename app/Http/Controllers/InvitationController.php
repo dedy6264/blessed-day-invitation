@@ -291,9 +291,10 @@ class InvitationController extends CrudController
 
         $bgImage=[];
         $bgImage = $backgroundImages->pluck('image_url')->toArray();
-        $maxIndex = min(2, count($bgImage) - 1); // contoh: hanya 0 sampai 2
+        $maxIndex = min(5, count($bgImage) - 1); // contoh: hanya 0 sampai 2
         $randomIndex = rand(0, $maxIndex);
         $randomBg = $bgImage[$randomIndex] ?? 'inv/img/tushar-ranjan-GqpGd6NtUoI-unsplash.jpg';
+        // dd($randomBg,$randomBg,$randomBg);
 
         return view('invitation_layout.dynamic', [
         // return view('invitation_layout.index', [
