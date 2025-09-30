@@ -45,14 +45,11 @@ class PersonController extends CrudController
     public function create(): View
     {
         $title = 'Create Person';
-        $couples = Couple::where('transactions.status', 'paid')
-        ->join('transactions', 'transactions.couple_id','=','couples.id')
-        ->get();
-        // $couples = Couple::with([ 'transactions' => function($query) {
-        //          $query->where('status', 'paid')->latest();
-        //     }])
-        //     ->latest()->get();
-        //     dd($couples);
+        $couples = Couple::join('transactions', 'transactions.couple_id', '=', 'couples.id')
+            ->where('transactions.status', 'paid');
+        if (auth()->user()->isClient()) {
+            $couples->where('client_id', auth()->id());
+        }
         $storeRoute = route($this->getRoutePrefix().'.store');
         $indexRoute = route($this->getRoutePrefix().'.index');
         return view('people.create', compact('title', 'couples','storeRoute','indexRoute'));

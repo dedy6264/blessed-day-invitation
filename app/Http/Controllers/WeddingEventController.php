@@ -78,7 +78,12 @@ class WeddingEventController extends CrudController
     {
         $routePrefix = $this->getRoutePrefix();
         $title = 'Create Wedding Event';
-        $couples = Couple::with('client')->get();
+        $couples = Couple::join('transactions', 'transactions.couple_id', '=', 'couples.id')
+            ->where('transactions.status', 'paid');
+        if (auth()->user()->isClient()) {
+            $couples->where('client_id', auth()->id());
+        }
+        $couples = $couples->get();
         
         // Using custom view instead of admin.crud.create
         return view('wedding_events.create', [

@@ -840,7 +840,7 @@
     {{-- </div> --}}
   </section>
 
-  {{-- <audio id="bg-music">
+  <audio id="bg-music">
       <source src="{{  asset('audio/default.mp3') }}" type="audio/mpeg">
   </audio>
   <!-- Audio -->
@@ -850,7 +850,7 @@
       <i id="icon-sound-on" class="bi bi-volume-up-fill"></i>
       <!-- Ikon OFF -->
       <i id="icon-sound-off" class="bi bi-volume-mute-fill d-none"></i>
-  </button> --}}
+  </button>
 
   <!-- INFO -->
   <section id="info" class="fade-section">
