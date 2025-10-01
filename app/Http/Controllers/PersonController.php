@@ -26,8 +26,15 @@ class PersonController extends CrudController
      */
     public function index(): View
     {
-        $query = Person::with('couple')->latest();
-        $people=$query->paginate(10);
+        $query = Person::select('people.*') // Pilih kolom people.* untuk menghindari ambiguitas
+            ->join('couples', 'couples.id', '=', 'people.couple_id');
+                
+        if (auth()->user()->isClient()) {
+            // Gunakan auth()->id() jika client_id di tabel couples merujuk ke ID user
+            $query->where('couples.client_id', auth()->user()->client_id); 
+        }
+
+        $people = $query->paginate(10);
         $title = 'People';
         return view('people.index', [
             'people' => $people,
@@ -131,9 +138,7 @@ class PersonController extends CrudController
         $title = 'View Person';
         $indexRoute = route($this->getRoutePrefix().'.index');
         $editRoute = $this->getRoutePrefix().'.edit';
-        $locationRoute = $this->locationRoutePrefix;
-        $galleryImageRoute = $this->galleryRoutePrefix;
-        return view('people.show', compact('record', 'title','indexRoute','editRoute','locationRoute','galleryImageRoute'));
+        return view('people.show', compact('record', 'title','indexRoute','editRoute'));
     }
 
     /**
