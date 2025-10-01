@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Wedding Invitation Platform - Beautiful Themes & Packages</title>
+    <link rel="icon" type="image/png" href="{{ asset('images/root/thumbnail_blessed_day.png') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
     <link href="{{ asset('css/landing.css') }}" rel="stylesheet">
@@ -36,12 +37,12 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero-section text-center">
+    <section class="text-center hero-section">
         <div class="container hero-content">
-            <h1 class="display-2 fw-bold mb-4 fade-in-up">
+            <h1 class="mb-4 display-2 fw-bold fade-in-up">
                 <span class="text-warning">Digital</span> Wedding Invitations
             </h1>
-            <p class="hero-subtitle lead mb-5 fade-in-up" style="animation-delay: 0.1s;">
+            <p class="mb-5 hero-subtitle lead fade-in-up" style="animation-delay: 0.1s;">
                 Create stunning digital invitations that capture your love story and connect with guests instantly
             </p>
             
@@ -65,8 +66,8 @@
             </div>
             
             <div class="mt-5 fade-in-up" style="animation-delay: 0.3s;">
-                <a href="#register" class="btn btn-light btn-lg rounded-3 px-5 me-3">Create Your Invitation</a>
-                <a href="#themes" class="btn btn-outline-light btn-lg rounded-3 px-5">Explore Themes</a>
+                <a href="#register" class="px-5 btn btn-light btn-lg rounded-3 me-3">Create Your Invitation</a>
+                <a href="#themes" class="px-5 btn btn-outline-light btn-lg rounded-3">Explore Themes</a>
             </div>
         </div>
     </section>
@@ -75,13 +76,13 @@
     <section id="digital-features" class="py-5">
         <div class="container">
             <h2 class="section-title fade-in-up">Why Choose Digital Invitations?</h2>
-            <p class="text-center text-muted mb-5 fade-in-up" style="animation-delay: 0.1s;">Modern, eco-friendly, and feature-rich solutions for your special day</p>
+            <p class="mb-5 text-center text-muted fade-in-up" style="animation-delay: 0.1s;">Modern, eco-friendly, and feature-rich solutions for your special day</p>
             
             <div class="row g-4">
                 <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 border-0 shadow-sm text-center p-4 fade-in-up" style="animation-delay: 0.2s;">
+                    <div class="p-4 text-center border-0 shadow-sm card h-100 fade-in-up" style="animation-delay: 0.2s;">
                         <div class="card-body">
-                            <div class="bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mx-auto mb-4" style="width: 80px; height: 80px;">
+                            <div class="mx-auto mb-4 bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
                                 <i class="bi bi-send-check text-primary" style="font-size: 2rem;"></i>
                             </div>
                             <h5 class="card-title">Instant Delivery</h5>
@@ -91,9 +92,9 @@
                 </div>
                 
                 <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 border-0 shadow-sm text-center p-4 fade-in-up" style="animation-delay: 0.3s;">
+                    <div class="p-4 text-center border-0 shadow-sm card h-100 fade-in-up" style="animation-delay: 0.3s;">
                         <div class="card-body">
-                            <div class="bg-success bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mx-auto mb-4" style="width: 80px; height: 80px;">
+                            <div class="mx-auto mb-4 bg-success bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
                                 <i class="bi bi-qr-code text-success" style="font-size: 2rem;"></i>
                             </div>
                             <h5 class="card-title">Smart RSVP</h5>
@@ -103,9 +104,9 @@
                 </div>
                 
                 <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 border-0 shadow-sm text-center p-4 fade-in-up" style="animation-delay: 0.4s;">
+                    <div class="p-4 text-center border-0 shadow-sm card h-100 fade-in-up" style="animation-delay: 0.4s;">
                         <div class="card-body">
-                            <div class="bg-warning bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mx-auto mb-4" style="width: 80px; height: 80px;">
+                            <div class="mx-auto mb-4 bg-warning bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
                                 <i class="bi bi-globe text-warning" style="font-size: 2rem;"></i>
                             </div>
                             <h5 class="card-title">Global Access</h5>
@@ -115,9 +116,9 @@
                 </div>
                 
                 <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 border-0 shadow-sm text-center p-4 fade-in-up" style="animation-delay: 0.5s;">
+                    <div class="p-4 text-center border-0 shadow-sm card h-100 fade-in-up" style="animation-delay: 0.5s;">
                         <div class="card-body">
-                            <div class="bg-info bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mx-auto mb-4" style="width: 80px; height: 80px;">
+                            <div class="mx-auto mb-4 bg-info bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
                                 <i class="bi bi-people text-info" style="font-size: 2rem;"></i>
                             </div>
                             <h5 class="card-title">Guest Management</h5>
@@ -127,9 +128,9 @@
                 </div>
                 
                 <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 border-0 shadow-sm text-center p-4 fade-in-up" style="animation-delay: 0.6s;">
+                    <div class="p-4 text-center border-0 shadow-sm card h-100 fade-in-up" style="animation-delay: 0.6s;">
                         <div class="card-body">
-                            <div class="bg-danger bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mx-auto mb-4" style="width: 80px; height: 80px;">
+                            <div class="mx-auto mb-4 bg-danger bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
                                 <i class="bi bi-tree text-danger" style="font-size: 2rem;"></i>
                             </div>
                             <h5 class="card-title">Eco-Friendly</h5>
@@ -139,9 +140,9 @@
                 </div>
                 
                 <div class="col-lg-4 col-md-6">
-                    <div class="card h-100 border-0 shadow-sm text-center p-4 fade-in-up" style="animation-delay: 0.7s;">
+                    <div class="p-4 text-center border-0 shadow-sm card h-100 fade-in-up" style="animation-delay: 0.7s;">
                         <div class="card-body">
-                            <div class="bg-success bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center mx-auto mb-4" style="width: 80px; height: 80px;">
+                            <div class="mx-auto mb-4 bg-success bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
                                 <i class="bi bi-graph-up text-success" style="font-size: 2rem;"></i>
                             </div>
                             <h5 class="card-title">Real-Time Updates</h5>
@@ -157,7 +158,7 @@
     <section id="themes" class="py-5">
         <div class="container">
             <h2 class="section-title fade-in-up">Beautiful Digital Themes</h2>
-            <p class="text-center text-muted mb-5 fade-in-up" style="animation-delay: 0.1s;">Explore our collection of elegant digital wedding invitation themes designed to match your style</p>
+            <p class="mb-5 text-center text-muted fade-in-up" style="animation-delay: 0.1s;">Explore our collection of elegant digital wedding invitation themes designed to match your style</p>
             
             <div class="row g-4">
                 <div class="col-lg-4 col-md-6">
@@ -165,7 +166,7 @@
                         <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=600&h=400&q=80" alt="Elegant Theme">
                         <div class="p-4">
                             <h5 class="mb-3">Elegant Theme</h5>
-                            <p class="text-muted mb-0">Classic and sophisticated design with beautiful typography</p>
+                            <p class="mb-0 text-muted">Classic and sophisticated design with beautiful typography</p>
                         </div>
                         <div class="theme-overlay">
                             <h6 class="mb-0">Elegant Theme</h6>
@@ -179,7 +180,7 @@
                         <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=600&h=400&q=80" alt="Modern Theme">
                         <div class="p-4">
                             <h5 class="mb-3">Modern Theme</h5>
-                            <p class="text-muted mb-0">Clean lines and contemporary design for the modern couple</p>
+                            <p class="mb-0 text-muted">Clean lines and contemporary design for the modern couple</p>
                         </div>
                         <div class="theme-overlay">
                             <h6 class="mb-0">Modern Theme</h6>
@@ -193,7 +194,7 @@
                         <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=600&h=400&q=80" alt="Vintage Theme">
                         <div class="p-4">
                             <h5 class="mb-3">Vintage Theme</h5>
-                            <p class="text-muted mb-0">Timeless charm with vintage elements and classic aesthetics</p>
+                            <p class="mb-0 text-muted">Timeless charm with vintage elements and classic aesthetics</p>
                         </div>
                         <div class="theme-overlay">
                             <h6 class="mb-0">Vintage Theme</h6>
@@ -207,7 +208,7 @@
                         <img src="https://images.unsplash.com/photo-1510089142880-77c7e020a4f6?auto=format&fit=crop&w=600&h=400&q=80" alt="Romantic Theme">
                         <div class="p-4">
                             <h5 class="mb-3">Romantic Theme</h5>
-                            <p class="text-muted mb-0">Soft colors and floral elements for a romantic atmosphere</p>
+                            <p class="mb-0 text-muted">Soft colors and floral elements for a romantic atmosphere</p>
                         </div>
                         <div class="theme-overlay">
                             <h6 class="mb-0">Romantic Theme</h6>
@@ -221,7 +222,7 @@
                         <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=600&h=400&q=80" alt="Minimalist Theme">
                         <div class="p-4">
                             <h5 class="mb-3">Minimalist Theme</h5>
-                            <p class="text-muted mb-0">Simple and elegant design focusing on essential elements</p>
+                            <p class="mb-0 text-muted">Simple and elegant design focusing on essential elements</p>
                         </div>
                         <div class="theme-overlay">
                             <h6 class="mb-0">Minimalist Theme</h6>
@@ -235,7 +236,7 @@
                         <img src="https://images.unsplash.com/photo-1510089142880-77c7e020a4f6?auto=format&fit=crop&w=600&h=400&q=80" alt="Bohemian Theme">
                         <div class="p-4">
                             <h5 class="mb-3">Bohemian Theme</h5>
-                            <p class="text-muted mb-0">Free-spirited design with natural elements and earthy tones</p>
+                            <p class="mb-0 text-muted">Free-spirited design with natural elements and earthy tones</p>
                         </div>
                         <div class="theme-overlay">
                             <h6 class="mb-0">Bohemian Theme</h6>
@@ -251,7 +252,7 @@
     <section id="packages" class="py-5 bg-light">
         <div class="container">
             <h2 class="section-title fade-in-up">Our Digital Packages</h2>
-            <p class="text-center text-muted mb-5 fade-in-up" style="animation-delay: 0.1s;">Choose the perfect package for your digital invitation needs</p>
+            <p class="mb-5 text-center text-muted fade-in-up" style="animation-delay: 0.1s;">Choose the perfect package for your digital invitation needs</p>
             
             <div class="row g-4">
                 @forelse($packages as $package)
@@ -261,17 +262,17 @@
                 @endphp
                 <div class="col-lg-4 col-md-6">
                     <div class="package-card @if($isPopular) popular @endif border p-4 h-100 fade-in-up" style="animation-delay: {{ 0.2 + ($loop->index * 0.1) }}s;">
-                        <div class="text-center mb-4">
+                        <div class="mb-4 text-center">
                             <h5 class="mb-3">{{ $package->name }}</h5>
-                            <h3 class="text-primary fw-bold mb-3">Rp {{ number_format($package->price, 0, ',', '.') }}</h3>
-                            <p class="text-muted mb-0">{{ $package->description }}</p>
+                            <h3 class="mb-3 text-primary fw-bold">Rp {{ number_format($package->price, 0, ',', '.') }}</h3>
+                            <p class="mb-0 text-muted">{{ $package->description }}</p>
                         </div>
-                        <ul class="list-group list-group-flush mb-4">
-                            <li class="list-group-item px-0"><i class="bi bi-check-circle-fill text-success me-2"></i> {{ $package->period }} Days Access</li>
-                            <li class="list-group-item px-0"><i class="bi bi-check-circle-fill text-success me-2"></i> {{ $package->name === 'Ekonomis' ? '1 Theme' : 'Unlimited Themes' }}</li>
-                            <li class="list-group-item px-0"><i class="bi bi-check-circle-fill text-success me-2"></i> RSVP Management</li>
-                            <li class="list-group-item px-0"><i class="bi bi-check-circle-fill text-success me-2"></i> Gallery Integration</li>
-                            <li class="list-group-item px-0"><i class="bi bi-check-circle-fill text-success me-2"></i> {{ $package->name === 'Ekonomis' ? 'Email' : 'Priority' }} Support</li>
+                        <ul class="mb-4 list-group list-group-flush">
+                            <li class="px-0 list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i> {{ $package->period }} Days Access</li>
+                            <li class="px-0 list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i> {{ $package->name === 'Ekonomis' ? '1 Theme' : 'Unlimited Themes' }}</li>
+                            <li class="px-0 list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i> RSVP Management</li>
+                            <li class="px-0 list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i> Gallery Integration</li>
+                            <li class="px-0 list-group-item"><i class="bi bi-check-circle-fill text-success me-2"></i> {{ $package->name === 'Ekonomis' ? 'Email' : 'Priority' }} Support</li>
                         </ul>
                         <div class="text-center">
                             <a href="{{ route('register') }}" class="btn @if($isPopular) btn-primary @else btn-outline-primary @endif w-100 rounded-2" 
@@ -282,7 +283,7 @@
                 </div>
                 @empty
                 <div class="col-12">
-                    <div class="text-center py-5 fade-in-up">
+                    <div class="py-5 text-center fade-in-up">
                         <h5>No packages available at this time</h5>
                         <p class="text-muted">Please check back later for our packages</p>
                     </div>
@@ -296,7 +297,7 @@
     <section id="register" class="py-5">
         <div class="container">
             <h2 class="section-title fade-in-up">Create Your Digital Invitation</h2>
-            <p class="text-center text-muted mb-5 fade-in-up" style="animation-delay: 0.1s;">Start creating your beautiful digital wedding invitation today</p>
+            <p class="mb-5 text-center text-muted fade-in-up" style="animation-delay: 0.1s;">Start creating your beautiful digital wedding invitation today</p>
             
             <div class="row justify-content-center">
                 <div class="col-lg-8">
@@ -304,14 +305,14 @@
                         <form method="POST" action="{{ route('register') }}" id="registrationForm">
                             @csrf
                             <div class="row">
-                                <div class="col-md-6 mb-3">
+                                <div class="mb-3 col-md-6">
                                     <label for="firstName" class="form-label">First Name</label>
                                     <input type="text" class="form-control @error('first_name') is-invalid @enderror" id="firstName" name="first_name" placeholder="Enter your first name" value="{{ old('first_name') }}" required>
                                     @error('first_name')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="mb-3 col-md-6">
                                     <label for="lastName" class="form-label">Last Name</label>
                                     <input type="text" class="form-control @error('last_name') is-invalid @enderror" id="lastName" name="last_name" placeholder="Enter your last name" value="{{ old('last_name') }}" required>
                                     @error('last_name')
@@ -338,7 +339,7 @@
                             </div>
                             
                             <div class="row">
-                                <div class="col-md-6 mb-3">
+                                <div class="mb-3 col-md-6">
                                     <label for="password" class="form-label">Password</label>
                                     <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Create a password" required>
                                     <div class="form-text">Use 8 or more characters with a mix of letters, numbers & symbols</div>
@@ -346,7 +347,7 @@
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="col-md-6 mb-3">
+                                <div class="mb-3 col-md-6">
                                     <label for="password_confirmation" class="form-label">Confirm Password</label>
                                     <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Confirm your password" required>
                                 </div>
@@ -381,7 +382,7 @@
                             </div>
                             
                             <div class="d-grid">
-                                <button type="submit" class="btn btn-primary btn-lg rounded-2 position-relative overflow-hidden">
+                                <button type="submit" class="overflow-hidden btn btn-primary btn-lg rounded-2 position-relative">
                                     <span class="position-relative">Create Digital Invitation</span>
                                 </button>
                             </div>
@@ -393,13 +394,13 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white py-5">
+    <footer class="py-5 text-white bg-dark">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4 mb-4 mb-lg-0">
+                <div class="mb-4 col-lg-4 mb-lg-0">
                     <img src="{{ asset('images/root/blessed_day.png') }}" alt="Logo" height="60" class="mb-3">
                     <p class="text-light">Creating beautiful digital wedding invitations that capture your love story and connect with guests instantly.</p>
-                    <div class="d-flex gap-3 mt-3">
+                    <div class="gap-3 mt-3 d-flex">
                         <a href="#" class="text-light fs-4"><i class="bi bi-facebook"></i></a>
                         <a href="#" class="text-light fs-4"><i class="bi bi-instagram"></i></a>
                         <a href="#" class="text-light fs-4"><i class="bi bi-twitter"></i></a>
@@ -407,7 +408,7 @@
                     </div>
                 </div>
                 
-                <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
+                <div class="mb-4 col-lg-2 col-md-4 mb-md-0">
                     <h5>Quick Links</h5>
                     <ul class="list-unstyled">
                         <li><a href="#digital-features" class="text-light text-decoration-none">Features</a></li>
@@ -417,7 +418,7 @@
                     </ul>
                 </div>
                 
-                <div class="col-lg-3 col-md-4 mb-4 mb-md-0">
+                <div class="mb-4 col-lg-3 col-md-4 mb-md-0">
                     <h5>Support</h5>
                     <ul class="list-unstyled">
                         <li><a href="#" class="text-light text-decoration-none">Help Center</a></li>
