@@ -8,8 +8,8 @@
 <div class="mb-4 d-sm-flex align-items-center justify-content-between">
     <h1 class="mb-0 text-gray-800 h3">{{ $title ?? 'Couples' }}</h1>
     {{-- @if (isset($createRoute)) --}}
-        <a href="{{ route('create-order.step1') }}" class="shadow-sm d-none d-sm-inline-block btn btn-sm btn-primary">
-        {{-- <a href="{{ $createRoute }}" class="shadow-sm d-none d-sm-inline-block btn btn-sm btn-primary"> --}}
+        <a href="{{ route('create-order.step1') }}" class="shadow-sm d-sm-inline-block btn btn-sm btn-primary">
+        {{-- <a href="{{ $createRoute }}" class="shadow-sm d-sm-inline-block btn btn-sm btn-primary"> --}}
             <i class="fas fa-plus fa-sm text-white-50"></i> Add New Couple
         </a>
     {{-- @endif --}}

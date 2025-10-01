@@ -26,15 +26,15 @@
 
     <div class="container">
 
-        <div class="card o-hidden border-0 shadow-lg my-5">
-            <div class="card-body p-0">
+        <div class="my-5 border-0 shadow-lg card o-hidden">
+            <div class="p-0 card-body">
                 <!-- Nested Row within Card Body -->
                 <div class="row">
-                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                    <div class="col-lg-5 d-lg-block bg-register-image"></div>
                     <div class="col-lg-7">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">{{ __('Create an Account!') }}</h1>
+                                <h1 class="mb-4 text-gray-900 h4">{{ __('Create an Account!') }}</h1>
                             </div>
 
                             <form method="POST" action="{{ route('register') }}" class="user">
@@ -46,7 +46,7 @@
                                         id="exampleFirstName" placeholder="{{ __('Name') }}" 
                                         value="{{ old('name') }}" required>
                                     @if ($errors->has('name'))
-                                        <div class="text-danger mt-2">
+                                        <div class="mt-2 text-danger">
                                             {{ $errors->first('name') }}
                                         </div>
                                     @endif
@@ -58,7 +58,7 @@
                                         id="exampleInputEmail" placeholder="{{ __('Email Address') }}" 
                                         value="{{ old('email') }}" required>
                                     @if ($errors->has('email'))
-                                        <div class="text-danger mt-2">
+                                        <div class="mt-2 text-danger">
                                             {{ $errors->first('email') }}
                                         </div>
                                     @endif
@@ -66,11 +66,11 @@
 
                                 <!-- Password -->
                                 <div class="form-group row">
-                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <div class="mb-3 col-sm-6 mb-sm-0">
                                         <input type="password" name="password" class="form-control form-control-user"
                                             id="exampleInputPassword" placeholder="{{ __('Password') }}" required>
                                         @if ($errors->has('password'))
-                                            <div class="text-danger mt-2">
+                                            <div class="mt-2 text-danger">
                                                 {{ $errors->first('password') }}
                                             </div>
                                         @endif
@@ -79,7 +79,7 @@
                                         <input type="password" name="password_confirmation" class="form-control form-control-user"
                                             id="exampleRepeatPassword" placeholder="{{ __('Repeat Password') }}" required>
                                         @if ($errors->has('password_confirmation'))
-                                            <div class="text-danger mt-2">
+                                            <div class="mt-2 text-danger">
                                                 {{ $errors->first('password_confirmation') }}
                                             </div>
                                         @endif
@@ -99,7 +99,7 @@
                                             id="clientNik" placeholder="{{ __('NIK') }}" 
                                             value="{{ old('nik') }}">
                                         @if ($errors->has('nik'))
-                                            <div class="text-danger mt-2">
+                                            <div class="mt-2 text-danger">
                                                 {{ $errors->first('nik') }}
                                             </div>
                                         @endif
@@ -110,7 +110,7 @@
                                             id="clientAddress" placeholder="{{ __('Address') }}" 
                                             value="{{ old('address') }}">
                                         @if ($errors->has('address'))
-                                            <div class="text-danger mt-2">
+                                            <div class="mt-2 text-danger">
                                                 {{ $errors->first('address') }}
                                             </div>
                                         @endif
@@ -121,7 +121,7 @@
                                             id="clientPhone" placeholder="{{ __('Phone') }}" 
                                             value="{{ old('phone') }}">
                                         @if ($errors->has('phone'))
-                                            <div class="text-danger mt-2">
+                                            <div class="mt-2 text-danger">
                                                 {{ $errors->first('phone') }}
                                             </div>
                                         @endif

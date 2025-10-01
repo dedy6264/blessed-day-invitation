@@ -6,7 +6,7 @@
 <!-- Page Heading -->
 <div class="mb-4 d-sm-flex align-items-center justify-content-between">
     <h1 class="mb-0 text-gray-800 h3">Clients</h1>
-    <a href="{{ route('clients.create') }}" class="shadow-sm d-none d-sm-inline-block btn btn-sm btn-primary">
+    <a href="{{ route('clients.create') }}" class="shadow-sm d-sm-inline-block btn btn-sm btn-primary">
         <i class="fas fa-plus fa-sm text-white-50"></i> Add New Client
     </a>
 </div>

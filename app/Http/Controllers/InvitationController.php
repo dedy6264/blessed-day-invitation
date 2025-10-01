@@ -55,7 +55,7 @@ class InvitationController extends CrudController
             'title' => $title,
             'guests' => $guests,
             'weddingEvents' => $weddingEvents,
-             'storeRoute' => route($this->getRoutePrefix().'.store'),
+            'storeRoute' => route($this->getRoutePrefix().'.store'),
             'indexRoute' => route($this->getRoutePrefix().'.index'),
         ]);
     }

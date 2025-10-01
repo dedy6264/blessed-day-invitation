@@ -8,12 +8,12 @@
     <h1 class="mb-0 text-gray-800 h3">{{ $title ?? 'View Bank Account' }}</h1>
     <div>
         @if(isset($editRoute))
-        <a href="{{ route($editRoute, $bankAccount) }}" class="shadow-sm d-none d-sm-inline-block btn btn-sm btn-warning">
+        <a href="{{ route($editRoute, $bankAccount) }}" class="shadow-sm d-sm-inline-block btn btn-sm btn-warning">
             <i class="fas fa-edit fa-sm text-white-50"></i> Edit
         </a>
         @endif
         @if(isset($indexRoute))
-        <a href="{{ $indexRoute }}" class="shadow-sm d-none d-sm-inline-block btn btn-sm btn-secondary">
+        <a href="{{ $indexRoute }}" class="shadow-sm d-sm-inline-block btn btn-sm btn-secondary">
             <i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to Bank Accounts
         </a>
         @endif

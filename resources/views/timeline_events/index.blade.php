@@ -7,7 +7,7 @@
 <div class="mb-4 d-sm-flex align-items-center justify-content-between">
     <h1 class="mb-0 text-gray-800 h3">{{ $title ?? 'Timeline Events' }}</h1>
     @if(isset($createRoute))
-    <a href="{{ $createRoute }}" class="shadow-sm d-none d-sm-inline-block btn btn-sm btn-primary">
+    <a href="{{ $createRoute }}" class="shadow-sm d-sm-inline-block btn btn-sm btn-primary">
         <i class="fas fa-plus fa-sm text-white-50"></i> Add New Timeline Event
     </a>
     @endif

@@ -4,9 +4,9 @@
 
 @section('content')
 <!-- Page Heading -->
-<div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Admin Dashboard</h1>
-    <a href="{{ route('create-order.step1') }}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+<div class="mb-4 d-sm-flex align-items-center justify-content-between">
+    <h1 class="mb-0 text-gray-800 h3">Admin Dashboard</h1>
+    <a href="{{ route('create-order.step1') }}" class="shadow-sm d-xs-inline-block btn btn-sm btn-primary">
         <i class="fas fa-shopping-cart fa-sm text-white-50"></i> Create New Order
     </a>
 </div>
@@ -15,17 +15,17 @@
 <div class="row">
 
     <!-- Earnings (Monthly) Card Example -->
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-primary shadow h-100 py-2">
+    <div class="mb-4 col-xl-3 col-md-6">
+        <div class="py-2 shadow card border-left-primary h-100">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                    <div class="mr-2 col">
+                        <div class="mb-1 text-xs font-weight-bold text-primary text-uppercase">
                             Clients</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $clientCount ?? 0 }}</div>
+                        <div class="mb-0 text-gray-800 h5 font-weight-bold">{{ $clientCount ?? 0 }}</div>
                     </div>
                     <div class="col-auto">
-                        <i class="fas fa-users fa-2x text-gray-300"></i>
+                        <i class="text-gray-300 fas fa-users fa-2x"></i>
                     </div>
                 </div>
             </div>
@@ -33,17 +33,17 @@
     </div>
 
     <!-- Earnings (Monthly) Card Example -->
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-success shadow h-100 py-2">
+    <div class="mb-4 col-xl-3 col-md-6">
+        <div class="py-2 shadow card border-left-success h-100">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                    <div class="mr-2 col">
+                        <div class="mb-1 text-xs font-weight-bold text-success text-uppercase">
                             Couples</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $coupleCount ?? 0 }}</div>
+                        <div class="mb-0 text-gray-800 h5 font-weight-bold">{{ $coupleCount ?? 0 }}</div>
                     </div>
                     <div class="col-auto">
-                        <i class="fas fa-heart fa-2x text-gray-300"></i>
+                        <i class="text-gray-300 fas fa-heart fa-2x"></i>
                     </div>
                 </div>
             </div>
@@ -51,21 +51,21 @@
     </div>
 
     <!-- Earnings (Monthly) Card Example -->
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-info shadow h-100 py-2">
+    <div class="mb-4 col-xl-3 col-md-6">
+        <div class="py-2 shadow card border-left-info h-100">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Events
+                    <div class="mr-2 col">
+                        <div class="mb-1 text-xs font-weight-bold text-info text-uppercase">Events
                         </div>
                         <div class="row no-gutters align-items-center">
                             <div class="col-auto">
-                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{ $eventCount ?? 0 }}</div>
+                                <div class="mb-0 mr-3 text-gray-800 h5 font-weight-bold">{{ $eventCount ?? 0 }}</div>
                             </div>
                         </div>
                     </div>
                     <div class="col-auto">
-                        <i class="fas fa-calendar-alt fa-2x text-gray-300"></i>
+                        <i class="text-gray-300 fas fa-calendar-alt fa-2x"></i>
                     </div>
                 </div>
             </div>
@@ -73,17 +73,17 @@
     </div>
 
     <!-- Pending Requests Card Example -->
-    <div class="col-xl-3 col-md-6 mb-4">
-        <div class="card border-left-warning shadow h-100 py-2">
+    <div class="mb-4 col-xl-3 col-md-6">
+        <div class="py-2 shadow card border-left-warning h-100">
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                    <div class="mr-2 col">
+                        <div class="mb-1 text-xs font-weight-bold text-warning text-uppercase">
                             Guests</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $guestCount ?? 0 }}</div>
+                        <div class="mb-0 text-gray-800 h5 font-weight-bold">{{ $guestCount ?? 0 }}</div>
                     </div>
                     <div class="col-auto">
-                        <i class="fas fa-user-friends fa-2x text-gray-300"></i>
+                        <i class="text-gray-300 fas fa-user-friends fa-2x"></i>
                     </div>
                 </div>
             </div>
@@ -97,17 +97,17 @@
 
     <!-- Area Chart -->
     <div class="col-xl-8 col-lg-7">
-        <div class="card shadow mb-4">
+        <div class="mb-4 shadow card">
             <!-- Card Header - Dropdown -->
             <div
-                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                class="flex-row py-3 card-header d-flex align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">Recent Activity</h6>
                 <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        <i class="text-gray-400 fas fa-ellipsis-v fa-sm fa-fw"></i>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                    <div class="shadow dropdown-menu dropdown-menu-right animated--fade-in"
                         aria-labelledby="dropdownMenuLink">
                         <div class="dropdown-header">Actions:</div>
                         <a class="dropdown-item" href="#">View All</a>
@@ -126,17 +126,17 @@
 
     <!-- Pie Chart -->
     <div class="col-xl-4 col-lg-5">
-        <div class="card shadow mb-4">
+        <div class="mb-4 shadow card">
             <!-- Card Header - Dropdown -->
             <div
-                class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                class="flex-row py-3 card-header d-flex align-items-center justify-content-between">
                 <h6 class="m-0 font-weight-bold text-primary">Data Distribution</h6>
                 <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                        <i class="text-gray-400 fas fa-ellipsis-v fa-sm fa-fw"></i>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
+                    <div class="shadow dropdown-menu dropdown-menu-right animated--fade-in"
                         aria-labelledby="dropdownMenuLink">
                         <div class="dropdown-header">Actions:</div>
                         <a class="dropdown-item" href="#">View Details</a>
@@ -146,7 +146,7 @@
             </div>
             <!-- Card Body -->
             <div class="card-body">
-                <div class="chart-pie pt-4 pb-2">
+                <div class="pt-4 pb-2 chart-pie">
                     <canvas id="myPieChart"></canvas>
                 </div>
                 <div class="mt-4 text-center small">
@@ -169,11 +169,11 @@
 <div class="row">
 
     <!-- Content Column -->
-    <div class="col-lg-6 mb-4">
+    <div class="mb-4 col-lg-6">
 
         <!-- Project Card Example -->
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
+        <div class="mb-4 shadow card">
+            <div class="py-3 card-header">
                 <h6 class="m-0 font-weight-bold text-primary">Recent Clients</h6>
             </div>
             <div class="card-body">
@@ -204,32 +204,32 @@
 
         <!-- Color System -->
         <div class="row">
-            <div class="col-lg-6 mb-4">
-                <div class="card bg-primary text-white shadow">
+            <div class="mb-4 col-lg-6">
+                <div class="text-white shadow card bg-primary">
                     <div class="card-body">
                         Clients
                         <div class="text-white-50 small">{{ $clientCount ?? 0 }} registered</div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 mb-4">
-                <div class="card bg-success text-white shadow">
+            <div class="mb-4 col-lg-6">
+                <div class="text-white shadow card bg-success">
                     <div class="card-body">
                         Couples
                         <div class="text-white-50 small">{{ $coupleCount ?? 0 }} registered</div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 mb-4">
-                <div class="card bg-info text-white shadow">
+            <div class="mb-4 col-lg-6">
+                <div class="text-white shadow card bg-info">
                     <div class="card-body">
                         Events
                         <div class="text-white-50 small">{{ $eventCount ?? 0 }} created</div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 mb-4">
-                <div class="card bg-warning text-white shadow">
+            <div class="mb-4 col-lg-6">
+                <div class="text-white shadow card bg-warning">
                     <div class="card-body">
                         Guests
                         <div class="text-white-50 small">{{ $guestCount ?? 0 }} registered</div>
@@ -240,11 +240,11 @@
 
     </div>
 
-    <div class="col-lg-6 mb-4">
+    <div class="mb-4 col-lg-6">
 
         <!-- Illustrations -->
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
+        <div class="mb-4 shadow card">
+            <div class="py-3 card-header">
                 <h6 class="m-0 font-weight-bold text-primary">Recent Events</h6>
             </div>
             <div class="card-body">
@@ -276,8 +276,8 @@
         </div>
 
         <!-- Approach -->
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
+        <div class="mb-4 shadow card">
+            <div class="py-3 card-header">
                 <h6 class="m-0 font-weight-bold text-primary">System Status</h6>
             </div>
             <div class="card-body">
