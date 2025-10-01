@@ -25,12 +25,15 @@ use App\Http\Controllers\{
     ProfileController,
     OrderController
 };
-Route::get('/', function () {
+use App\Http\Controllers\LandingController;
+
+Route::get('/', [LandingController::class, 'index'])->name('landing');
+Route::get('/welcome', function() {
     if (Auth::check()) {
         return redirect()->route('dashboard');
     }
     return view('welcome');
-});
+})->name('welcome');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::post('invitations/{invitation}/send', [InvitationController::class, 'sendInvitation'])->name('invitations.send');
