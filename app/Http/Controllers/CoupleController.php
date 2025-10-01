@@ -38,11 +38,19 @@ class CoupleController extends CrudController
         $routePrefix = $this->getRoutePrefix();
         
         // Get couples with their client and latest transaction
-        $records = Couple::with(['client', 'transactions' => function($query) {
-                $query->latest();
-            }])
-            ->latest()
-            ->paginate(10);
+        $query = Couple::with(['client', 'transactions' => function($q) {
+            $q->latest();
+        }])
+        ->latest(); // latest() diterapkan pada Query Builder
+
+        // Terapkan Kondisi (Filter)
+        if (auth()->user()->isClient()) {
+            // Terapkan kondisi WHERE pada Query Builder
+            $query->where('client_id', auth()->id());
+        }
+
+        // Lakukan Paginasi pada Query Builder yang sudah difilter
+        $records = $query->paginate(10);
         $title = 'Couples';
 
         return view('couples.index', [
