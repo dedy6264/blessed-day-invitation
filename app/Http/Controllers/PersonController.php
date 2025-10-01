@@ -141,8 +141,9 @@ class PersonController extends CrudController
         $record = Person::with(['couple', 'personParent'])->findOrFail($id);
         $title = 'Edit Person';
         $couples = Couple::all();
-        $indexRoute = route($this->getRoutePrefix().'.index');
-        $updateRoute = route($this->getRoutePrefix().'.update', $record->id);
+          $routePrefix = $this->getRoutePrefix();
+        $indexRoute =route($routePrefix.'.index');
+        $updateRoute = route($routePrefix.'.update', $record->id);
         return view('people.edit', compact('record', 'title', 'couples','indexRoute','updateRoute'));
     }
 

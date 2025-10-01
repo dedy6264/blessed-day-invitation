@@ -7,7 +7,6 @@
 <div class="mb-4 d-sm-flex align-items-center justify-content-between">
     <h1 class="mb-0 text-gray-800 h3">{{ $title ?? 'Edit Couple' }}</h1>
 </div>
-
 <!-- Content Row -->
 <div class="row">
     <div class="col-12">
