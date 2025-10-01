@@ -26,9 +26,9 @@ class PersonController extends CrudController
      */
     public function index(): View
     {
-        $people = Person::with('couple')->latest()->paginate(10);
+        $query = Person::with('couple')->latest();
+        $people=$query->paginate(10);
         $title = 'People';
-        
         return view('people.index', [
             'people' => $people,
             'title' => $title,
@@ -45,11 +45,14 @@ class PersonController extends CrudController
     public function create(): View
     {
         $title = 'Create Person';
-        $couples = Couple::join('transactions', 'transactions.couple_id', '=', 'couples.id')
+        $query = Couple::join('transactions', 'transactions.couple_id', '=', 'couples.id')
             ->where('transactions.status', 'paid');
         if (auth()->user()->isClient()) {
-            $couples->where('client_id', auth()->id());
+            $query->where('couples.client_id', auth()->user()->client_id);
         }
+        // dd($query->toSql());
+        $couples = $query->select('couples.*')->get();
+
         $storeRoute = route($this->getRoutePrefix().'.store');
         $indexRoute = route($this->getRoutePrefix().'.index');
         return view('people.create', compact('title', 'couples','storeRoute','indexRoute'));
@@ -140,8 +143,15 @@ class PersonController extends CrudController
     {
         $record = Person::with(['couple', 'personParent'])->findOrFail($id);
         $title = 'Edit Person';
-        $couples = Couple::all();
-          $routePrefix = $this->getRoutePrefix();
+        // $couples = Couple::all();
+         $query = Couple::join('transactions', 'transactions.couple_id', '=', 'couples.id')
+            ->where('transactions.status', 'paid');
+        if (auth()->user()->isClient()) {
+            $query->where('couples.client_id', auth()->user()->client_id);
+        }
+        // dd($query->toSql());
+        $couples = $query->select('couples.*')->get();
+        $routePrefix = $this->getRoutePrefix();
         $indexRoute =route($routePrefix.'.index');
         $updateRoute = route($routePrefix.'.update', $record->id);
         return view('people.edit', compact('record', 'title', 'couples','indexRoute','updateRoute'));
