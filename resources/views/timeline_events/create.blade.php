@@ -24,7 +24,6 @@
                 @if(isset($storeRoute))
                 <form method="POST" action="{{ $storeRoute  }}" enctype="multipart/form-data">
                     @csrf
-                    
                     <div class="mb-3 form-group">
                         <label for="couple_id" class="form-label">Couple <span class="text-danger">*</span></label>
                         <select name="couple_id" id="couple_id" class="form-control" required>

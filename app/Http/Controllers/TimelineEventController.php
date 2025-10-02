@@ -25,7 +25,13 @@ class TimelineEventController extends CrudController
      */
     public function index(): View
     {
-        $timelineEvents = TimelineEvent::with('couple')->latest()->paginate(10);
+        // $timelineEvents = TimelineEvent::with('couple')->latest()->paginate(10);
+        $query=TimelineEvent::join('couples','timeline_events.couple_id','=','couples.id')
+        ->select('timeline_events.*','couples.bride_name','couples.groom_name');
+        if (auth()->user()->isClient()) {
+            $query->where('couples.client_id', auth()->user()->client_id);
+        }
+        $timelineEvents=$query->latest()->paginate(10);
         $title = 'Timeline Events';
         
         return view('timeline_events.index', [
@@ -44,7 +50,19 @@ class TimelineEventController extends CrudController
     public function create(): View
     {
         $title = 'Create Timeline Event';
-        $couples = Couple::with('client')->get();
+        // $couples = Couple::with('client')->get();
+        $query=Couple::join('clients','couples.client_id','=','clients.id')
+        ->select(
+            'couples.id',
+            'clients.client_name as client_name',
+            'couples.bride_name',
+            'couples.groom_name',
+            'couples.wedding_date'
+        );
+        if (auth()->user()->isClient()) {
+            $query->where('couples.client_id', auth()->user()->client_id);
+        }
+        $couples=$query->get();
         
         return view('timeline_events.create', [
             'title' => $title,
