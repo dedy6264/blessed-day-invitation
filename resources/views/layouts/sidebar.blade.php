@@ -63,13 +63,93 @@
     @endif
     
     <!-- Nav Item - Wedding Data Collapse Menu -->
-    <li class="nav-item {{ request()->routeIs('couples.*') || request()->routeIs('people.*') || request()->routeIs('wedding-events.*') || request()->routeIs('locations.*') || request()->routeIs('gallery-images.*') || request()->routeIs('timeline-events.*') || request()->routeIs('bank-accounts.*') || request()->routeIs('guests.*') || request()->routeIs('invitations.*') || request()->routeIs('guest-messages.*') || request()->routeIs('my-couples.*') || request()->routeIs('my-wedding-events.*') || request()->routeIs('my-gallery-images.*') || request()->routeIs('my-timeline-events.*') || request()->routeIs('my-bank-accounts.*') || request()->routeIs('my-guests.*') || request()->routeIs('my-invitations.*') || request()->routeIs('my-guest-messages.*') ? 'active' : '' }}">
-        <a class="nav-link {{ request()->routeIs('couples.*') || request()->routeIs('people.*') || request()->routeIs('wedding-events.*') || request()->routeIs('locations.*') || request()->routeIs('gallery-images.*') || request()->routeIs('timeline-events.*') || request()->routeIs('bank-accounts.*') || request()->routeIs('guests.*') || request()->routeIs('invitations.*') || request()->routeIs('guest-messages.*') || request()->routeIs('my-couples.*') || request()->routeIs('my-wedding-events.*') || request()->routeIs('my-gallery-images.*') || request()->routeIs('my-timeline-events.*') || request()->routeIs('my-bank-accounts.*') || request()->routeIs('my-guests.*') || request()->routeIs('my-invitations.*') || request()->routeIs('my-guest-messages.*') ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseWedding"
-            aria-expanded="{{ request()->routeIs('couples.*') || request()->routeIs('people.*') || request()->routeIs('wedding-events.*') || request()->routeIs('locations.*') || request()->routeIs('gallery-images.*') || request()->routeIs('timeline-events.*') || request()->routeIs('bank-accounts.*') || request()->routeIs('guests.*') || request()->routeIs('invitations.*') || request()->routeIs('guest-messages.*') || request()->routeIs('my-couples.*') || request()->routeIs('my-wedding-events.*') || request()->routeIs('my-gallery-images.*') || request()->routeIs('my-timeline-events.*') || request()->routeIs('my-bank-accounts.*') || request()->routeIs('my-guests.*') || request()->routeIs('my-invitations.*') || request()->routeIs('my-guest-messages.*') ? 'true' : 'false' }}" aria-controls="collapseWedding">
+    <li class="nav-item {{ request()->routeIs('couples.*') ||
+     request()->routeIs('people.*') ||
+     request()->routeIs('wedding-events.*') ||
+     request()->routeIs('locations.*') ||
+     request()->routeIs('gallery-images.*') ||
+     request()->routeIs('timeline-events.*') ||
+     request()->routeIs('bank-accounts.*') ||
+     request()->routeIs('guests.*') ||
+     request()->routeIs('invitations.*') ||
+     request()->routeIs('guest-messages.*') ||
+     request()->routeIs('my-couples.*') ||
+     request()->routeIs('my-wedding-events.*') ||
+     request()->routeIs('my-gallery-images.*') ||
+     request()->routeIs('my-timeline-events.*') ||
+     request()->routeIs('my-bank-accounts.*') ||
+     request()->routeIs('my-guests.*') ||
+     request()->routeIs('my-people.*') ||
+     request()->routeIs('my-guest-attendants.*') ||
+     request()->routeIs('my-locations.*') ||
+     request()->routeIs('my-invitations.*') ||
+     request()->routeIs('my-guest-messages.*') ? 'active' : '' }}">
+        <a class="nav-link {{ request()->routeIs('couples.*') ||
+         request()->routeIs('people.*') ||
+         request()->routeIs('wedding-events.*') ||
+         request()->routeIs('locations.*') ||
+         request()->routeIs('gallery-images.*') ||
+         request()->routeIs('timeline-events.*') ||
+         request()->routeIs('bank-accounts.*') ||
+         request()->routeIs('guests.*') ||
+         request()->routeIs('invitations.*') ||
+         request()->routeIs('guest-messages.*') ||
+         request()->routeIs('my-couples.*') ||
+         request()->routeIs('my-wedding-events.*') ||
+         request()->routeIs('my-gallery-images.*') ||
+         request()->routeIs('my-timeline-events.*') ||
+         request()->routeIs('my-bank-accounts.*') ||
+         request()->routeIs('my-guests.*') ||
+         request()->routeIs('my-people.*') ||
+         request()->routeIs('my-guest-attendants.*') ||
+         request()->routeIs('my-locations.*') ||
+         request()->routeIs('my-invitations.*') ||
+         request()->routeIs('my-guest-messages.*') ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseWedding"
+            aria-expanded="{{ request()->routeIs('couples.*') ||
+             request()->routeIs('people.*') ||
+             request()->routeIs('wedding-events.*') ||
+             request()->routeIs('locations.*') ||
+             request()->routeIs('gallery-images.*') ||
+             request()->routeIs('timeline-events.*') ||
+             request()->routeIs('bank-accounts.*') ||
+             request()->routeIs('guests.*') ||
+             request()->routeIs('invitations.*') ||
+             request()->routeIs('guest-messages.*') ||
+             request()->routeIs('my-couples.*') ||
+             request()->routeIs('my-wedding-events.*') ||
+             request()->routeIs('my-gallery-images.*') ||
+             request()->routeIs('my-timeline-events.*') ||
+             request()->routeIs('my-bank-accounts.*') ||
+             request()->routeIs('my-guests.*') ||
+             request()->routeIs('my-people.*') ||
+             request()->routeIs('my-guest-attendants.*') ||
+             request()->routeIs('my-locations.*') ||
+             request()->routeIs('my-invitations.*') ||
+             request()->routeIs('my-guest-messages.*') ? 'true' : 'false' }}" aria-controls="collapseWedding">
             <i class="fas fa-fw fa-heart"></i>
             <span>Wedding Data</span>
         </a>
-        <div id="collapseWedding" class="collapse {{ request()->routeIs('couples.*') || request()->routeIs('people.*') || request()->routeIs('wedding-events.*') || request()->routeIs('locations.*') || request()->routeIs('gallery-images.*') || request()->routeIs('timeline-events.*') || request()->routeIs('bank-accounts.*') || request()->routeIs('guests.*') || request()->routeIs('invitations.*') || request()->routeIs('guest-messages.*') || request()->routeIs('my-couples.*') || request()->routeIs('my-wedding-events.*') || request()->routeIs('my-gallery-images.*') || request()->routeIs('my-timeline-events.*') || request()->routeIs('my-bank-accounts.*') || request()->routeIs('my-guests.*') || request()->routeIs('my-invitations.*') || request()->routeIs('my-guest-messages.*') ? 'show' : '' }}" aria-labelledby="headingWedding" data-parent="#accordionSidebar">
+        <div id="collapseWedding" class="collapse {{ request()->routeIs('couples.*') ||
+         request()->routeIs('people.*') ||
+         request()->routeIs('wedding-events.*') ||
+         request()->routeIs('locations.*') ||
+         request()->routeIs('gallery-images.*') ||
+         request()->routeIs('timeline-events.*') ||
+         request()->routeIs('bank-accounts.*') ||
+         request()->routeIs('guests.*') ||
+         request()->routeIs('invitations.*') ||
+         request()->routeIs('guest-messages.*') ||
+         request()->routeIs('my-couples.*') ||
+         request()->routeIs('my-wedding-events.*') ||
+         request()->routeIs('my-gallery-images.*') ||
+         request()->routeIs('my-timeline-events.*') ||
+         request()->routeIs('my-bank-accounts.*') ||
+         request()->routeIs('my-guests.*') ||
+         request()->routeIs('my-people.*') ||
+            request()->routeIs('my-guest-attendants.*') ||
+            request()->routeIs('my-locations.*') ||
+         request()->routeIs('my-invitations.*') ||
+         request()->routeIs('my-guest-messages.*') ? 'show' : '' }}" aria-labelledby="headingWedding" data-parent="#accordionSidebar">
             <div class="py-2 bg-white rounded collapse-inner">
                 @if(auth()->user()->role=="admin")
                 <a class="collapse-item {{ request()->routeIs('couples.*') ? 'active' : '' }}" href="{{ route('couples.index') }}">Couples</a>
@@ -101,13 +181,33 @@
     </li>
 
     <!-- Nav Item - Business Management Collapse Menu -->
-    <li class="nav-item {{ request()->routeIs('packages.*') || request()->routeIs('transactions.*') || request()->routeIs('payment-methods.*') || request()->routeIs('payment-transactions.*') || request()->routeIs('create-order.*') || request()->routeIs('my-transactions.*') ? 'active' : '' }}">
-        <a class="nav-link {{ request()->routeIs('packages.*') || request()->routeIs('transactions.*') || request()->routeIs('payment-methods.*') || request()->routeIs('payment-transactions.*') || request()->routeIs('create-order.*') || request()->routeIs('my-transactions.*') ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseBusiness"
-            aria-expanded="{{ request()->routeIs('packages.*') || request()->routeIs('transactions.*') || request()->routeIs('payment-methods.*') || request()->routeIs('payment-transactions.*') || request()->routeIs('create-order.*') || request()->routeIs('my-transactions.*') ? 'true' : 'false' }}" aria-controls="collapseBusiness">
+    <li class="nav-item {{ request()->routeIs('packages.*') ||
+     request()->routeIs('transactions.*') ||
+     request()->routeIs('payment-methods.*') ||
+     request()->routeIs('payment-transactions.*') ||
+     request()->routeIs('create-order.*') ||
+     request()->routeIs('my-transactions.*') ? 'active' : '' }}">
+        <a class="nav-link {{ request()->routeIs('packages.*') ||
+         request()->routeIs('transactions.*') ||
+         request()->routeIs('payment-methods.*') ||
+         request()->routeIs('payment-transactions.*') ||
+         request()->routeIs('create-order.*') ||
+         request()->routeIs('my-transactions.*') ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseBusiness"
+            aria-expanded="{{ request()->routeIs('packages.*') ||
+             request()->routeIs('transactions.*') ||
+             request()->routeIs('payment-methods.*') ||
+             request()->routeIs('payment-transactions.*') ||
+             request()->routeIs('create-order.*') ||
+             request()->routeIs('my-transactions.*') ? 'true' : 'false' }}" aria-controls="collapseBusiness">
             <i class="fas fa-fw fa-briefcase"></i>
             <span>Business Management</span>
         </a>
-        <div id="collapseBusiness" class="collapse {{ request()->routeIs('packages.*') || request()->routeIs('transactions.*') || request()->routeIs('payment-methods.*') || request()->routeIs('payment-transactions.*') || request()->routeIs('create-order.*') || request()->routeIs('my-transactions.*') ? 'show' : '' }}" aria-labelledby="headingBusiness" data-parent="#accordionSidebar">
+        <div id="collapseBusiness" class="collapse {{ request()->routeIs('packages.*') ||
+         request()->routeIs('transactions.*') ||
+         request()->routeIs('payment-methods.*') ||
+         request()->routeIs('payment-transactions.*') ||
+         request()->routeIs('create-order.*') ||
+         request()->routeIs('my-transactions.*') ? 'show' : '' }}" aria-labelledby="headingBusiness" data-parent="#accordionSidebar">
             <div class="py-2 bg-white rounded collapse-inner">
                  @if(auth()->user()->role=="admin")
                 <a class="collapse-item {{ request()->routeIs('packages.*') ? 'active' : '' }}" href="{{ route('packages.index') }}">Packages</a>
