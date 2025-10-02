@@ -8,7 +8,7 @@
     <h1 class="mb-0 text-gray-800 h3">{{ $title ?? 'View Location' }}</h1>
     <div>
         @if(isset($editRoute))
-        <a href="{{ $editRoute }}" class="shadow-sm d-sm-inline-block btn btn-sm btn-warning">
+        <a href="{{ route($editRoute,$location) }}" class="shadow-sm d-sm-inline-block btn btn-sm btn-warning">
             <i class="fas fa-edit fa-sm text-white-50"></i> Edit
         </a>
         @endif

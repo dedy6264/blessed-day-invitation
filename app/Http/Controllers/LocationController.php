@@ -25,9 +25,15 @@ class LocationController extends CrudController
      */
     public function index(): View
     {
-        $locations = Location::with('weddingEvent.couple')->latest()->paginate(10);
+        // $locations = Location::with('weddingEvent.couple')->latest()->paginate(10);
+        $query = Location::join('wedding_events', 'locations.wedding_event_id', '=', 'wedding_events.id')
+                ->join('couples', 'wedding_events.couple_id', '=', 'couples.id');
+         if (auth()->user()->isClient()){
+                    $query->where('couples.client_id', auth()->user()->client_id);
+         }
+        $locations=$query->select('locations.*')->get();
         $title = 'Locations';
-        
+        // dd($locations);
         return view('locations.index', [
             'locations' => $locations,
             'title' => $title,
@@ -44,8 +50,11 @@ class LocationController extends CrudController
     public function create(): View
     {
         $title = 'Create Location';
-        $weddingEvents = WeddingEvent::with('couple')->get();
-        
+        $weddingEvents=WeddingEvent::join('couples', 'wedding_events.couple_id', '=', 'couples.id');
+        if (auth()->user()->isClient()) {
+            $weddingEvents->where('couples.client_id', auth()->user()->client_id);
+        }
+        $weddingEvents = $weddingEvents->select('wedding_events.*')->get();
         return view('locations.create', [
             'title' => $title,
             'weddingEvents' => $weddingEvents,
@@ -79,7 +88,6 @@ class LocationController extends CrudController
     {
         $location = Location::with('weddingEvent.couple')->findOrFail($id);
         $title = 'View Location';
-        
         return view('locations.show', [
             'location' => $location,
             'title' => $title,

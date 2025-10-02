@@ -21,7 +21,7 @@
                 <h6 class="m-0 font-weight-bold text-primary">{{ $title ?? 'Locations' }} List</h6>
             </div>
             <div class="card-body">
-                @if ($locations->count() > 0)
+                @if (isset($locations))
                     <div class="table-responsive">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
@@ -64,7 +64,8 @@
                             </tbody>
                         </table>
                         <div class="mt-3">
-                            {{ $locations->links() }}
+                            {{-- {{ $locations->links() }} --}}
+                            xxxxx
                         </div>
                     </div>
                 @else

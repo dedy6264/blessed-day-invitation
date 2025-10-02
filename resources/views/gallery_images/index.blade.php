@@ -31,7 +31,7 @@
                                     <option value="">All Wedding Events</option>
                                     @foreach($weddingEvents as $weddingEvent)
                                         <option value="{{ $weddingEvent->id }}" {{ (isset($selectedWeddingEventId) && $selectedWeddingEventId == $weddingEvent->id) ? 'selected' : '' }}>
-                                            {{ $weddingEvent->event_name }} - {{ $weddingEvent->couple->groom_name }} & {{ $weddingEvent->couple->bride_name }}
+                                            {{ $weddingEvent->event_name }} - {{ $weddingEvent->groom_name }} & {{ $weddingEvent->bride_name }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -64,7 +64,7 @@
                         $currentEvent = $weddingEvents->firstWhere('id', $selectedWeddingEventId);
                     @endphp
                     @if($currentEvent)
-                        <span class="badge badge-info">Filtered by: {{ $currentEvent->event_name }} - {{ $currentEvent->couple->groom_name }} & {{ $currentEvent->couple->bride_name }}</span>
+                        <span class="badge badge-info">Filtered by: {{ $currentEvent->event_name }} - {{ $currentEvent->groom_name }} & {{ $currentEvent->bride_name }}</span>
                     @endif
                 @endif
             </div>

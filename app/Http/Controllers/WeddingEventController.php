@@ -52,7 +52,7 @@ class WeddingEventController extends CrudController
         if (auth()->user()->isClient()) {
             // For clients, only show their own wedding events
             $weddingEvents = WeddingEvent::whereHas('couple', function ($query) {
-                $query->where('client_id', auth()->id());
+                $query->where('client_id', auth()->user()->client_id);
             })->with('couple')->latest()->paginate(10);
         } else {
             // For admins, show all wedding events
@@ -81,9 +81,10 @@ class WeddingEventController extends CrudController
         $couples = Couple::join('transactions', 'transactions.couple_id', '=', 'couples.id')
             ->where('transactions.status', 'paid');
         if (auth()->user()->isClient()) {
-            $couples->where('client_id', auth()->id());
+            $couples->where('client_id', auth()->user()->client_id);
         }
-        $couples = $couples->get();
+        $couples = $couples->get('couples.*');
+        // dd($couples);
         
         // Using custom view instead of admin.crud.create
         return view('wedding_events.create', [
@@ -99,6 +100,7 @@ class WeddingEventController extends CrudController
      */
     public function store(Request $request): RedirectResponse
     {
+        // dd($request->all());
         $request->validate([
             'couple_id' => 'required|exists:couples,id',
             'event_name' => 'required|string|max:100',
@@ -108,7 +110,6 @@ class WeddingEventController extends CrudController
         ]);
 
         WeddingEvent::create($request->all());
-
         $routePrefix = $this->getRoutePrefix();
        
         // For admin users, redirect to wedding-events.index
@@ -129,7 +130,7 @@ class WeddingEventController extends CrudController
         if (auth()->user()->isClient()) {
             // For clients, only allow viewing their own wedding events
             $weddingEvent = WeddingEvent::whereHas('couple', function ($query) {
-                $query->where('client_id', auth()->id());
+                $query->where('client_id', auth()->user()->client_id);
             })->with(['couple', 'location', 'galleryImages'])->findOrFail($id);
         } else {
             // For admins, allow viewing any wedding event

@@ -26,17 +26,32 @@ class GalleryImageController extends CrudController
     public function index(): View
     {
         $request = request();
-        $query = GalleryImage::with('weddingEvent.couple');
+        // $query = GalleryImage::with('weddingEvent.couple');
         
-        // Apply wedding event filter if provided
-        if ($request->has('wedding_event_id') && $request->wedding_event_id != '') {
-            $query->where('wedding_event_id', $request->wedding_event_id);
+        // // Apply wedding event filter if provided
+        // if ($request->has('wedding_event_id') && $request->wedding_event_id != '') {
+        //     $query->where('wedding_event_id', $request->wedding_event_id);
+        // }
+        
+        // $galleryImages = $query->latest()->paginate(10);
+        $query=GalleryImage::join('wedding_events','gallery_images.wedding_event_id','=','wedding_events.id')
+        ->join('couples','wedding_events.couple_id','=','couples.id')
+        ->select('gallery_images.*','wedding_events.event_name','couples.bride_name','couples.groom_name');
+        if (auth()->user()->isClient()) {
+            $query->where('couples.client_id', auth()->user()->client_id);
         }
+        $galleryImages=$query->latest()->paginate(10);
         
-        $galleryImages = $query->latest()->paginate(10);
         $title = 'Gallery Images';
-        $weddingEvents = WeddingEvent::with('couple')->get();
-        
+
+        // $weddingEvents = WeddingEvent::with('couple')->get();
+        $query=WeddingEvent::join('couples','wedding_events.couple_id','=','couples.id')
+        ->select('wedding_events.id','couples.bride_name','couples.groom_name');
+        if (auth()->user()->isClient()) {
+            $query->where('couples.client_id', auth()->user()->client_id);
+        }
+        $weddingEvents=$query->get();
+        // dd($weddingEvents);
         return view( 'gallery_images.index', [
             'galleryImages' => $galleryImages,
             'title' => $title,
@@ -55,7 +70,12 @@ class GalleryImageController extends CrudController
     public function create(): View
     {
         $title = 'Create Gallery Image';
-        $weddingEvents = WeddingEvent::with('couple')->get();
+        $query=WeddingEvent::join('couples','wedding_events.couple_id','=','couples.id')
+        ->select('wedding_events.id','couples.bride_name','couples.groom_name');
+        if (auth()->user()->isClient()) {
+            $query->where('couples.client_id', auth()->user()->client_id);
+        }
+        $weddingEvents=$query->get();
         
         return view( 'gallery_images.create', [
             'title' => $title,

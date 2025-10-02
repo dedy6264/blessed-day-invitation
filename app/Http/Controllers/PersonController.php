@@ -57,7 +57,6 @@ class PersonController extends CrudController
         if (auth()->user()->isClient()) {
             $query->where('couples.client_id', auth()->user()->client_id);
         }
-        // dd($query->toSql());
         $couples = $query->select('couples.*')->get();
 
         $storeRoute = route($this->getRoutePrefix().'.store');
