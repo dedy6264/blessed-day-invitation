@@ -10,6 +10,7 @@
     <meta name="author" content="">
 
     <title>{{ config('app.name', 'Laravel') }} - @yield('title', 'Dashboard')</title>
+        <link rel="icon" type="image/png" href="{{ asset('images/root/thumbnail_blessed_day.png') }}">
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
@@ -60,9 +61,9 @@
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            <footer class="sticky-footer bg-white">
+            <footer class="bg-white sticky-footer">
                 <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
+                    <div class="my-auto text-center copyright">
                         <span>Copyright &copy; {{ config('app.name', 'Laravel') }} {{ date('Y') }}</span>
                     </div>
                 </div>
@@ -76,7 +77,7 @@
     <!-- End of Page Wrapper -->
 
     <!-- Scroll to Top Button-->
-    <a class="scroll-to-top rounded" href="#page-top">
+    <a class="rounded scroll-to-top" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
 
