@@ -102,8 +102,12 @@ class LocationController extends CrudController
     {
         $record = Location::findOrFail($id);
         $title = 'Edit Location';
-        $weddingEvents = WeddingEvent::with('couple')->get();
-        
+        $query=WeddingEvent::join('couples','wedding_events.couple_id','=','couples.id')        
+            ->select('wedding_events.id','couples.bride_name','couples.groom_name');
+        if (auth()->user()->isClient()) {
+            $query->where('couples.client_id', auth()->user()->client_id);
+        }
+        $weddingEvents=$query->get();
         return view('locations.edit', [
             'record' => $record,
             'title' => $title,

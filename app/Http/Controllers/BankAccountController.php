@@ -27,9 +27,14 @@ class BankAccountController extends CrudController
     }
     public function index(): View
     {
-        $bankAccounts = BankAccount::with('weddingEvent.couple')->latest()->paginate(10);
         $title = 'Bank Accounts';
-        
+        $query=BankAccount::join('wedding_events','bank_accounts.wedding_event_id','=','wedding_events.id')
+        ->join('couples','wedding_events.couple_id','=','couples.id')
+        ->select('bank_accounts.*','couples.bride_name','couples.groom_name');
+        if (auth()->user()->isClient()) {
+            $query->where('couples.client_id', auth()->user()->client_id);
+        }
+        $bankAccounts=$query->latest()->paginate(10);
         return view('bank_accounts.index', [
             'bankAccounts' => $bankAccounts,
             'title' => $title,
@@ -46,7 +51,13 @@ class BankAccountController extends CrudController
     public function create(): View
     {
         $title = 'Create Bank Account';
-        $weddingEvents = WeddingEvent::with('couple')->get();
+        // $weddingEvents = WeddingEvent::with('couple')->get();
+        $query=WeddingEvent::join('couples','wedding_events.couple_id','=','couples.id')
+        ->select('wedding_events.id','couples.bride_name','couples.groom_name');
+        if (auth()->user()->isClient()) {
+            $query->where('couples.client_id', auth()->user()->client_id);
+        }
+        $weddingEvents=$query->get();
         
         return view('bank_accounts.create', [
             'title' => $title,
@@ -98,8 +109,12 @@ class BankAccountController extends CrudController
     {
         $record = BankAccount::findOrFail($id);
         $title = 'Edit Bank Account';
-        $weddingEvents = WeddingEvent::with('couple')->get();
-        
+        $query=WeddingEvent::join('couples','wedding_events.couple_id','=','couples.id')
+        ->select('wedding_events.id','couples.bride_name','couples.groom_name');
+        if (auth()->user()->isClient()) {
+            $query->where('couples.client_id', auth()->user()->client_id);
+        }
+        $weddingEvents=$query->get();
         return view('bank_accounts.edit', [
             'record' => $record,
             'title' => $title,
