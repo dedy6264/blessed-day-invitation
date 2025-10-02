@@ -49,7 +49,7 @@
                             <option value="">Select Wedding Event</option>
                             @forelse($weddingEvents as $weddingEvent)
                                 <option value="{{ $weddingEvent->id }}" {{ (old('wedding_event_id', $record->wedding_event_id) == $weddingEvent->id) ? 'selected' : '' }}>
-                                    {{ $weddingEvent->event_name }} - {{ $weddingEvent->couple->groom_name }} & {{ $weddingEvent->couple->bride_name }}
+                                    {{ $weddingEvent->event_name }} - {{ $weddingEvent->groom_name }} & {{ $weddingEvent->bride_name }}
                                 </option>
                             @empty
                                 <option value="" disabled>No wedding events available. Please <a href="{{ route('wedding-events.create') }}">create a wedding event</a> first.</option>

@@ -26,9 +26,13 @@ class GuestController extends CrudController
      */
     public function index(): View
     {
-        $guests = Guest::with('couple')->latest()->paginate(10);
         $title = 'Guests';
-        
+        $query=Guest::join('couples','guests.couple_id','=','couples.id')
+        ->select('guests.*','couples.bride_name','couples.groom_name');
+        if (auth()->user()->isClient()) {
+            $query->where('couples.client_id', auth()->user()->client_id);
+        }
+        $guests=$query->latest()->paginate(10);
         return view('guests.index', [
             'guests' => $guests,
             'title' => $title,
@@ -45,8 +49,11 @@ class GuestController extends CrudController
     public function create(): View
     {
         $title = 'Create Guest';
-        $couples = Couple::all();
-        
+        $query=Couple::query();
+        if (auth()->user()->isClient()) {
+            $query->where('client_id', auth()->user()->client_id);
+        }
+        $couples=$query->get();
         return view('guests.create', [
             'title' => $title,
             'couples' => $couples,
@@ -108,8 +115,11 @@ class GuestController extends CrudController
     {
         $record = Guest::findOrFail($id);
         $title = 'Edit Guest';
-        $couples = Couple::all();
-        
+        $query=Couple::query();
+        if (auth()->user()->isClient()) {
+            $query->where('client_id', auth()->user()->client_id);
+        }
+        $couples=$query->get();
         return view('guests.edit', [
             'record' => $record,
             'title' => $title,

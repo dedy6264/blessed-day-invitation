@@ -28,9 +28,15 @@ class GuestMessageController extends CrudController
      */
     public function index(): View
     {
-        $records = GuestMessage::with(['guest', 'weddingEvent'])->latest()->paginate(10);
         $title = 'Guest Messages';
-        
+        $query=GuestMessage::join('guests','guest_messages.guest_id','=','guests.id')
+        ->join('wedding_events','guest_messages.wedding_event_id','=','wedding_events.id')
+        ->join('couples','wedding_events.couple_id','=','couples.id')
+        ->select('guest_messages.*','guests.name as guest_name','couples.bride_name','couples.groom_name');
+        if (auth()->user()->isClient()) {
+            $query->where('couples.client_id', auth()->user()->client_id);
+        }
+        $records=$query->latest()->paginate(10);
         return view('admin.crud.index', [
             'records' => $records,
             'title' => $title,
@@ -48,9 +54,25 @@ class GuestMessageController extends CrudController
     public function create(): View
     {
         $title = 'Create Guest Message';
-        $guests = Guest::all();
-        $weddingEvents = WeddingEvent::all();
-        
+        $query=Guest::join('couples','guests.couple_id','=','couples.id')
+        ->select('guests.id','guests.name','couples.bride_name','couples.groom_name');
+        if (auth()->user()->isClient()) {
+            $query->where('couples.client_id', auth()->user()->client_id);
+        }
+        $guests=$query->get();
+         $query=WeddingEvent::join('couples','wedding_events.couple_id','=','couples.id')
+        ->select(
+            'wedding_events.id',
+            'couples.bride_name',
+            'couples.groom_name',
+            'wedding_events.event_date',
+            'wedding_events.event_time',
+            'wedding_events.event_name',
+        );
+        if (auth()->user()->isClient()) {
+            $query->where('couples.client_id', auth()->user()->client_id);
+        }
+        $weddingEvents=$query->get();
         return view('admin.crud.create', [
             'title' => $title,
             'columns' => ['guest_id', 'wedding_event_id', 'guest_name', 'message', 'is_approved'],
@@ -150,9 +172,24 @@ class GuestMessageController extends CrudController
     {
         $record = GuestMessage::findOrFail($id);
         $title = 'Edit Guest Message';
-        $guests = Guest::all();
-        $weddingEvents = WeddingEvent::all();
-        
+        $query=Guest::join('couples','guests.couple_id','=','couples.id')
+        ->select('guests.id','guests.name','couples.bride_name','couples.groom_name');
+        if (auth()->user()->isClient()) {
+            $query->where('couples.client_id', auth()->user()->client_id);
+        }
+        $guests=$query->get();
+         $query=WeddingEvent::join('couples','wedding_events.couple_id','=','couples.id')
+        ->select(
+            'wedding_events.id',
+            'couples.bride_name',
+            'couples.groom_name',
+            'wedding_events.event_date',
+            'wedding_events.event_time',
+            'wedding_events.event_name',);
+        if (auth()->user()->isClient()) {
+            $query->where('couples.client_id', auth()->user()->client_id);
+        }
+        $weddingEvents=$query->get();
         return view('admin.crud.edit', [
             'record' => $record,
             'title' => $title,

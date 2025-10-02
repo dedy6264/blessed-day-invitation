@@ -29,9 +29,17 @@ class InvitationController extends CrudController
      */
     public function index(): View
     {
-        $invitations = Invitation::with(['guest', 'weddingEvent'])->latest()->paginate(10);
+
         $title = 'Invitations';
-        
+        $query=Invitation::join('guests','invitations.guest_id','=','guests.id')
+        ->join('wedding_events','invitations.wedding_event_id','=','wedding_events.id')
+        ->join('couples','wedding_events.couple_id','=','couples.id')
+        ->select('invitations.*','guests.name as guest_name','couples.bride_name','couples.groom_name');
+        if (auth()->user()->isClient()) {
+            $query->where('couples.client_id', auth()->user()->client_id);
+        }   
+        $invitations=$query->latest()->paginate(10);
+
         return view('invitations.index', [
             'invitations' => $invitations,
             'title' => $title,
@@ -48,9 +56,19 @@ class InvitationController extends CrudController
     public function create(): View
     {
         $title = 'Create Invitation';
-        $guests = Guest::all();
-        $weddingEvents = WeddingEvent::with('couple')->get();
-        
+        $query=Guest::query();
+        if (auth()->user()->isClient()) {
+            $query->whereHas('couple', function($q) {
+                $q->where('client_id', auth()->user()->client_id);
+            });
+        }
+        $guests=$query->get();
+        $query=WeddingEvent::join('couples','wedding_events.couple_id','=','couples.id')
+        ->select('wedding_events.id','couples.bride_name','couples.groom_name');
+        if (auth()->user()->isClient()) {
+            $query->where('couples.client_id', auth()->user()->client_id);
+        }
+        $weddingEvents=$query->get();
         return view('invitations.create', [
             'title' => $title,
             'guests' => $guests,
@@ -132,9 +150,19 @@ class InvitationController extends CrudController
     {
         $record = Invitation::findOrFail($id);
         $title = 'Edit Invitation';
-        $guests = Guest::all();
-        $weddingEvents = WeddingEvent::with('couple')->get();
-        
+        $query=Guest::query();
+        if (auth()->user()->isClient()) {
+            $query->whereHas('couple', function($q) {
+                $q->where('client_id', auth()->user()->client_id);
+            });
+        }
+        $guests=$query->get();
+        $query=WeddingEvent::join('couples','wedding_events.couple_id','=','couples.id')
+        ->select('wedding_events.id','couples.bride_name','couples.groom_name');
+        if (auth()->user()->isClient()) {
+            $query->where('couples.client_id', auth()->user()->client_id);
+        }
+        $weddingEvents=$query->get();
         return view('invitations.edit', [
             'record' => $record,
             'title' => $title,

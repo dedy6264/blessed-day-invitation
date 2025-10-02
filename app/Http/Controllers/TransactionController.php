@@ -14,25 +14,28 @@ class TransactionController extends CrudController
     public function __construct()
     {
         $this->model = Transaction::class;
-        $this->routePrefix = 'transactions';
         $this->columns = ['id', 'couple_id', 'package_id', 'order_date', 'status', 'total_amount', 'paid_at','period', 'expired_at', 'created_at', 'updated_at'];
     }
-    
-    /**
-     * Display a listing of the resource.
-     */
+      protected function getRoutePrefix(): string
+    {
+        return auth()->user()->role === 'client' ? 'my-transactions':'transactions';
+    }
     public function index(): View
     {
-        $records = Transaction::with(['couple', 'package'])->latest()->paginate(10);
         $title = 'Transactions';
+        $query=Transaction::with(['couple', 'package']);
+        if (auth()->user()->isClient()) {
+            $query->whereHas('couple', function ($q) {
+                $q->where('client_id', auth()->user()->client_id);
+            });
+        }
+        $records=$query->latest()->paginate(10);
         
         return view('admin.crud.index', [
             'records' => $records,
             'title' => $title,
             'columns' => ['couple_id', 'package_id', 'order_date', 'status', 'total_amount', 'paid_at','period', 'expired_at'],
-            'createRoute' => route('transactions.create'),
-            'editRoute' => 'transactions.edit',
-            'deleteRoute' => 'transactions.destroy',
+            'showRoute' => $this->getRoutePrefix().'.show',
         ]);
     }
 
