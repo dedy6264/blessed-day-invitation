@@ -74,6 +74,10 @@
                                                     <i class="fas fa-edit"></i>
                                                 </a>
                                             @endif
+                                             <!-- Attendant button -->
+                                            <a href="{{ route($attendantRoute, $record->id) }}" class="btn btn-sm btn-success">
+                                                <i class="fas fa-users"></i> Attendant
+                                            </a>
                                             @if($record->transactions->first()->status !== 'paid') 
                                                 @if (isset($deleteRoute))
                                                     <form action="{{ route($deleteRoute, $record->id) }}" method="POST" 

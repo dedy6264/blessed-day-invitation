@@ -94,7 +94,9 @@
   function processCode(code) {
     if (!code || !isScanning) return;
 
-    let payload = {};
+    let payload = {
+      couple_id: {{ $weddingEvent->couple_id }},
+    };
 
     if (/^\d+$/.test(code)) {
       payload.code = code;

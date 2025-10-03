@@ -342,37 +342,42 @@ class InvitationController extends CrudController
             'guestMessages'=>$invitation->weddingEvent->guestMessages,
         ]);
     }
-    public function present(){
-        // Get the authenticated user
-        $user = Auth::user();
+    // public function present($couple_id){//get the list of guest attendant
+    //     // Get the authenticated user
+    //     $user = Auth::user();
         
-        // Get the couple associated with this user
-        $couple = null;
-        if ($user->role === 'client' && $user->client_id) {
-            $couple = \App\Models\Couple::where('client_id', $user->client_id)->first();
-        } elseif ($user->role === 'admin') {
-            // For admin, we might want to show all present guests or filter by a specific wedding event
-            // For now, I'll implement the basic functionality
-            $couple = null; // Admin will see all present guests
-        }
-        
-        // Get guest attendants based on couple (for client) or all (for admin)
-        $presentGuests = GuestAttendant::with(['guest', 'weddingEvent'])
-            ->when($couple, function($query, $couple) {
-                // If a couple is specified (for client users), only show attendants for their events
-                return $query->whereHas('weddingEvent', function($subQuery) use($couple) {
-                    $subQuery->whereHas('couple', function($q) use($couple) {
-                        $q->where('id', $couple->id);
-                    });
-                });
-            })
-            ->orderBy('checked_in_at', 'desc')
-            ->paginate(10);
+    //     // Get the couple associated with this user
+    //     // $couple = null;
+    //     $query=WeddingEvent::join('couples','wedding_events.couple_id','=','couples.id')
+    //     ->select('wedding_events.id','couples.bride_name','couples.groom_name', 'wedding_events.event_name','couples.id as couple_id');
+    //     if ($user->isClient()) {
+    //         $query->where('couples.client_id', $user->client_id);
+    //     }
+    //     if($couple_id){
+    //         $query->where('couples.id', $couple_id);
+    //     }
+    //     $couple=$query->first();
+    //     if (!$couple && $user->isClient()) {
+    //         abort(403, 'Unauthorized access to guest attendants.');
+    //     }
+    //     dd($couple);
+    //     // Get guest attendants based on couple (for client) or all (for admin)
+    //     $presentGuests = GuestAttendant::with(['guest', 'weddingEvent'])
+    //         ->when($couple, function($query, $couple) {
+    //             // If a couple is specified (for client users), only show attendants for their events
+    //             return $query->whereHas('weddingEvent', function($subQuery) use($couple) {
+    //                 $subQuery->whereHas('couple', function($q) use($couple) {
+    //                     $q->where('id', $couple->id);
+    //                 });
+    //             });
+    //         })
+    //         ->orderBy('checked_in_at', 'desc')
+    //         ->paginate(10);
 
-        return view('invitation_layout.attendant', [
-            'presentGuests' => $presentGuests
-        ]);
-    }
+    //     return view('invitation_layout.attendant', [
+    //         'presentGuests' => $presentGuests
+    //     ]);
+    // }
     
     /**
      * Handle RSVP response from guest

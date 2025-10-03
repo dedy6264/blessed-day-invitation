@@ -73,7 +73,6 @@ class WeddingEventController extends CrudController
             'editRoute' => $routePrefix.'.edit',
             'showRoute' => $routePrefix.'.show',
             'deleteRoute' => $routePrefix.'.destroy',
-            'attendantRoute' => 'my-invitation.present',
         ]);
     }
 

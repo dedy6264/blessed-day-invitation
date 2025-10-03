@@ -2,12 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Couple;
-use App\Models\Client;
-use App\Models\Package;
-use App\Models\Transaction;
-use App\Models\PaymentTransaction;
-use App\Models\PaymentMethod;
+use App\Models\{Couple,Client,Package,Invitation,GuestAttendant,Transaction,PaymentTransaction,PaymentMethod,WeddingEvent};
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -16,17 +11,12 @@ use Illuminate\Support\Facades\DB;
 
 class CoupleController extends CrudController
 {
-    public function __construct()
-    {
+    public function __construct(){
         $this->model = Couple::class;
         $this->columns = ['id', 'client_id', 'groom_name', 'bride_name', 'wedding_date', 'created_at', 'updated_at'];
     }
-    
-    /**
-     * Get the appropriate route prefix based on the authenticated user's role
-     */
-    protected function getRoutePrefix(): string
-    {
+
+    protected function getRoutePrefix(): string{
         return Auth::user()->role === 'client' ? 'my-couples' : 'couples';
     }
     
@@ -37,19 +27,6 @@ class CoupleController extends CrudController
     {
         $routePrefix = $this->getRoutePrefix();
         
-        // Get couples with their client and latest transaction
-    //    $query = Couple::with(['client', 'transactions' => function($q) {
-    //         $q->latest();
-    //     }])
-    //     ->latest(); // latest() diterapkan pada Query Builder
-
-    //     // Terapkan Kondisi (Filter)
-    //     if (auth()->user()->isClient()) {
-    //         // Terapkan kondisi WHERE pada Query Builder
-    //         $query->where('client_id', auth()->user()->client_id);
-    //     }
-    //     // Lakukan Paginasi pada Query Builder yang sudah difilter
-    //     $records = $query->paginate(10);
         $query=Couple::join('clients','clients.id','=','couples.client_id')
         ->join('transactions','transactions.couple_id','=','couples.id')
         ->where('transactions.status','paid');
@@ -69,6 +46,7 @@ class CoupleController extends CrudController
             'createRoute' => route($routePrefix.'.create'),
             'editRoute' => $routePrefix.'.edit',
             'deleteRoute' => $routePrefix.'.destroy',
+            'attendantRoute' => 'my-guests.attendant.show',
         ]);
     }
 
@@ -294,11 +272,7 @@ class CoupleController extends CrudController
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, $id): RedirectResponse
-    {
+    public function update(Request $request, $id): RedirectResponse{
         $request->validate([
             'client_id' => 'required|exists:clients,id',
             'groom_name' => 'required|string|max:100',
@@ -313,17 +287,163 @@ class CoupleController extends CrudController
         return redirect()->route($routePrefix.'.index')
             ->with('success', 'Couple updated successfully.');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id): RedirectResponse
-    {
+    public function destroy($id): RedirectResponse{
         $couple = Couple::findOrFail($id);
         $couple->delete();
         
         $routePrefix = $this->getRoutePrefix();
         return  redirect()->route($routePrefix.'.index')
             ->with('success', 'Couple deleted successfully.');
+    }
+     public function attendant(Request $request, $couple_id = null){
+        // Get the wedding event ID from the route parameter or query parameter
+        $coupleId = $couple_id ?? $request->query('couple_id') ?? $request->input('couple_id');
+        
+        if (!$coupleId) {
+            // If no wedding event ID is provided, return error
+            abort(400, 'Wedding event ID is required to access attendant page.');
+        }
+        
+        // Load the wedding event by couple id
+        $weddingEvent = WeddingEvent::where('couple_id', $coupleId)
+            ->orderBy('event_date', 'desc')
+            ->first();
+        $weddingEventId = $weddingEvent ? $weddingEvent->id : null;
+        
+        if (!$weddingEvent) {
+
+            abort(404, 'Wedding event not found.');
+        }
+        // Check if the authenticated user has access to this wedding event
+        $user = Auth::user();
+        $hasAccess = false;
+        
+        if ($user->isAdmin()) {
+            $hasAccess = true; // Admin can access any wedding event
+            $recordAttendantRoute = 'my-guests-attendant'.'.attendant.record';
+        } elseif ($user->isClient() && $user->client_id) {
+            // Check if the wedding event belongs to the authenticated client
+            $couple = $weddingEvent->couple;
+            if ($couple && $couple->client_id == $user->client_id) {
+                $hasAccess = true;
+            }
+            $recordAttendantRoute = 'my-guests-attendant'.'.attendant.record';
+        } else {
+            abort(403, 'Access denied to this wedding event.');
+        }
+        
+        if (!$hasAccess) {
+            abort(403, 'Access denied to this wedding event.');
+        }
+        
+        // Load the guest attendants for this wedding event
+        $presentGuests = GuestAttendant::with(['guest', 'weddingEvent'])
+            ->where('wedding_event_id', $weddingEventId)
+            ->orderBy('checked_in_at', 'desc')
+            ->paginate(10);
+
+        
+        return view('invitation_layout.attendant', [
+            'presentGuests' => $presentGuests,
+            'weddingEvent' => $weddingEvent,
+            'couple' => $weddingEvent->couple,
+            'recordAttendantRoute' => $recordAttendantRoute
+        ]);
+    }
+    public function recordAttendant(Request $request)
+    {
+        // dd($request->all());
+        // Validate request parameters
+        $request->validate([
+            'wedding_event_id' => 'nullable|integer|exists:wedding_events,id',
+            'couple_id' => 'nullable|integer|exists:couples,id',
+            'invitation_code' => 'nullable|string|max:255',
+            'code' => 'nullable|integer|exists:invitations,id',
+            'guest_id' => 'nullable|integer|exists:guests,id',
+        ]);
+        
+        $guest = null;
+        $weddingEvent = null;
+        $invitation = null;
+        // $weddingEventId = $request->input('wedding_event_id');
+        $coupleId = $request->couple_id;
+        $invitation_code = strtoupper($request->invitation_code);
+        
+        // Validate that either wedding event ID or couple ID is provided
+        if ( !$coupleId) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Either wedding event ID or couple ID is required.'
+            ], 400);
+        }
+        // validasi bahwa wedding event memang ada untuk couple tersebut
+        $weddingEvent = WeddingEvent::where('couple_id', $coupleId)
+            ->orderBy('event_date', 'desc')
+            ->select('id', 'event_name', 'event_date', 'couple_id')->first();
+        if (!$weddingEvent) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No wedding event found for the specified couple.'
+            ], 404);
+        }
+        $weddingEventId = $weddingEvent->id;
+        //validasi bahwa undangan memang ada untuk wedding event tersebut
+       $invitation = Invitation::join('guests', 'guests.id', '=', 'invitations.guest_id')
+            ->where('invitations.wedding_event_id', $weddingEventId)
+            ->where('invitations.invitation_code', $invitation_code)
+            ->select('invitations.*', 'guests.name as guest_name', 'guests.id as guest_id')
+            ->first();
+        if (!$invitation) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No invitation found for the specified wedding event with the provided invitation code.'
+            ], 404);
+        }
+        // Load the guest associated with the invitation
+        $guest = $invitation->guest;
+        if (!$guest) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No guest found for the provided invitation code.'
+            ], 404);
+        }
+        // Check if the guest is already recorded as attended to avoid duplicates
+        $existingAttendance = GuestAttendant::where('guest_id', $guest->id)
+            ->where('wedding_event_id', $weddingEventId)
+            ->first();
+        
+        if ($existingAttendance) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Guest has already been marked as attended for this event.('.$guest->name.')',
+                'name' => $guest->name,
+                'status' => 'already_present',
+                'data' => [
+                    'guest_id' => $guest->id,
+                    'guest_name' => $guest->name,
+                    'checked_in_at' => $existingAttendance->checked_in_at
+                ]
+            ]);
+        }
+        
+        // Insert record into guest_attendant table
+        $guestAttendant = GuestAttendant::create([
+            'guest_id' => $guest->id,
+            'wedding_event_id' => $weddingEventId,
+            'guest_name' => $guest->name,
+        ]);
+        // dd("sampe iki");
+        return response()->json([
+            'success' => true,
+            'message' => 'Guest attendance recorded successfully.',
+            'name' => $guest->name,
+            'status' => 'present',
+            'data' => [
+                'guest_id' => $guest->id,
+                'guest_name' => $guest->name,
+                'checked_in_at' => $guestAttendant->checked_in_at,
+                'wedding_event_id' => $weddingEventId
+            ]
+        ]);
     }
 }
