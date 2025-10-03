@@ -174,51 +174,185 @@ class GuestController extends CrudController
     }
     
     /**
-     * Handle guest attendance status
+     * Display the attendant page for a specific wedding event
      */
-    public function attendant(Request $request)
+    public function attendant(Request $request, $wedding_event_id = null)
+    {
+        // Get the wedding event ID from the route parameter or query parameter
+        $weddingEventId = $wedding_event_id ?? $request->query('wedding_event_id') ?? $request->input('wedding_event_id');
+        
+        if (!$weddingEventId) {
+            // If no wedding event ID is provided, return error
+            abort(400, 'Wedding event ID is required to access attendant page.');
+        }
+        
+        // Load the wedding event
+        $weddingEvent = \App\Models\WeddingEvent::with('couple')->find($weddingEventId);
+        
+        if (!$weddingEvent) {
+
+            abort(404, 'Wedding event not found.');
+        }
+        // Check if the authenticated user has access to this wedding event
+        $user = Auth::user();
+        $hasAccess = false;
+        
+        if ($user->isAdmin()) {
+            $hasAccess = true; // Admin can access any wedding event
+            $recordAttendantRoute = 'guests.attendant.record';
+        } elseif ($user->isClient() && $user->client_id) {
+            // Check if the wedding event belongs to the authenticated client
+            $couple = $weddingEvent->couple;
+            if ($couple && $couple->client_id == $user->client_id) {
+                $hasAccess = true;
+            }
+            $recordAttendantRoute = 'my-guests.attendant.record';
+        } else {
+            abort(403, 'Access denied to this wedding event.');
+        }
+        
+        if (!$hasAccess) {
+            abort(403, 'Access denied to this wedding event.');
+        }
+        
+        // Load the guest attendants for this wedding event
+        $presentGuests = GuestAttendant::with(['guest', 'weddingEvent'])
+            ->where('wedding_event_id', $weddingEventId)
+            ->orderBy('checked_in_at', 'desc')
+            ->paginate(10);
+
+        
+        return view('invitation_layout.attendant', [
+            'presentGuests' => $presentGuests,
+            'weddingEvent' => $weddingEvent,
+            'couple' => $weddingEvent->couple,
+            'recordAttendantRoute' => $recordAttendantRoute
+        ]);
+    }
+    
+    /**
+     * Handle guest attendance status via API
+     */
+    public function recordAttendant(Request $request)
     {
         $guest = null;
         $weddingEvent = null;
         $invitation = null;
+        $weddingEventId = $request->input('wedding_event_id');
+        $coupleId = $request->input('couple_id');
+        
+        // Validate that either wedding event ID or couple ID is provided
+        if (!$weddingEventId && !$coupleId) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Either wedding event ID or couple ID is required.'
+            ], 400);
+        }
+        
+        // If couple ID is provided, we need to find an appropriate wedding event for this couple
+        if ($coupleId) {
+            // Load the couple to validate it exists
+            $couple = \App\Models\Couple::find($coupleId);
+            if (!$couple) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Invalid couple ID.'
+                ], 404);
+            }
+            
+            // Check if the authenticated user has access to this couple
+            $user = Auth::user();
+            $hasAccess = false;
+            
+            if ($user->isAdmin()) {
+                $hasAccess = true; // Admin can access any couple
+            } elseif ($user->isClient() && $user->client_id) {
+                // Check if the couple belongs to the authenticated client
+                if ($couple->client_id == $user->client_id) {
+                    $hasAccess = true;
+                }
+            }
+            
+            if (!$hasAccess) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Access denied to this couple.'
+                ], 403);
+            }
+            
+            // Find the most recent wedding event for this couple
+            $weddingEvent = \App\Models\WeddingEvent::where('couple_id', $coupleId)
+                ->orderBy('event_date', 'desc')
+                ->first();
+                
+            if (!$weddingEvent) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'No wedding events found for this couple.'
+                ], 404);
+            }
+            
+            $weddingEventId = $weddingEvent->id;
+        } else {
+            // Load the wedding event to validate it exists (original behavior)
+            $weddingEvent = \App\Models\WeddingEvent::find($weddingEventId);
+            if (!$weddingEvent) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Invalid wedding event ID.'
+                ], 404);
+            }
+        }
         
         // Try to find guest by invitation_code (more common in QR codes), code (invitation ID), or guest_id
         if ($request->has('invitation_code')) {
             // Find the invitation by its invitation_code (the string code in the invitation)
-            $invitation = \App\Models\Invitation::where('invitation_code', $request->invitation_code)->first();
+            $invitation = \App\Models\Invitation::where('invitation_code', $request->invitation_code)
+                ->where('wedding_event_id', $weddingEventId) // Validate against the wedding event ID
+                ->first();
+                
             if (!$invitation) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Invalid invitation code.'
+                    'message' => 'Invalid invitation code or invitation does not belong to this wedding event.'
                 ], 404);
             }
             $guest = $invitation->guest;
-            $weddingEvent = $invitation->weddingEvent;
         } elseif ($request->has('code')) {
             // Find the invitation by its ID (embedded in QR code as an ID)
             $invitation = \App\Models\Invitation::find($request->code);
+            
             if (!$invitation) {
                 return response()->json([
                     'success' => false,
                     'message' => 'Invalid invitation code.'
                 ], 404);
             }
+            
+            // Validate that the invitation belongs to the specified wedding event
+            if ($invitation->wedding_event_id != $weddingEventId) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Invalid invitation code or invitation does not belong to this wedding event.'
+                ], 404);
+            }
+            
             $guest = $invitation->guest;
-            $weddingEvent = $invitation->weddingEvent;
         } elseif ($request->has('guest_id')) {
             // Find the guest by ID
             $guest = Guest::findOrFail($request->guest_id);
             
             // Find the invitation for this guest to get the wedding event
-            $invitation = \App\Models\Invitation::where('guest_id', $guest->id)->first();
-            
+            $invitation = \App\Models\Invitation::where('guest_id', $guest->id)
+                ->where('wedding_event_id', $weddingEventId) // Validate against the wedding event ID
+                ->first();
+                
             if (!$invitation) {
                 return response()->json([
                     'success' => false,
-                    'message' => 'No invitation found for this guest.'
+                    'message' => 'No invitation found for this guest for the specified wedding event.'
                 ], 404);
             }
-            $weddingEvent = $invitation->weddingEvent;
         } else {
             return response()->json([
                 'success' => false,
@@ -228,13 +362,13 @@ class GuestController extends CrudController
         
         // Check if the guest is already recorded as attended to avoid duplicates
         $existingAttendance = GuestAttendant::where('guest_id', $guest->id)
-            ->where('wedding_event_id', $weddingEvent->id)
+            ->where('wedding_event_id', $weddingEventId)
             ->first();
             
         if ($existingAttendance) {
             return response()->json([
                 'success' => false,
-                'message' => 'Guest has already been marked as attended.('.$guest->name.')',
+                'message' => 'Guest has already been marked as attended for this event.('.$guest->name.')',
                 'name' => $guest->name,
                 'status' => 'already_present',
                 'data' => [
@@ -248,17 +382,9 @@ class GuestController extends CrudController
         // Insert record into guest_attendant table
         $guestAttendant = GuestAttendant::create([
             'guest_id' => $guest->id,
-            'wedding_event_id' => $weddingEvent->id,
+            'wedding_event_id' => $weddingEventId,
             'guest_name' => $guest->name,
         ]);
-        
-        // Also update the attendance status in the invitation
-        // if (isset($invitation)) {
-        //     $invitation->update([
-        //         'is_attending' => true,
-        //         'responded_at' => now()
-        //     ]);
-        // }
         
         return response()->json([
             'success' => true,
@@ -269,7 +395,7 @@ class GuestController extends CrudController
                 'guest_id' => $guest->id,
                 'guest_name' => $guest->name,
                 'checked_in_at' => $guestAttendant->checked_in_at,
-                'wedding_event_id' => $weddingEvent->id
+                'wedding_event_id' => $weddingEventId
             ]
         ]);
     }

@@ -40,6 +40,10 @@ class WeddingEventController extends CrudController
     {
         return Auth::user()->role === 'client' ? 'my-gallery-images' : 'gallery-images';
     }
+    protected function getGuestoutePrefix(): string
+    {
+        return Auth::user()->role === 'client' ? 'my-guests' : 'guests';
+    }
     
     /**
      * Display a listing of the resource.
@@ -47,6 +51,7 @@ class WeddingEventController extends CrudController
     public function index(): View
     {
         $routePrefix = $this->getRoutePrefix();
+        $routeGuestPrefix = $this->getGuestoutePrefix();
         
         // Check if user is a client
         if (auth()->user()->isClient()) {
@@ -68,6 +73,7 @@ class WeddingEventController extends CrudController
             'editRoute' => $routePrefix.'.edit',
             'showRoute' => $routePrefix.'.show',
             'deleteRoute' => $routePrefix.'.destroy',
+            'attendantRoute' => 'my-invitation.present',
         ]);
     }
 

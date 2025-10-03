@@ -71,6 +71,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('couples', CoupleController::class);
     Route::get('couples/{couple}/select-payment', [CoupleController::class, 'selectPayment'])->name('couples.select-payment');
     Route::post('couples/{couple}/process-payment', [CoupleController::class, 'processPayment'])->name('couples.process-payment');
+    Route::get('couples/{couple}/attendant', [CoupleController::class, 'attendant'])->name('couples.attendant');
     Route::resource('people', PersonController::class);
     Route::resource('wedding-events', WeddingEventController::class);
     Route::resource('locations', LocationController::class);
@@ -80,6 +81,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('guests', GuestController::class);
     Route::resource('guest-attendants', GuestAttendantController::class)->only(['index', 'destroy']);
     Route::resource('invitations', InvitationController::class);
+    Route::get('guests-attendant', [GuestController::class, 'attendant'])->name('guests.attendant');
+    Route::get('guests-attendant/{wedding_event_id}', [GuestController::class, 'attendant'])->name('guests.attendant.show');
+    Route::post('guests-attendant', [GuestController::class, 'recordAttendant'])->name('guests.attendant.record');
     Route::get('qr-codes/{id}/invitation-card', [QrCodeController::class, 'showInvitationCard'])->name('qr-codes.invitation-card');
     Route::resource('qr-codes', QrCodeController::class)->only(['index']);
     Route::resource('guest-messages', GuestMessageController::class);
@@ -115,8 +119,11 @@ Route::middleware(['auth', 'client'])->group(function () {
     Route::resource('my-timeline-events', TimelineEventController::class);
     Route::resource('my-bank-accounts', BankAccountController::class);
     Route::resource('my-guests', GuestController::class);
-    Route::get('my-guests-present',[InvitationController::class, 'present'])->name('my-invitation.present');
+    Route::get('my-guests-present/{id}',[InvitationController::class, 'present'])->name('my-invitation.present');
+    // Route::post('my-guests-present',[InvitationController::class, 'present'])->name('my-invitation.present');
     Route::post('my-guests-attendant',[GuestController::class, 'attendant'])->name('my-guests.attendant');
+    Route::get('my-guests-attendant/{wedding_event_id}', [GuestController::class, 'attendant'])->name('my-guests.attendant.show');
+    Route::post('my-guests-attendant', [GuestController::class, 'recordAttendant'])->name('my-guests.attendant.record');
     Route::resource('my-guest-attendants', GuestAttendantController::class)->only(['index', 'destroy']);
     Route::resource('my-invitations', InvitationController::class);
     Route::resource('my-guest-messages', GuestMessageController::class);

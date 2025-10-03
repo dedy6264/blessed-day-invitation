@@ -52,6 +52,19 @@
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                             @endif
+                                            <!-- Attendant button -->
+                                            @php
+                                                // Determine the prefix based on the current route to choose the correct attendant route
+                                                $routePrefix = '';
+                                                if (isset($showRoute)) {
+                                                    $routePrefix = explode('.', $showRoute)[0];
+                                                }
+                                                // Use the appropriate route based on the prefix
+                                                $attendantRoute = ($routePrefix === 'my-wedding-events') ? 'my-guests.attendant.show' : 'guests.attendant.show';
+                                            @endphp
+                                            <a href="{{ route($attendantRoute, $weddingEvent->id) }}" class="btn btn-sm btn-success">
+                                                <i class="fas fa-users"></i> Attendant
+                                            </a>
                                              @if (isset($deleteRoute))
                                             <form action="{{ route($deleteRoute, $weddingEvent) }}" method="POST" style="display: inline-block;" onsubmit="return confirm('Are you sure you want to delete this wedding event?');">
                                                 @csrf
