@@ -285,14 +285,14 @@ class CoupleController extends CrudController
         
         if ($user->isAdmin()) {
             $hasAccess = true; // Admin can access any wedding event
-            $recordAttendantRoute = 'my-guests-attendant'.'.attendant.record';
+            $recordAttendantRoute = Auth::user()->role === 'client' ?'my-guests-attendant':'guests-attendant'.'.attendant.record';
         } elseif ($user->isClient() && $user->client_id) {
             // Check if the wedding event belongs to the authenticated client
             $couple = $weddingEvent->couple;
             if ($couple && $couple->client_id == $user->client_id) {
                 $hasAccess = true;
             }
-            $recordAttendantRoute = 'my-guests-attendant'.'.attendant.record';
+            $recordAttendantRoute = Auth::user()->role === 'client' ?'my-guests-attendant':'guests-attendant'.'.attendant.record';
         } else {
             abort(403, 'Access denied to this wedding event.');
         }
@@ -312,11 +312,11 @@ class CoupleController extends CrudController
             'presentGuests' => $presentGuests,
             'weddingEvent' => $weddingEvent,
             'couple' => $weddingEvent->couple,
-            'recordAttendantRoute' => $recordAttendantRoute
+            'recordAttendantRoute' => $recordAttendantRoute,
+            'brand'=>env('APP_NAME','MAKARIOS'),
         ]);
     }
-    public function recordAttendant(Request $request)
-    {
+    public function recordAttendant(Request $request){
         // dd($request->all());
         // Validate request parameters
         $request->validate([

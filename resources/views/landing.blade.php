@@ -29,7 +29,7 @@
                     <li class="nav-item"><a class="nav-link" href="#digital-features"><i class="bi bi-star me-1"></i> Features</a></li>
                     <li class="nav-item"><a class="nav-link" href="#themes">Themes</a></li>
                     <li class="nav-item"><a class="nav-link" href="#packages">Packages</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#register">Register</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Register</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
                 </ul>
             </div>
@@ -163,7 +163,7 @@
             <div class="row g-4">
                 <div class="col-lg-4 col-md-6">
                     <div class="theme-card fade-in-up" style="animation-delay: 0.2s;">
-                        <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=600&h=400&q=80" alt="Elegant Theme">
+                        <img src="{{ asset('images/landing/template1.png') }}" alt="Elegant Theme">
                         <div class="p-4">
                             <h5 class="mb-3">Elegant Theme</h5>
                             <p class="mb-0 text-muted">Classic and sophisticated design with beautiful typography</p>
@@ -177,7 +177,7 @@
                 
                 <div class="col-lg-4 col-md-6">
                     <div class="theme-card fade-in-up" style="animation-delay: 0.3s;">
-                        <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=600&h=400&q=80" alt="Modern Theme">
+                        <img src="{{ asset('images/landing/template3.png') }}" alt="Modern Theme">
                         <div class="p-4">
                             <h5 class="mb-3">Modern Theme</h5>
                             <p class="mb-0 text-muted">Clean lines and contemporary design for the modern couple</p>
@@ -191,7 +191,7 @@
                 
                 <div class="col-lg-4 col-md-6">
                     <div class="theme-card fade-in-up" style="animation-delay: 0.4s;">
-                        <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=600&h=400&q=80" alt="Vintage Theme">
+                        <img src="{{ asset('images/landing/template2.png') }}" alt="Vintage Theme">
                         <div class="p-4">
                             <h5 class="mb-3">Vintage Theme</h5>
                             <p class="mb-0 text-muted">Timeless charm with vintage elements and classic aesthetics</p>
@@ -205,7 +205,7 @@
                 
                 <div class="col-lg-4 col-md-6">
                     <div class="theme-card fade-in-up" style="animation-delay: 0.5s;">
-                        <img src="https://images.unsplash.com/photo-1510089142880-77c7e020a4f6?auto=format&fit=crop&w=600&h=400&q=80" alt="Romantic Theme">
+                        <img src="{{ asset('images/landing/template4.png') }}" alt="Romantic Theme">
                         <div class="p-4">
                             <h5 class="mb-3">Romantic Theme</h5>
                             <p class="mb-0 text-muted">Soft colors and floral elements for a romantic atmosphere</p>
@@ -219,7 +219,7 @@
                 
                 <div class="col-lg-4 col-md-6">
                     <div class="theme-card fade-in-up" style="animation-delay: 0.6s;">
-                        <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=600&h=400&q=80" alt="Minimalist Theme">
+                        <img src="{{ asset('images/landing/template5.png') }}" alt="Minimalist Theme">
                         <div class="p-4">
                             <h5 class="mb-3">Minimalist Theme</h5>
                             <p class="mb-0 text-muted">Simple and elegant design focusing on essential elements</p>
@@ -233,7 +233,7 @@
                 
                 <div class="col-lg-4 col-md-6">
                     <div class="theme-card fade-in-up" style="animation-delay: 0.7s;">
-                        <img src="https://images.unsplash.com/photo-1510089142880-77c7e020a4f6?auto=format&fit=crop&w=600&h=400&q=80" alt="Bohemian Theme">
+                        <img src="{{ asset('images/landing/template6.png') }}" alt="Bohemian Theme">
                         <div class="p-4">
                             <h5 class="mb-3">Bohemian Theme</h5>
                             <p class="mb-0 text-muted">Free-spirited design with natural elements and earthy tones</p>
