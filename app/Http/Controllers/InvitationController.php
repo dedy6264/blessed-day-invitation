@@ -64,7 +64,7 @@ class InvitationController extends CrudController
         }
         $guests=$query->get();
         $query=WeddingEvent::join('couples','wedding_events.couple_id','=','couples.id')
-        ->select('wedding_events.id','couples.bride_name','couples.groom_name');
+        ->select('wedding_events.id','couples.bride_name','couples.groom_name', 'wedding_events.event_name');
         if (auth()->user()->isClient()) {
             $query->where('couples.client_id', auth()->user()->client_id);
         }

@@ -73,13 +73,13 @@ class PersonController extends CrudController
             'couple_id' => 'required|exists:couples,id',
             'role' => 'required|in:groom,bride',
             'full_name' => 'required|string|max:100',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // File validation
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // File validation
             'additional_info' => 'nullable|string',
             // Person Parent validation rules
-            'father_name' => 'nullable|string|max:100',
-            'father_status' => 'nullable|in:alive,deceased',
-            'mother_name' => 'nullable|string|max:100',
-            'mother_status' => 'nullable|in:alive,deceased',
+            'father_name' => 'required|string|max:100',
+            'father_status' => 'required|in:alive,deceased',
+            'mother_name' => 'required|string|max:100',
+            'mother_status' => 'required|in:alive,deceased',
         ], [
             'couple_id.unique' => 'A person with this role already exists for the selected couple.',
             'image.image' => 'The uploaded file must be an image (jpeg, png, gif).',

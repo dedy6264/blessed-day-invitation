@@ -15,6 +15,10 @@ use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
+       protected function getRoutePrefix(): string
+    {
+        return Auth::user()->role === 'client' ? 'my-transaction': 'transaction';
+    }
     /**
      * Show the package selection step.
      */
@@ -264,7 +268,7 @@ class OrderController extends Controller
                 'order_couple_id',
             ]);
 
-            return redirect()->route('transactions.index')
+            return redirect()->route($this->getRoutePrefix().'.index')
                 ->with('success', 'Order created successfully with pending status.');
         } catch (\Exception $e) {
             // Rollback the transaction on error

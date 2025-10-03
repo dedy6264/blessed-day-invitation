@@ -38,19 +38,30 @@ class CoupleController extends CrudController
         $routePrefix = $this->getRoutePrefix();
         
         // Get couples with their client and latest transaction
-       $query = Couple::with(['client', 'transactions' => function($q) {
-            $q->latest();
-        }])
-        ->latest(); // latest() diterapkan pada Query Builder
+    //    $query = Couple::with(['client', 'transactions' => function($q) {
+    //         $q->latest();
+    //     }])
+    //     ->latest(); // latest() diterapkan pada Query Builder
 
-        // Terapkan Kondisi (Filter)
+    //     // Terapkan Kondisi (Filter)
+    //     if (auth()->user()->isClient()) {
+    //         // Terapkan kondisi WHERE pada Query Builder
+    //         $query->where('client_id', auth()->user()->client_id);
+    //     }
+    //     // Lakukan Paginasi pada Query Builder yang sudah difilter
+    //     $records = $query->paginate(10);
+        $query=Couple::join('clients','clients.id','=','couples.client_id')
+        ->join('transactions','transactions.couple_id','=','couples.id')
+        ->where('transactions.status','paid');
         if (auth()->user()->isClient()) {
             // Terapkan kondisi WHERE pada Query Builder
-            $query->where('client_id', auth()->user()->client_id);
+            $query->where('couples.client_id', auth()->user()->client_id);
         }
 
-        // Lakukan Paginasi pada Query Builder yang sudah difilter
-        $records = $query->paginate(10);
+        $couple=$query->select('couples.*','clients.client_name as client_name','transactions.total_amount as total_amount')
+        ->paginate(10);
+        $records = $couple;
+
         $title = 'Couples';
         return view('couples.index', [
             'records' => $records,
