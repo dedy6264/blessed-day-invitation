@@ -21,6 +21,7 @@
 
 <header>
   <h1>Guest Attendance Scanner</h1>
+  <h2>{{ $weddingEvent->event_name }} </h2>
 </header>
 
 <div class="scanner-container">

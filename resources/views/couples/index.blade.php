@@ -30,18 +30,42 @@
                             <thead>
                                 <tr>
                                     <th>Client</th>
+                                    <th>Actions</th>
                                     <th>Groom Name</th>
                                     <th>Bride Name</th>
                                     <th>Wedding Date</th>
                                     <th>Transaction Status</th>
                                     <th>Reference No</th>
-                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($records as $record)
                                     <tr>
                                         <td>{{ $record->client->client_name ?? 'N/A' }}</td>
+                                        <td>
+                                            @if (isset($editRoute))
+                                                <a href="{{ route($editRoute, $record->id) }}" class="btn btn-sm btn-primary">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                            @endif
+                                             <!-- Attendant button -->
+                                            <a href="{{ route($attendantRoute, $record->id) }}" class="btn btn-sm btn-success">
+                                                <i class="fas fa-users"></i> Attendant
+                                            </a>
+                                            @if($record->transactions->first()->status !== 'paid') 
+                                                @if (isset($deleteRoute))
+                                                    <form action="{{ route($deleteRoute, $record->id) }}" method="POST" 
+                                                        style="display: inline-block;"
+                                                        onsubmit="return confirm('Are you sure you want to delete this couple?');">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-sm btn-danger">
+                                                            <i class="fas fa-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                @endif
+                                            @endif
+                                        </td>
                                         <td>{{ $record->groom_name ?? 'N/A' }}</td>
                                         <td>{{ $record->bride_name ?? 'N/A' }}</td>
                                         <td>{{ $record->wedding_date ?? 'N/A' }}</td>
@@ -68,30 +92,7 @@
                                         <td>
                                             {{ $record->transactions->first() ? $record->transactions->first()->reference_no : 'N/A' }}
                                         </td>
-                                        <td>
-                                            @if (isset($editRoute))
-                                                <a href="{{ route($editRoute, $record->id) }}" class="btn btn-sm btn-primary">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                            @endif
-                                             <!-- Attendant button -->
-                                            <a href="{{ route($attendantRoute, $record->id) }}" class="btn btn-sm btn-success">
-                                                <i class="fas fa-users"></i> Attendant
-                                            </a>
-                                            @if($record->transactions->first()->status !== 'paid') 
-                                                @if (isset($deleteRoute))
-                                                    <form action="{{ route($deleteRoute, $record->id) }}" method="POST" 
-                                                        style="display: inline-block;"
-                                                        onsubmit="return confirm('Are you sure you want to delete this couple?');">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-sm btn-danger">
-                                                            <i class="fas fa-trash"></i>
-                                                        </button>
-                                                    </form>
-                                                @endif
-                                            @endif
-                                        </td>
+                                        
                                     </tr>
                                 @endforeach
                             </tbody>

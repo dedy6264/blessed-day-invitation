@@ -20,11 +20,7 @@ class CoupleController extends CrudController
         return Auth::user()->role === 'client' ? 'my-couples' : 'couples';
     }
     
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(): View
-    {
+    public function index(): View{
         $routePrefix = $this->getRoutePrefix();
         
         $query=Couple::join('clients','clients.id','=','couples.client_id')
@@ -49,12 +45,7 @@ class CoupleController extends CrudController
             'attendantRoute' => 'my-guests.attendant.show',
         ]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(): View
-    {
+    public function create(): View{
         $routePrefix = $this->getRoutePrefix();
         $title = 'Create Couple';
         $clients = Client::all();
@@ -68,12 +59,7 @@ class CoupleController extends CrudController
             'indexRoute' => route($routePrefix.'.index'),
         ]);
     }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request): RedirectResponse
-    {
+    public function store(Request $request): RedirectResponse{
         // Get the authenticated user
         $user = auth()->user();
         
@@ -120,12 +106,7 @@ class CoupleController extends CrudController
         return redirect()->route($routePrefix.'.index')
             ->with('success', 'Couple created successfully.');
     }
-    
-    /**
-     * Show the payment method selection form after couple creation.
-     */
-    public function selectPayment($coupleId): View
-    {
+    public function selectPayment($coupleId): View{
         $couple = Couple::findOrFail($coupleId);
         $paymentMethods = PaymentMethod::all();
         $title = 'Select Payment Method';
@@ -140,12 +121,7 @@ class CoupleController extends CrudController
             'indexRoute' => route($routePrefix.'.index'),
         ]);
     }
-
-    /**
-     * Process payment method selection and create transaction.
-     */
-    public function processPayment(Request $request, $coupleId): RedirectResponse
-    {
+    public function processPayment(Request $request, $coupleId): RedirectResponse{
         $request->validate([
             'payment_method_id' => 'required|exists:payment_methods,id',
         ]);
@@ -234,12 +210,7 @@ class CoupleController extends CrudController
                 ->withInput();
         }
     }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show($id): View
-    {
+    public function show($id): View{
         $couple = Couple::with('client')->findOrFail($id);
         $title = 'View Couple';
         
@@ -252,12 +223,7 @@ class CoupleController extends CrudController
             'columns' => ['client_id', 'groom_name', 'bride_name', 'wedding_date', 'created_at', 'updated_at'],
         ]);
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id): View
-    {
+    public function edit($id): View{
         $couple = Couple::with('client')->findOrFail($id);
         $title = 'Edit Couple';
         $clients = Client::all();
@@ -271,7 +237,6 @@ class CoupleController extends CrudController
             'indexRoute' => route($routePrefix.'.index'),
         ]);
     }
-
     public function update(Request $request, $id): RedirectResponse{
         $request->validate([
             'client_id' => 'required|exists:clients,id',
