@@ -213,7 +213,7 @@
         <div class="mt-5 row couple ">
                 <div class="col-lg-6 fade-content" style="margin-top: 12px !important; margin-bottom: 12px !important;">
                   <h3>{{ \Carbon\Carbon::parse($weddingEvent->event_date)->format('l, d F Y') }}</h3>
-                  <p>{{ $weddingEvent->event_time }} - End</p>
+                  <h3>{{ $weddingEvent->event_time }} - End</h3>
                   <h3>{{ $location->venue_name }}</h3>
                   <h3>{{ $location->address }}</h3>
                 </div>
