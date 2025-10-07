@@ -17,7 +17,7 @@ class OrderController extends Controller
 {
        protected function getRoutePrefix(): string
     {
-        return Auth::user()->role === 'client' ? 'my-transaction': 'transaction';
+        return auth()->user()->role === 'client' ? 'my-transaction': 'transaction';
     }
     /**
      * Show the package selection step.
