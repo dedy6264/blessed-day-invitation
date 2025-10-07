@@ -183,11 +183,11 @@
   <!--gallery v1-->
 @if($galleryImages && $galleryImages->count() > 0)
   <section id="gallery"  class=" fade-section">
-     <div class="mb-5 text-center fade-content">
-      <h2 class="fw-bold">Captured Intimacy</h2>
-      <p class="">Setiap bingkai menyimpan kisah penuh kehangatan dan kedekatan</p>
-    </div>
-   <div class="tz-gallery">
+      <div class="mb-5 text-center fade-content">
+       <h2 class="fw-bold">Captured Intimacy</h2>
+       <p class="">Setiap bingkai menyimpan kisah penuh kehangatan dan kedekatan</p>
+      </div>
+    <div class="tz-gallery">
 
         <div class="row fade-content">
 @foreach($galleryImages as $image)
