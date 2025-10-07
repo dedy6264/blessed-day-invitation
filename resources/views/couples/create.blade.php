@@ -84,7 +84,7 @@
                         </div>
                         <div class="mb-3 col-md-6">
                             <label for="wedding_quote">Quote</label>
-                            <textarea type="text" class="form-control" id="wedding_quote" name="wedding_quote" 
+                            <textarea  class="form-control" id="wedding_quote" name="wedding_quote" 
                                 value="{{ old('wedding_quote') }}" required></textarea>
                             @if ($errors->has('wedding_quote'))
                                 <div class="mt-2 text-danger">
