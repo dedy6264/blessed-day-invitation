@@ -14,7 +14,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Antic+Didone&family=Funnel+Display:wght@300..800&family=Italiana&family=Lavishly+Yours&family=Meow+Script&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('css/blackbrowntheme.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.css">
-    <link rel="stylesheet" href="{{ asset('css/fluid-gallery.css') }}">
+  <link rel="stylesheet" href="{{ asset('css/fluid-gallery.css') }}">
   <style>
     #gallery .item {
     width: 200px;
@@ -73,7 +73,7 @@
   <!-- INFO -->
   <section id="info" class="fade-section" style="--background-image: url('{{ asset($backgroundImages) ?? asset('inv/img/tushar-ranjan-GqpGd6NtUoI-unsplash.jpg') }}');">
     <div class="container profile-card">
-      <div class="mt-5 row couple fade-content">
+      <div class="mt-5 row couple ">
 
         {{-- GROOM SECTION --}}
         @if($groom)
@@ -189,9 +189,9 @@
       </div>
     <div class="tz-gallery">
 
-        <div class="row fade-content">
+        <div class="row ">
 @foreach($galleryImages as $image)
-            <div class="col-sm-12 col-md-4">
+            <div class="col-sm-12 col-md-4 fade-content">
                 {{-- <a class="lightbox" href="../images/bridge.jpg"> --}}
                   <a href="{{ url($image->image_url) }}" data-toggle="lightbox" data-gallery="example-gallery" data-size="lg"  class="col-sm-4 gallery-item">
                     <img src="{{ url($image->image_url) }}" alt="Bridge" class="img-fluid " style="border-radius:15px">
@@ -207,10 +207,10 @@
   <!-- LOCATION -->
   @if($location)
   <section id="location" class="fade-section" style="--background-image: url('{{ asset($backgroundImages) ?? asset('inv/img/gpt.png') }}');">
-    <div class="container text-center fade-content">
+    <div class="container text-center ">
       <div class="container profile-card ">
         <h2>Wedding Celebration</h2>
-        <div class="mt-5 row couple fade-content">
+        <div class="mt-5 row couple ">
                 <div class="col-lg-6 fade-content" style="margin-top: 12px !important; margin-bottom: 12px !important;">
                   <h3>{{ \Carbon\Carbon::parse($weddingEvent->event_date)->format('l, d F Y') }}</h3>
                   <p>{{ $weddingEvent->event_time }} - End</p>
@@ -234,7 +234,7 @@
     <div class="fade-content">
       <h2 class="mb-4">Your Invitation</h2>
     </div>
-    <div class="invitation-card">
+    <div class="invitation-card fade-content" >
     <!-- Bagian kiri: Barcode -->
       <div class="card-left">
         <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data={{ $invitation->invitation_code }}" 
@@ -243,7 +243,7 @@
       </div>
 
     <!-- Bagian kanan: Informasi Undangan -->
-      <div class="card-right">
+      <div class="card-right fade-content">
         <h2 class="invite-header">Undangan Spesial</h2>
         <h2 class="invite-detail"><strong>Kepada</strong><br> {{ $guestName }}</h2>
         <h2 class="invite-header">Wedding Matrimony</h2>
@@ -256,14 +256,14 @@
 
   <!-- Story -->
   @if($timelineEvents && $timelineEvents->count() > 0)
-  <section id="story" class="py-5 story" style="--background-image: url('{{ asset($backgroundImages) ?? asset('inv/img/gpt.png') }}');">
-    <div class="container">
+  <section id="story" class="py-5 story fade-section" style="--background-image: url('{{ asset($backgroundImages) ?? asset('inv/img/gpt.png') }}');">
+    <div class="container fade-content">
       <h2 class="mb-5 text-center" style="">Our Journey</h2>
     </div>
     <div class="container profile-card">
       @foreach($timelineEvents as $index => $event)
       @if($index % 2 == 0)
-        <ul class="timeline">
+        <ul class="timeline fade-content">
           <li>
             <div class="timeline-image" style="background-image: url('{{ $event->image_url ? asset($event->image_url) : asset('inv/img/gpt2.png') }}') ;"></div>
             <div class="timeline-panel">
@@ -277,7 +277,7 @@
           </li>
         </ul>
       @else
-        <ul class="timeline">
+        <ul class="timeline fade-content">
           <li class="timeline-inverted">
               <div class="timeline-image" style="background-image: url('{{ $event->image_url ? asset($event->image_url) : asset('inv/img/gpt2.png') }}');"></div>
               <div class="timeline-panel">
@@ -304,7 +304,7 @@
         <p class="mb-5 text-center">Confirm your attendance to our special day</p>
       </div>
       
-      <div class="row justify-content-center">
+      <div class="row justify-content-center fade-content">
         <div class="col-lg-8">
           <div class="p-4 shadow card" style="border-radius:20px; background: #fff;">
             <div class="card-body">
@@ -389,7 +389,7 @@
       <!-- Card Gift -->
       <!-- Card Informasi -->
       @if($gifts && $gifts->count() > 0)
-      <div class="mb-5 text-center border-0 shadow-lg card" style="border-radius:20px;">
+      <div class="mb-5 text-center border-0 shadow-lg card fade-content" style="border-radius:20px;">
         <div class="card-body">
           @foreach($gifts as $gift)
           @if($gift->is_active)
@@ -410,7 +410,7 @@
         </div>
       </div>
     @else
-      <div class="mb-5 text-center border-0 shadow-lg card" style="border-radius:20px;">
+      <div class="mb-5 text-center border-0 shadow-lg card fade-content" style="border-radius:20px;">
         <div class="p-4 card-body">
           <h5 class="mb-3 fw-bold">Tanpa Mengurangi Rasa Hormat</h5>
           <p class="mb-0" style="font-size:1.1rem; line-height:1.7;">
@@ -443,7 +443,7 @@
 
       <!-- List Pesan -->
       {{-- @dd($guestMessages) --}}
-      <div class="mt-4 messages">
+      <div class="mt-4 messages fade-content">
         <h5 class="mb-4 text-center">Pesan & Doa</h5>
         <div id="messageList" class="gap-3 messageList d-flex flex-column message-box">
           @if($guestMessages && $guestMessages->count() > 0)
@@ -466,7 +466,7 @@
   <!-- FOOTER -->
   <footer class="p-3 text-center text-white bg-dark">
     <img src="{{ asset('images/root/blessed_day.png') }}" alt="Footer Image" style="height: 80px; margin-bottom:10px;">
-    <p class="mb-0">© 2025 {{ $couple->groom_name ?? 'Groom' }} & {{ $couple->bride_name ?? 'Bride' }} Invitation | Powered by {{ $brand }}</p>
+    <p class="mb-0">© 2025 {{ $couple->groom_name ?? 'Groom' }} & {{ $couple->bride_name ?? 'Bride' }} Wedding Invitation | Powered by {{ $brand }}</p>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

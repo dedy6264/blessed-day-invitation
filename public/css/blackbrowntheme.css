@@ -506,36 +506,36 @@ section {
 
 /* Gift */
 #gift p {
-    color: rgb(255, 255, 255);
+    color: var(--bg);
 }
 
 #gift .btn-pink {
-    background-color: #4b4849;
-    color: #fff;
+    background-color: var(--bg);
+    color: var(--bg);
     border-radius: 10px;
     transition: 0.3s;
 }
 
 #gift .btn-pink:hover {
-    background-color: #4b4849;
-    color: #fff;
+    background-color: var(--bg);
+    color: var(--bg);
 }
 
 #gift .btn-outline-pink {
-    border: 2px solid #4b4849;
-    color: #4b4849;
+    border: 2px solid var(--bg);
+    color: var(--bg);
     border-radius: 10px;
     transition: 0.3s;
 }
 
 #gift .btn-outline-pink:hover {
-    background-color: #4b4849;
+    background-color: var(--bg);
     color: #fff;
 }
 
 /* Animasi list pesan */
 #gift .messageList .card {
-    border-left: 5px solid #4b4849;
+    border-left: 5px solid var(--bg);
 }
 
 /* Efek animasi fade-in */
@@ -547,7 +547,7 @@ section {
 
 /* Kotak pesan */
 #gift .message-box {
-    max-width: 700px;
+    /* max-width: 700px; */
     margin: 0 auto;
     padding: 20px;
     background: #fff;
