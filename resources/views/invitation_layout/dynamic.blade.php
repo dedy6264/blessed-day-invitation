@@ -43,7 +43,7 @@
         </div>
         <div class="head-bottom fade-content">
             {{-- <p class="fs-4 ">With the blessing of God, we joyfully invite you to our wedding celebration</p> --}}
-            <p class="fs-4 ">{{ $couple->wedding_quote ?? 'With the blessing of God, we joyfully invite you to our wedding celebration' }}</p>
+            <p class="fs-4 ">{{!! $couple->wedding_quote ?? 'With the blessing of God, we joyfully invite you to our wedding celebration' !!}}</p>
         </div>
         <div class="mt-4 countdown simply-countdown-dark fade-content"></div>
     {{-- </div> --}}
