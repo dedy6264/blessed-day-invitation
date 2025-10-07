@@ -33,6 +33,7 @@
                                     <th>Actions</th>
                                     <th>Groom Name</th>
                                     <th>Bride Name</th>
+                                    <th>Wedding Quote</th>
                                     <th>Wedding Date</th>
                                     <th>Transaction Status</th>
                                     <th>Reference No</th>
@@ -68,6 +69,7 @@
                                         </td>
                                         <td>{{ $record->groom_name ?? 'N/A' }}</td>
                                         <td>{{ $record->bride_name ?? 'N/A' }}</td>
+                                        <td>{{ $record->wedding_quote ?? 'N/A' }}</td>
                                         <td>{{ $record->wedding_date ?? 'N/A' }}</td>
                                         <td>
                                             @if($record->transactions->first())

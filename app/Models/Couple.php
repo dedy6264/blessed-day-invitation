@@ -13,6 +13,7 @@ class Couple extends Model
         'groom_name',
         'bride_name',
         'wedding_date',
+        'wedding_quote',
     ];
 
     protected $casts = [

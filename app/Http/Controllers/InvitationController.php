@@ -212,7 +212,7 @@ class InvitationController extends CrudController
     public function sendInvitation($id)
     {
         $invitation = Invitation::with(['guest', 'weddingEvent.couple'])->findOrFail($id);
-        
+        // dd($invitation);
         // Get the guest's phone number
         $target = $invitation->guest->phone;
         
@@ -220,12 +220,21 @@ class InvitationController extends CrudController
         $invitationLink = route('invitation.show', ['id' => $invitation->id]);
         
         // Create the message
-        $message = "Undangan Pernikahan:\n\n" . 
-                  "Kepada: " . $invitation->guest->name . "\n" .
-                  "Acara: " . $invitation->weddingEvent->event_name . "\n\n" .
-                  "Silakan klik tautan berikut untuk melihat undangan:\n" .
-                  $invitationLink . "\n\n" .
-                  "Terima kasih.";
+        $message = "Hai! 🌸\n\n".
+                "Dengan penuh sukacita kami mengundangmu ".$invitation->guest->name.", untuk hadir di hari bahagia kami:\n\n" . 
+                "💍 ".$invitation->weddingEvent->event_name."\n".
+                "🗓️ ".\Carbon\Carbon::parse($invitation->weddingEvent->event_date)->locale('id')->translatedFormat('l, d F Y')."\n".
+                "Invitation Code : ".$invitation->invitation_code."\n\n".
+                // "📍 {{ Lokasi Acara }}".
+                // "Kepada: " . $invitation->guest->name . "\n" .
+                // "Acara: " . $invitation->weddingEvent->event_name . "\n\n" .
+                "Kehadiran dan doa restumu sangat berarti bagi kami.\n".
+                "Klik tautan di bawah ini untuk melihat undangan lengkapnya 👇:\n\n" .
+                $invitationLink . "\n\n" .
+                "Terima kasih atas doa dan kasihnya 💕\n".
+                "Sampai jumpa di hari istimewa kami.\n\n\n".
+                "Invitation by ".env('APP_NAME','MAKARIOS')." Invitation\n".
+                "invitation.mimogo.sbs";
         
         // Prepare request to Fonnte API
         $data = [

@@ -48,11 +48,14 @@ CREATE TABLE couples (
     groom_name VARCHAR(100) NOT NULL,
     bride_name VARCHAR(100) NOT NULL,
     wedding_date DATE NOT NULL,
+    wedding_quote TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE
 );
 
+ALTER TABLE couples
+ADD COLUMN wedding_quote TEXT DEFAULT '';
 -- =========================
 -- Persons (detail mempelai)
 -- =========================

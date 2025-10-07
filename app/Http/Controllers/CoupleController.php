@@ -74,6 +74,7 @@ class CoupleController extends CrudController
                 'client_id' => 'required|exists:clients,id',
                 'groom_name' => 'required|string|max:100',
                 'bride_name' => 'required|string|max:100',
+                'wedding_quote' => 'required|string|max:255',
                 'wedding_date' => 'required|date',
                 'package_id' => 'required|exists:packages,id',
             ]);
@@ -83,6 +84,7 @@ class CoupleController extends CrudController
                 'client_id' => 'required|exists:clients,id',
                 'groom_name' => 'required|string|max:100',
                 'bride_name' => 'required|string|max:100',
+                'wedding_quote' => 'required|string|max:255',
                 'wedding_date' => 'required|date',
             ]);
         }
@@ -242,6 +244,7 @@ class CoupleController extends CrudController
             'client_id' => 'required|exists:clients,id',
             'groom_name' => 'required|string|max:100',
             'bride_name' => 'required|string|max:100',
+            'wedding_quote' => 'required|string|max:255',
             'wedding_date' => 'required|date',
         ]);
 

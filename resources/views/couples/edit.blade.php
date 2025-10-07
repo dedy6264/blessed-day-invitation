@@ -62,6 +62,16 @@
                                 </div>
                             @endif
                         </div>
+                        <div class="mb-3 col-md-6">
+                            <label for="wedding_quote">Quote</label>
+                            <input type="text" class="form-control" id="wedding_quote" name="wedding_quote" 
+                                value="{{ old('wedding_quote', $record->wedding_quote ?? '') }}" required>
+                            @if ($errors->has('wedding_quote'))
+                                <div class="mt-2 text-danger">
+                                    {{ $errors->first('wedding_quote') }}
+                                </div>
+                            @endif
+                        </div>
                         
                         <div class="mb-3 col-md-6">
                             <label for="wedding_date">Wedding Date</label>
