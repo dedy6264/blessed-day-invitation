@@ -62,43 +62,91 @@
 
   <!-- INFO -->
   <section id="info" class="fade-section" style="--background-image: url('{{ asset($backgroundImages) ?? asset('inv/img/tushar-ranjan-GqpGd6NtUoI-unsplash.jpg') }}');">
-    <div class="container profile-card ">
-        <div class="mt-5 row couple fade-content">
-           @if($groom)
-                <div class="col-lg-6 fade-content" style="margin-top: 12px !important; margin-bottom: 12px !important;">
-                    <div class="row">
-                        <div class=" col-6 text-end">
-                            <h3>{{ $groom->full_name ?? $couple->groom_name ?? 'Groom' }}</h3>
-                            <p>{{ $groom->additional_info ? $groom->additional_info : 'Son of Mr. and Mrs.' }}</p>
-                            @if($groom->personParent)
-                            <p>Son of {{ $groom->personParent->father_name ?? 'Father' }} & {{ $groom->personParent->mother_name ?? 'Mother' }}</p>
-                            @endif
-                        </div>
-                        <div class="col-6">
-                            <img src="{{ $groom->image_url ? asset($groom->image_url) : asset('inv/img/gpt2.png') }}"  alt="{{ $groom->full_name ?? $couple->groom_name ?? 'Groom' }}"  class="rounded img-responsive " style="object-position: 70% center; ">
-                        </div>
-                    </div>
-                </div>
-            @endif
-            @if($bride)
-                <div class="col-lg-6 fade-content" style="margin-top: 12px !important; margin-bottom: 12px !important;">
-                    <div class="row">
-                        <div class="col-6">
-                            <img src="{{ $bride->image_url ? url($bride->image_url) : url('inv/img/gpt3.png') }}"  alt="{{ $bride->full_name ?? $couple->bride_name ?? 'Bride' }}" class="rounded img-responsive " style="object-position: 20% center;  ">
-                        </div>
-                        <div class=" col-6 text-start">
-                            <h3>{{ $bride->full_name ?? $couple->bride_name ?? 'Bride' }}</h3>
-                        <p>{{ $bride->additional_info ? $bride->additional_info : 'Daughter of Mr. and Mrs.' }}</p>
-                        @if($bride->personParent)
-                        <p>Daughter of {{ $bride->personParent->father_name ?? 'Father' }} & {{ $bride->personParent->mother_name ?? 'Mother' }}</p>
-                        @endif
-                        </div>
-                    </div>
-                </div>
-            @endif
+    <div class="container profile-card">
+      <div class="mt-5 row couple fade-content">
+
+        {{-- GROOM SECTION --}}
+        @if($groom)
+        <div class="col-lg-6 fade-content" style="margin-top:12px !important; margin-bottom:12px !important;">
+          <div class="row">
+
+            <!-- Mobile (foto full + overlay teks) -->
+            <div class="col-12 d-block d-md-none position-relative portrait-4-5">
+              <img src="{{ $groom->image_url ? asset($groom->image_url) : asset('inv/img/gpt2.png') }}"
+                  alt="{{ $groom->full_name ?? $couple->groom_name ?? 'Groom' }}"
+                  class="rounded img-fluid w-100" style="object-position:70% center;">
+              <div class="text-center overlay-info">
+                <h3>{{ $groom->full_name ?? $couple->groom_name ?? 'Groom' }}</h3>
+              <hr>
+                <p>{{ $groom->additional_info ? $groom->additional_info : 'Son of Mr. and Mrs.' }}</p>
+                @if($groom->personParent)
+                <p>Son of {{ $groom->personParent->father_name ?? 'Father' }} <br>& {{ $groom->personParent->mother_name ?? 'Mother' }}</p>
+                @endif
+              </div>
             </div>
+
+            <!-- Tablet/Desktop -->
+            <div class="col-md-6 d-none d-md-block text-end">
+              <h3>{{ $groom->full_name ?? $couple->groom_name ?? 'Groom' }}</h3>
+              <p>{{ $groom->additional_info ? $groom->additional_info : 'Son of Mr. and Mrs.' }}</p>
+              @if($groom->personParent)
+              <p>Son of {{ $groom->personParent->father_name ?? 'Father' }} & {{ $groom->personParent->mother_name ?? 'Mother' }}</p>
+              @endif
+            </div>
+
+            <div class="col-md-6 d-none d-md-block portrait-4-5">
+              <img src="{{ $groom->image_url ? asset($groom->image_url) : asset('inv/img/gpt2.png') }}"
+                  alt="{{ $groom->full_name ?? $couple->groom_name ?? 'Groom' }}"
+                  class="rounded img-fluid w-100" style="object-position:70% center;">
+            </div>
+
+          </div>
+        </div>
+        @endif
+
+        {{-- BRIDE SECTION --}}
+        @if($bride)
+        <div class="col-lg-6 fade-content" style="margin-top:12px !important; margin-bottom:12px !important;">
+          <div class="row">
+
+            <!-- Mobile (foto full + overlay teks) -->
+            <div class="col-12 d-block d-md-none position-relative portrait-4-5">
+              <img src="{{ $bride->image_url ? url($bride->image_url) : url('inv/img/gpt3.png') }}"
+                  alt="{{ $bride->full_name ?? $couple->bride_name ?? 'Bride' }}"
+                  class="rounded img-fluid w-100" style="object-position:20% center;">
+              <div class="text-center overlay-info">
+                <h3>{{ $bride->full_name ?? $couple->bride_name ?? 'Bride' }}</h3>
+                <hr>
+                <p>{{ $bride->additional_info ? $bride->additional_info : 'Daughter of Mr. and Mrs.' }}</p>
+                @if($bride->personParent)
+                <p>Daughter of {{ $bride->personParent->father_name ?? 'Father' }} <br>& {{ $bride->personParent->mother_name ?? 'Mother' }}</p>
+                @endif
+              </div>
+            </div>
+
+            <!-- Tablet/Desktop -->
+            <div class="col-md-6 d-none d-md-block portrait-4-5">
+              <img src="{{ $bride->image_url ? url($bride->image_url) : url('inv/img/gpt3.png') }}"
+                  alt="{{ $bride->full_name ?? $couple->bride_name ?? 'Bride' }}"
+                  class="rounded img-fluid w-100" style="object-position:20% center;">
+            </div>
+
+            <div class="col-md-6 d-none d-md-block text-start">
+              <h3>{{ $bride->full_name ?? $couple->bride_name ?? 'Bride' }}</h3>
+              <p>{{ $bride->additional_info ? $bride->additional_info : 'Daughter of Mr. and Mrs.' }}</p>
+              @if($bride->personParent)
+              <p>Daughter of {{ $bride->personParent->father_name ?? 'Father' }} & {{ $bride->personParent->mother_name ?? 'Mother' }}</p>
+              @endif
+            </div>
+
+          </div>
+        </div>
+        @endif
+
+      </div>
     </div>
   </section>
+
 
   <!-- GALLERY -->
   @if($galleryImages && $galleryImages->count() > 0)
@@ -176,7 +224,7 @@
   @if($timelineEvents && $timelineEvents->count() > 0)
   <section id="story" class="py-5 story" style="--background-image: url('{{ asset($backgroundImages) ?? asset('inv/img/gpt.png') }}');">
     <div class="container">
-      <h2 class="mb-5 text-center" style="color:#e83e8c;">Our Journey</h2>
+      <h2 class="mb-5 text-center" style="">Our Journey</h2>
     </div>
     <div class="container profile-card">
       @foreach($timelineEvents as $index => $event)
@@ -218,7 +266,7 @@
   <section id="rsvp" class="fade-section">
     <div class="container">
       <div class="fade-content">
-        <h2 class="mb-4" style="color:#e83e8c;">RSVP</h2>
+        <h2 class="mb-4" style="">RSVP</h2>
         <p class="mb-5 text-center">Confirm your attendance to our special day</p>
       </div>
       
@@ -250,10 +298,10 @@
                   <input type="number" class="form-control" id="guest_count" name="guest_count" min="1" max="10" value="1" required>
                 </div>
                 
-                <div class="mb-3">
+                {{-- <div class="mb-3">
                   <label for="message" class="form-label">Message (optional)</label>
                   <textarea class="form-control" id="message" name="message" rows="3" placeholder="Leave us a message..."></textarea>
-                </div>
+                </div> --}}
                 
                 <div class="d-grid">
                   <button type="submit" class="btn btn-pink" id="rsvpSubmitBtn">Confirm Attendance</button>
@@ -301,7 +349,7 @@
   <!-- Gift -->
   <section id="gift" class="fade-section">
     <div class="container">
-      <h2 class="mb-4 text-center" style="color:#e83e8c;">Wedding Gift</h2>
+      <h2 class="mb-4 text-center" style="">Wedding Gift</h2>
       <p class="mb-5 text-center">Doa restu Anda sudah merupakan hadiah terbaik bagi kami. Namun jika ingin memberikan tanda kasih, dapat melalui rekening berikut:</p>
 
       <!-- Card Gift -->
