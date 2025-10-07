@@ -333,7 +333,7 @@ class InvitationController extends CrudController
         $randomBg = $bgImage[$randomIndex] ?? 'inv/img/tushar-ranjan-GqpGd6NtUoI-unsplash.jpg';
         // dd($randomBg,$randomBg,$randomBg);
 
-        return view('invitation_layout.dynamic', [
+        return view('invitation_layout.layoutdev', [
         // return view('invitation_layout.index', [
             'brand'=>env('APP_NAME','MAKARIOS'),
             'gifts'=>$gifts,

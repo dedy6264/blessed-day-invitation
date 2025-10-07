@@ -13,8 +13,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Antic+Didone&family=Funnel+Display:wght@300..800&family=Italiana&family=Lavishly+Yours&family=Meow+Script&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ asset('css/blackbrowntheme.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.css">
+    <link rel="stylesheet" href="{{ asset('css/fluid-gallery.css') }}">
   <style>
-    
+    #gallery .item {
+    width: 200px;
+    float: left;
+    }
+    #gallery .item img {
+        display: block;
+        width: 100%;
+    }
 
   </style>
 
@@ -150,7 +159,7 @@
 
 
   <!-- GALLERY -->
-  @if($galleryImages && $galleryImages->count() > 0)
+  {{-- @if($galleryImages && $galleryImages->count() > 0)
   <section id="gallery" class=" fade-section">
     <div class="mb-5 text-center fade-content">
       <h2 class="fw-bold">Captured Intimacy</h2>
@@ -169,8 +178,32 @@
       @endforeach
     </div>
   </section>
-  @endif
-  
+  @endif --}}
+
+  <!--gallery v1-->
+@if($galleryImages && $galleryImages->count() > 0)
+  <section id="gallery"  class=" fade-section">
+     <div class="mb-5 text-center fade-content">
+      <h2 class="fw-bold">Captured Intimacy</h2>
+      <p class="">Setiap bingkai menyimpan kisah penuh kehangatan dan kedekatan</p>
+    </div>
+   <div class="tz-gallery">
+
+        <div class="row fade-content">
+@foreach($galleryImages as $image)
+            <div class="col-sm-12 col-md-4">
+                {{-- <a class="lightbox" href="../images/bridge.jpg"> --}}
+                  <a href="{{ url($image->image_url) }}" data-toggle="lightbox" data-gallery="example-gallery" data-size="lg"  class="col-sm-4 gallery-item">
+                    <img src="{{ url($image->image_url) }}" alt="Bridge" class="img-fluid " style="border-radius:15px">
+                </a>
+            </div>
+@endforeach
+
+        </div>
+
+    </div>
+  </section>
+  @endif 
   <!-- LOCATION -->
   @if($location)
   <section id="location" class="fade-section" style="--background-image: url('{{ asset($backgroundImages) ?? asset('inv/img/gpt.png') }}');">
@@ -468,6 +501,39 @@
     document.querySelectorAll('.fade-section').forEach(section => {
       if (section.id !== 'head') observer.observe(section);
     });
+    
+    // Special handling for gallery section to ensure it works with many images
+    const gallerySection = document.getElementById('gallery');
+    if (gallerySection) {
+      // Try to manually trigger fade-in if gallery section exists
+      const galleryObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            // Add visible class to all fade-content elements in the gallery
+            setTimeout(() => { // Small delay to ensure proper rendering
+              entry.target.querySelectorAll('.fade-content').forEach(el => {
+                if (!el.classList.contains('visible')) {
+                  el.classList.add('visible');
+                }
+              });
+            }, 100);
+          }
+        });
+      }, { threshold: 0.1 }); // Lower threshold for gallery to trigger more easily
+      
+      galleryObserver.observe(gallerySection);
+      
+      // Fallback: make sure gallery elements appear after some time if intersection observer fails
+      setTimeout(() => {
+        if (gallerySection.querySelectorAll('.fade-content:not(.visible)').length > 0) {
+          gallerySection.querySelectorAll('.fade-content').forEach(el => {
+            if (!el.classList.contains('visible')) {
+              el.classList.add('visible');
+            }
+          });
+        }
+      }, 2000); // 2 seconds as fallback
+    }
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bs5-lightbox@1.8.5/dist/index.bundle.min.js"></script>
   <script src="{{url('simplycountdown/dist/simplyCountdown.umd.js')}}"></script>
@@ -706,8 +772,6 @@
         });
     }
   </script>
-
-
 
 </body>
 
