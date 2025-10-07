@@ -506,7 +506,7 @@ section {
 
 /* Gift */
 #gift p {
-    color: black;
+    color: rgb(255, 255, 255);
 }
 
 #gift .btn-pink {
