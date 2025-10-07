@@ -113,7 +113,7 @@ section {
 /*HEAD*/
 #head {
     /* background: #2b7ed0;  */
-    /* position: relative; */
+    position: relative;
     min-height: 100vh;
     /* selalu penuh 1 layar */
     width: 100%;

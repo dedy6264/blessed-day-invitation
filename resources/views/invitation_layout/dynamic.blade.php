@@ -362,7 +362,7 @@
           @if($gift->is_active)
           {{-- <h5 class="mt-2 mb-3 fw-bold">Transfer Hadiah</h5> --}}
           <p><strong>{{$gift->bank_name}}</strong><br>{{$gift->account_number}}<br>a.n. {{$gift->account_holder_name}}</p>
-          <button class="btn btn-outline-pink copy-btn" data-account="123456789">
+          <button class="btn btn-outline-pink copy-btn" data-account="{{$gift->account_number}}">
             Salin Nomor Rekening
           </button>
            @else
