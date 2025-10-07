@@ -17,8 +17,9 @@ class OrderController extends Controller
 {
        protected function getRoutePrefix(): string
     {
-        return auth()->user()->role === 'client' ? 'my-transaction': 'transaction';
+        return auth()->user()->role === 'client' ? 'my-couples': 'couples';
     }
+    
     /**
      * Show the package selection step.
      */
@@ -271,9 +272,11 @@ class OrderController extends Controller
             return redirect()->route($this->getRoutePrefix().'.index')
                 ->with('success', 'Order created successfully with pending status.');
         } catch (\Exception $e) {
+            
             // Rollback the transaction on error
             DB::rollback();
 
+            // If couple was created in this process, delete it to avoid orphan records
             $couple = Couple::findOrFail($coupleId);
             $couple->delete();
             return redirect()->back()
