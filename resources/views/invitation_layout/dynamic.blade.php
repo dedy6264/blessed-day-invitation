@@ -79,9 +79,9 @@
               <div class="text-center overlay-info">
                 <h3>{{ $groom->full_name ?? $couple->groom_name ?? 'Groom' }}</h3>
               <hr>
-                <p>{{ $groom->additional_info ? $groom->additional_info : 'Son of Mr. and Mrs.' }}</p>
+                <p>{{ $groom->additional_info ? $groom->additional_info : ' ' }}</p>
                 @if($groom->personParent)
-                <p>Son of {{ $groom->personParent->father_name ?? 'Father' }} <br>& {{ $groom->personParent->mother_name ?? 'Mother' }}</p>
+                <p>Son of Mr.{{ $groom->personParent->father_name ?? 'Father' }} <br>& Mrs.{{ $groom->personParent->mother_name ?? 'Mother' }}</p>
                 @endif
               </div>
             </div>
@@ -89,9 +89,9 @@
             <!-- Tablet/Desktop -->
             <div class="col-md-6 d-none d-md-block text-end">
               <h3>{{ $groom->full_name ?? $couple->groom_name ?? 'Groom' }}</h3>
-              <p>{{ $groom->additional_info ? $groom->additional_info : 'Son of Mr. and Mrs.' }}</p>
+              <p>{{ $groom->additional_info ? $groom->additional_info : ' ' }}</p>
               @if($groom->personParent)
-              <p>Son of {{ $groom->personParent->father_name ?? 'Father' }} & {{ $groom->personParent->mother_name ?? 'Mother' }}</p>
+              <p>Son of Mr.{{ $groom->personParent->father_name ?? 'Father' }} & Mrs.{{ $groom->personParent->mother_name ?? 'Mother' }}</p>
               @endif
             </div>
 
@@ -118,9 +118,9 @@
               <div class="text-center overlay-info">
                 <h3>{{ $bride->full_name ?? $couple->bride_name ?? 'Bride' }}</h3>
                 <hr>
-                <p>{{ $bride->additional_info ? $bride->additional_info : 'Daughter of Mr. and Mrs.' }}</p>
+                <p>{{ $bride->additional_info ? $bride->additional_info : ' ' }}</p>
                 @if($bride->personParent)
-                <p>Daughter of {{ $bride->personParent->father_name ?? 'Father' }} <br>& {{ $bride->personParent->mother_name ?? 'Mother' }}</p>
+                <p>Daughter of Mr.{{ $bride->personParent->father_name ?? 'Father' }} <br>& Mrs.{{ $bride->personParent->mother_name ?? 'Mother' }}</p>
                 @endif
               </div>
             </div>
@@ -136,7 +136,7 @@
               <h3>{{ $bride->full_name ?? $couple->bride_name ?? 'Bride' }}</h3>
               <p>{{ $bride->additional_info ? $bride->additional_info : 'Daughter of Mr. and Mrs.' }}</p>
               @if($bride->personParent)
-              <p>Daughter of {{ $bride->personParent->father_name ?? 'Father' }} & {{ $bride->personParent->mother_name ?? 'Mother' }}</p>
+              <p>Daughter of Mr.{{ $bride->personParent->father_name ?? 'Father' }} & Mrs.{{ $bride->personParent->mother_name ?? 'Mother' }}</p>
               @endif
             </div>
 
