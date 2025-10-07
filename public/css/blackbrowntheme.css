@@ -506,6 +506,11 @@ section {
 
 /* Gift */
 #gift p {
+    color: white;
+}
+
+#gift .card-body p {
+
     color: var(--bg);
 }
 
