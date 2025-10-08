@@ -12,7 +12,7 @@ use App\Http\Controllers\{
     LocationController,
     GalleryImageController,
     TimelineEventController,
-    BankAccountController,
+    GiftController,
     GuestController,
     GuestAttendantController,
     InvitationController,
@@ -77,7 +77,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('locations', LocationController::class);
     Route::resource('gallery-images', GalleryImageController::class);
     Route::resource('timeline-events', TimelineEventController::class);
-    Route::resource('bank-accounts', BankAccountController::class);
+    Route::resource('gifts', GiftController::class);
     Route::resource('guests', GuestController::class);
     Route::resource('guest-attendants', GuestAttendantController::class)->only(['index', 'destroy']);
     Route::resource('invitations', InvitationController::class);
@@ -117,7 +117,7 @@ Route::middleware(['auth', 'client'])->group(function () {
     Route::resource('my-wedding-events', WeddingEventController::class);
     Route::resource('my-gallery-images', GalleryImageController::class);
     Route::resource('my-timeline-events', TimelineEventController::class);
-    Route::resource('my-bank-accounts', BankAccountController::class);
+    Route::resource('my-gifts', GiftController::class);
     Route::resource('my-guests', GuestController::class);
     // Route::get('my-guests-present/{id}',[InvitationController::class, 'present'])->name('my-invitation.present');
     // Route::post('my-guests-present',[InvitationController::class, 'present'])->name('my-invitation.present');

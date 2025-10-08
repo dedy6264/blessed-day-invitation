@@ -84,13 +84,14 @@ This document describes the database structure for the wedding invitation applic
 - created_at (TIMESTAMP, DEFAULT CURRENT_TIMESTAMP)
 - updated_at (TIMESTAMP, DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)
 
-### 9. bank_accounts (Gift accounts)
+### 9. gifts (Gift accounts)
 - id (INT, PRIMARY KEY, AUTO_INCREMENT)
 - wedding_event_id (INT, NOT NULL, FOREIGN KEY references wedding_events.id ON DELETE CASCADE)
-- bank_name (VARCHAR(100), NOT NULL)
-- account_number (VARCHAR(50), NOT NULL)
-- account_holder_name (VARCHAR(100), NOT NULL)
-- is_active (BOOLEAN, DEFAULT TRUE)
+- bank_name (VARCHAR(100), NULL)
+- account_number (VARCHAR(50), NULL)
+- account_holder_name (VARCHAR(100), NULL)
+- gift_type (VARCHAR(20), NOT NULL) - Options: 'gift', 'support'
+- gift_description (TEXT, NULL)
 - created_at (TIMESTAMP, DEFAULT CURRENT_TIMESTAMP)
 - updated_at (TIMESTAMP, DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP)
 
@@ -226,7 +227,7 @@ This document describes the database structure for the wedding invitation applic
 5. couples → wedding_events (One-to-Many): One couple can have multiple wedding events
 6. wedding_events → locations (One-to-One): Each wedding event has a location
 7. wedding_events → gallery_images (One-to-Many): Each wedding event can have multiple gallery images
-8. wedding_events → bank_accounts (One-to-Many): Each wedding event can have multiple bank accounts
+8. wedding_events → gifts (One-to-Many): Each wedding event can have multiple gifts
 9. wedding_events → guest_messages (One-to-Many): Each wedding event can have multiple guest messages
 10. couples → timeline_events (One-to-Many): One couple can have multiple timeline events
 11. guests → invitations (One-to-Many): One guest can receive multiple invitations

@@ -46,11 +46,11 @@ class WeddingEvent extends Model
     }
 
     /**
-     * Get the bank accounts for the wedding event.
+     * Get the gifts for the wedding event.
      */
-    public function bankAccounts(): HasMany
+    public function gifts(): HasMany
     {
-        return $this->hasMany(BankAccount::class);
+        return $this->hasMany(Gift::class);
     }
 
     /**

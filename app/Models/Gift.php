@@ -5,22 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class BankAccount extends Model
+class Gift extends Model
 {
     protected $fillable = [
         'wedding_event_id',
         'bank_name',
         'account_number',
         'account_holder_name',
-        'is_active',
-    ];
-
-    protected $casts = [
-        'is_active' => 'boolean',
+        'gift_type',
+        'gift_description',
     ];
 
     /**
-     * Get the wedding event that owns the bank account.
+     * Get the wedding event that owns the gift.
      */
     public function weddingEvent(): BelongsTo
     {

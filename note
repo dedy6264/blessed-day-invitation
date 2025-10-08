@@ -149,19 +149,42 @@ CREATE TABLE timeline_events (
 );
 
 -- =========================
--- Bank Accounts (rekening hadiah)
+-- Bank Accounts (rekening hadiah)->bank_accounts
 -- =========================
-CREATE TABLE bank_accounts (
+CREATE TABLE gifts( 
     id INT PRIMARY KEY AUTO_INCREMENT,
     wedding_event_id INT NOT NULL,
-    bank_name VARCHAR(100) NOT NULL,
-    account_number VARCHAR(50) NOT NULL,
-    account_holder_name VARCHAR(100) NOT NULL,
-    is_active BOOLEAN DEFAULT TRUE,
+    bank_name VARCHAR(100) ,
+    account_number VARCHAR(50) ,
+    account_holder_name VARCHAR(100) ,
+    -- is_active BOOLEAN DEFAULT TRUE,
+    gift_type VARCHAR(100), -- gift n support
+    gift_description TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (wedding_event_id) REFERENCES wedding_events(id) ON DELETE CASCADE
 );
+ALTER TABLE bank_accounts RENAME TO gifts;
+ALTER TABLE gifts
+ADD COLUMN gift_type VARCHAR(100) DEFAULT 'gift';
+ALTER TABLE gifts
+ADD COLUMN gift_description TEXT DEFAULT '';
+ALTER TABLE gifts DROP COLUMN is_active;
+ALTER TABLE gifts
+MODIFY COLUMN bank_name VARCHAR(100) NULL,
+MODIFY COLUMN account_number VARCHAR(50) NULL,
+MODIFY COLUMN account_holder_name VARCHAR(100) NULL;
+--rollback
+-- Rollback for gifts table changes
+ALTER TABLE gifts RENAME TO bank_accounts;
+ALTER TABLE bank_accounts DROP COLUMN gift_type;
+ALTER TABLE bank_accounts DROP COLUMN gift_description;
+ALTER TABLE bank_accounts
+ADD COLUMN is_active BOOLEAN DEFAULT TRUE;
+ALTER TABLE bank_accounts
+MODIFY COLUMN bank_name VARCHAR(100) NOT NULL,
+MODIFY COLUMN account_number VARCHAR(50) NOT NULL,
+MODIFY COLUMN account_holder_name VARCHAR(100) NOT NULL;
 
 -- =========================
 -- Guests

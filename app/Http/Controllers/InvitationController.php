@@ -300,7 +300,7 @@ class InvitationController extends CrudController
                 $query->orderBy('event_date');
             },
             'weddingEvent.galleryImages',
-            'weddingEvent.bankAccounts',
+            'weddingEvent.gifts',
             'weddingEvent.guestMessages'
         ])->findOrFail($id);
 
@@ -318,7 +318,7 @@ class InvitationController extends CrudController
         // dd($groom,$bride);
         // Get locations for the wedding event
         $location = $invitation->weddingEvent->location;
-        $gifts=$invitation->weddingEvent->bankAccounts;
+        $gifts=$invitation->weddingEvent->gifts;
         // Get gallery images
         $backgroundImages = $invitation->weddingEvent->galleryImages->where('is_background','Y');
         //get gallery background image

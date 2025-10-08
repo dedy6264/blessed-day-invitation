@@ -384,33 +384,33 @@
   <section id="gift" class="fade-section">
     <div class="container">
       <h2 class="mb-4 text-center" style="">Wedding Gift</h2>
-      <p class="mb-5 text-center">Doa restu Anda sudah merupakan hadiah terbaik bagi kami. Namun jika ingin memberikan tanda kasih, dapat melalui rekening berikut:</p>
+      <p class="mb-5 text-center">Doa restu Anda sudah merupakan hadiah terbaik bagi kami. Namun jika ingin memberikan tanda kasih, dapat melalui rekening atau alamat berikut:</p>
 
       <!-- Card Gift -->
       <!-- Card Informasi -->
-      @if($gifts && $gifts->count() > 0)
-      <div class="mb-5 text-center border-0 shadow-lg card fade-content" style="border-radius:20px;">
+     @if($gifts && $gifts->count() > 0)
+      <div class="mb-5 text-center border-0 shadow-lg card" style="border-radius:20px;">
         <div class="card-body">
           @foreach($gifts as $gift)
-          @if($gift->is_active)
+          @if($gift->gift_type === 'support')
           {{-- <h5 class="mt-2 mb-3 fw-bold">Transfer Hadiah</h5> --}}
+          <p><b>Rekening :</b></p>
           <p><strong>{{$gift->bank_name}}</strong><br>{{$gift->account_number}}<br>a.n. {{$gift->account_holder_name}}</p>
-          <button class="btn btn-outline-pink copy-btn" data-account="{{$gift->account_number}}">
+          <button class="mb-3 btn btn-outline-pink copy-btn" data-account="{{$gift->account_number}}">
             Salin Nomor Rekening
           </button>
-           @else
-           <h5 class="mb-3 fw-bold">Tanpa Mengurangi Rasa Hormat</h5>
-          <p class="mb-0" style="font-size:1.1rem; line-height:1.7;">
-            Kami dengan tulus memohon agar tidak memberikan sumbangan dalam bentuk apapun.  
-            Kehadiran Anda dalam hari bahagia kami sudah lebih dari cukup,  
-            dan kami ingin berbagi kebahagiaan bersama orang-orang yang kami cintai. 💕
-          </p>
+          @elseif($gift->gift_description)
+          <p><b>Alamat : </b></p>
+          <p>{{$gift->gift_description}}</p>
+           <button class="mb-3 btn btn-outline-pink copy-btn" data-account="{{$gift->gift_description}}">
+            Salin Alamat
+          </button>
           @endif
           @endforeach
         </div>
       </div>
     @else
-      <div class="mb-5 text-center border-0 shadow-lg card fade-content" style="border-radius:20px;">
+      <div class="mb-5 text-center border-0 shadow-lg card" style="border-radius:20px;">
         <div class="p-4 card-body">
           <h5 class="mb-3 fw-bold">Tanpa Mengurangi Rasa Hormat</h5>
           <p class="mb-0" style="font-size:1.1rem; line-height:1.7;">
@@ -664,7 +664,7 @@
                 }).catch(err => console.error("🚫 Musik gagal play:", err));
             }
         });
-    }, { threshold: 0.5 });
+    }, { threshold: 0.2 });
 
     observer1.observe(homeSection);
 

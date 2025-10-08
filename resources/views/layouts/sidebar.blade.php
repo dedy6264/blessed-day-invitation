@@ -69,7 +69,7 @@
      request()->routeIs('locations.*') ||
      request()->routeIs('gallery-images.*') ||
      request()->routeIs('timeline-events.*') ||
-     request()->routeIs('bank-accounts.*') ||
+     request()->routeIs('gifts.*') ||
      request()->routeIs('guests.*') ||
      request()->routeIs('invitations.*') ||
      request()->routeIs('guest-messages.*') ||
@@ -77,7 +77,7 @@
      request()->routeIs('my-wedding-events.*') ||
      request()->routeIs('my-gallery-images.*') ||
      request()->routeIs('my-timeline-events.*') ||
-     request()->routeIs('my-bank-accounts.*') ||
+     request()->routeIs('my-gifts.*') ||
      request()->routeIs('my-guests.*') ||
      request()->routeIs('my-people.*') ||
      request()->routeIs('my-guest-attendants.*') ||
@@ -90,7 +90,7 @@
          request()->routeIs('locations.*') ||
          request()->routeIs('gallery-images.*') ||
          request()->routeIs('timeline-events.*') ||
-         request()->routeIs('bank-accounts.*') ||
+         request()->routeIs('gifts.*') ||
          request()->routeIs('guests.*') ||
          request()->routeIs('invitations.*') ||
          request()->routeIs('guest-messages.*') ||
@@ -98,7 +98,7 @@
          request()->routeIs('my-wedding-events.*') ||
          request()->routeIs('my-gallery-images.*') ||
          request()->routeIs('my-timeline-events.*') ||
-         request()->routeIs('my-bank-accounts.*') ||
+         request()->routeIs('my-gifts.*') ||
          request()->routeIs('my-guests.*') ||
          request()->routeIs('my-people.*') ||
          request()->routeIs('my-guest-attendants.*') ||
@@ -111,7 +111,7 @@
              request()->routeIs('locations.*') ||
              request()->routeIs('gallery-images.*') ||
              request()->routeIs('timeline-events.*') ||
-             request()->routeIs('bank-accounts.*') ||
+             request()->routeIs('gifts.*') ||
              request()->routeIs('guests.*') ||
              request()->routeIs('invitations.*') ||
              request()->routeIs('guest-messages.*') ||
@@ -119,7 +119,7 @@
              request()->routeIs('my-wedding-events.*') ||
              request()->routeIs('my-gallery-images.*') ||
              request()->routeIs('my-timeline-events.*') ||
-             request()->routeIs('my-bank-accounts.*') ||
+             request()->routeIs('my-gifts.*') ||
              request()->routeIs('my-guests.*') ||
              request()->routeIs('my-people.*') ||
              request()->routeIs('my-guest-attendants.*') ||
@@ -135,7 +135,7 @@
          request()->routeIs('locations.*') ||
          request()->routeIs('gallery-images.*') ||
          request()->routeIs('timeline-events.*') ||
-         request()->routeIs('bank-accounts.*') ||
+         request()->routeIs('gifts.*') ||
          request()->routeIs('guests.*') ||
          request()->routeIs('invitations.*') ||
          request()->routeIs('guest-messages.*') ||
@@ -143,7 +143,7 @@
          request()->routeIs('my-wedding-events.*') ||
          request()->routeIs('my-gallery-images.*') ||
          request()->routeIs('my-timeline-events.*') ||
-         request()->routeIs('my-bank-accounts.*') ||
+         request()->routeIs('my-gifts.*') ||
          request()->routeIs('my-guests.*') ||
          request()->routeIs('my-people.*') ||
             request()->routeIs('my-guest-attendants.*') ||
@@ -158,7 +158,7 @@
                 <a class="collapse-item {{ request()->routeIs('locations.*') ? 'active' : '' }}" href="{{ route('locations.index') }}">Locations</a>
                 <a class="collapse-item {{ request()->routeIs('gallery-images.*') ? 'active' : '' }}" href="{{ route('gallery-images.index') }}">Gallery Images</a>
                 <a class="collapse-item {{ request()->routeIs('timeline-events.*') ? 'active' : '' }}" href="{{ route('timeline-events.index') }}">Timeline Events</a>
-                <a class="collapse-item {{ request()->routeIs('bank-accounts.*') ? 'active' : '' }}" href="{{ route('bank-accounts.index') }}">Bank Accounts</a>
+                <a class="collapse-item {{ request()->routeIs('gifts.*') ? 'active' : '' }}" href="{{ route('gifts.index') }}">Gifts</a>
                 <a class="collapse-item {{ request()->routeIs('guests.*') ? 'active' : '' }}" href="{{ route('guests.index') }}">Guests</a>
                 <a class="collapse-item {{ request()->routeIs('guest-attendants.*') ? 'active' : '' }}" href="{{ route('guest-attendants.index') }}">Guest Attendants</a>
                 <a class="collapse-item {{ request()->routeIs('invitations.*') ? 'active' : '' }}" href="{{ route('invitations.index') }}">Invitations</a>
@@ -170,7 +170,7 @@
                 <a class="collapse-item {{ request()->routeIs('my-locations.*') ? 'active' : '' }}" href="{{ route('my-locations.index') }}">Locations</a>
                 <a class="collapse-item {{ request()->routeIs('my-gallery-images.*') ? 'active' : '' }}" href="{{ route('my-gallery-images.index') }}">Gallery Images</a>
                 <a class="collapse-item {{ request()->routeIs('my-timeline-events.*') ? 'active' : '' }}" href="{{ route('my-timeline-events.index') }}">Timeline Events</a>
-                <a class="collapse-item {{ request()->routeIs('my-bank-accounts.*') ? 'active' : '' }}" href="{{ route('my-bank-accounts.index') }}">Bank Accounts</a>
+                <a class="collapse-item {{ request()->routeIs('my-gifts.*') ? 'active' : '' }}" href="{{ route('my-gifts.index') }}">Gifts</a>
                 <a class="collapse-item {{ request()->routeIs('my-guests.*') ? 'active' : '' }}" href="{{ route('my-guests.index') }}">Guests</a>
                 <a class="collapse-item {{ request()->routeIs('my-guest-attendants.*') ? 'active' : '' }}" href="{{ route('my-guest-attendants.index') }}">Guest Attendants</a>
                 <a class="collapse-item {{ request()->routeIs('my-invitations.*') ? 'active' : '' }}" href="{{ route('my-invitations.index') }}">Invitations</a>
