@@ -171,9 +171,9 @@ ALTER TABLE gifts
 ADD COLUMN gift_description TEXT DEFAULT '';
 ALTER TABLE gifts DROP COLUMN is_active;
 ALTER TABLE gifts
-MODIFY COLUMN bank_name VARCHAR(100) NULL,
-MODIFY COLUMN account_number VARCHAR(50) NULL,
-MODIFY COLUMN account_holder_name VARCHAR(100) NULL;
+ALTER COLUMN bank_name DROP NOT NULL,
+ALTER COLUMN account_number DROP NOT NULL,
+ALTER COLUMN account_holder_name DROP NOT NULL;
 --rollback
 -- Rollback for gifts table changes
 ALTER TABLE gifts RENAME TO bank_accounts;
