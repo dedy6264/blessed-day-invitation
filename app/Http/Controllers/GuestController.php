@@ -70,8 +70,8 @@ class GuestController extends CrudController
         $request->validate([
             'couple_id' => 'required|exists:couples,id',
             'name' => 'required|string|max:100',
-            'email' => 'nullable|email|max:150|unique:guests,email',
-            'phone' => 'nullable|string|max:20|unique:guests,phone',
+            'email' => 'nullable|email|max:150',
+            'phone' => 'nullable|string|max:20',
         ]);
 
         // Check if the authenticated user can access the specified couple
@@ -161,8 +161,8 @@ class GuestController extends CrudController
         $request->validate([
             'couple_id' => 'required|exists:couples,id',
             'name' => 'required|string|max:100',
-            'email' => 'nullable|email|max:150|unique:guests,email,'.$id,
-            'phone' => 'nullable|string|max:20|unique:guests,phone,'.$id,
+            'email' => 'nullable|email|max:150',
+            'phone' => 'nullable|string|max:20',
         ]);
 
         $record = Guest::findOrFail($id);
