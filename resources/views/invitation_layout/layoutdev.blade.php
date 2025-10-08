@@ -209,7 +209,7 @@
   <section id="location" class="fade-section" style="--background-image: url('{{ asset($backgroundImages) ?? asset('inv/img/gpt.png') }}');">
     <div class="container text-center ">
       <div class="container profile-card ">
-        <h2>Wedding Matrimony</h2>
+        <h2>Holly Matrimony</h2>
         <div class="mt-5 row couple ">
                 <div class="col-lg-6 fade-content" style="margin-top: 12px !important; margin-bottom: 12px !important;">
                   <h3>{{ \Carbon\Carbon::parse($weddingEvent->event_date)->format('l, d F Y') }}</h3>
