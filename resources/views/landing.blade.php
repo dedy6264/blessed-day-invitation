@@ -29,8 +29,12 @@
                     <li class="nav-item"><a class="nav-link" href="#digital-features"><i class="bi bi-star me-1"></i> Features</a></li>
                     <li class="nav-item"><a class="nav-link" href="#themes">Themes</a></li>
                     <li class="nav-item"><a class="nav-link" href="#packages">Packages</a></li>
+                    @if(Auth::check())
+                    <li class="nav-item"><a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a></li>
+                    @else
                     <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Register</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
+                    @endif
                 </ul>
             </div>
         </div>
