@@ -516,14 +516,14 @@ section {
 
 #gift .btn-pink {
     background-color: var(--bg);
-    color: var(--bg);
+    color: white;
     border-radius: 10px;
     transition: 0.3s;
 }
 
 #gift .btn-pink:hover {
     background-color: var(--bg);
-    color: var(--bg);
+    color: white;
 }
 
 #gift .btn-outline-pink {

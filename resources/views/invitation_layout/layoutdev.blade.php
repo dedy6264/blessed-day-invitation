@@ -246,7 +246,7 @@
       <div class="card-right fade-content">
         <h2 class="invite-header">Undangan Spesial</h2>
         <h2 class="invite-detail"><strong>Kepada</strong><br> {{ $guestName }}</h2>
-        <h2 class="invite-header">Wedding Matrimony</h2>
+        <h2 class="invite-header">Holly Matrimony</h2>
         <p class="invite-detail"><i class="bi bi-calendar-check fs-4"></i> {{ \Carbon\Carbon::parse($weddingEvent->event_date)->format('l, d F Y') }}</p>
         <p class="invite-detail"><i class="bi bi-clock fs-4"></i> {{ $weddingEvent->event_time }} WIB</p>
         <p class="invite-detail"><i class="bi bi-geo-alt fs-4"></i> {{ $location->venue_name ?? 'Venue' }}, {{ $location->address ?? 'Address' }}</p>
@@ -425,7 +425,7 @@
       <!-- Card Form -->
       <div class="mb-4 border-0 shadow card" style="border-radius:20px;">
         <div class="card-body">
-          <h5 class="mb-3 text-center fw-bold">Kirim Pesan & Doa</h5>
+          <h5 class="mb-3 text-center fw-bold " >Kirim Pesan & Doa</h5>
           <form id="giftForm">
             <div class="mb-3">
               <input type="text" class="form-control" name="nama" id="guestNameInput" placeholder="Nama Anda" value="{{ $guestName ?? '' }}" required readonly>
@@ -444,7 +444,7 @@
       <!-- List Pesan -->
       {{-- @dd($guestMessages) --}}
       <div class="mt-4 messages fade-content">
-        <h5 class="mb-4 text-center">Pesan & Doa</h5>
+        <h5 class="mb-4 text-center text-white">Pesan & Doa</h5>
         <div id="messageList" class="gap-3 messageList d-flex flex-column message-box">
           @if($guestMessages && $guestMessages->count() > 0)
             @foreach($guestMessages->where('is_approved', true)->sortByDesc('created_at') as $guestMessage)
@@ -697,7 +697,6 @@
             invitation_id: this.invitation_id.value,
             is_attending: this.is_attending.value==1?true:false,
             guest_count: this.guest_count.value,
-            message: this.message.value,
             _token: this._token.value
           };
           
