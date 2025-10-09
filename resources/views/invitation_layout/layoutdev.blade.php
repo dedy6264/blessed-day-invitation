@@ -50,7 +50,7 @@
             <h1 class="fw-bold display-3">{{ $couple->groom_name ?? 'Groom' }} & {{ $couple->bride_name ?? 'Bride' }}'s</h1>
             <p class="fw-light">{{ \Carbon\Carbon::parse($couple->wedding_date)->format('l, d F Y') }}</p>
         </div>
-        <div class="head-bottom fade-content">
+        <div class="head-bottom fade-content" id="playMusic">
             {{-- <p class="fs-4 ">With the blessing of God, we joyfully invite you to our wedding celebration</p> --}}
             <p class="fs-4 ">{{!! $couple->wedding_quote ?? 'With the blessing of God, we joyfully invite you to our wedding celebration' !!}}</p>
         </div>
@@ -621,7 +621,7 @@
     const music = document.getElementById("bg-music");
     const iconOn = document.getElementById("icon-sound-on");
     const iconOff = document.getElementById("icon-sound-off");
-    const homeSection = document.getElementById("info");
+    const homeSection = document.getElementById("playMusic");
 
     let musicAllowed = true;  // baru true setelah user klik open
     let musicStarted = false;  // biar cuma sekali jalan
