@@ -156,30 +156,6 @@
       </div>
     </div>
   </section>
-
-
-  <!-- GALLERY -->
-  {{-- @if($galleryImages && $galleryImages->count() > 0)
-  <section id="gallery" class=" fade-section">
-    <div class="mb-5 text-center fade-content">
-      <h2 class="fw-bold">Captured Intimacy</h2>
-      <p class="">Setiap bingkai menyimpan kisah penuh kehangatan dan kedekatan</p>
-    </div>
-    <div class="row fade-content">
-      @foreach($galleryImages as $image)
-        <a href="{{ url($image->image_url) }}" data-toggle="lightbox" data-gallery="example-gallery" data-size="lg"  class="col-sm-4 gallery-item">
-            <img src="{{ url($image->image_url) }}" class="img-fluid" style="border-radius:15px">
-            @if($image->description)
-            <div class="overlay">
-              <p>{{ $image->description }}</p>
-            </div>
-            @endif
-        </a>
-      @endforeach
-    </div>
-  </section>
-  @endif --}}
-
   <!--gallery v1-->
 @if($galleryImages && $galleryImages->count() > 0)
   <section id="gallery"  class=" fade-section">
@@ -268,10 +244,10 @@
             <div class="timeline-image" style="background-image: url('{{ $event->image_url ? asset($event->image_url) : asset('inv/img/gpt2.png') }}') ;"></div>
             <div class="timeline-panel">
               <div class="timeline-heading">
-                <span class="date">{{ \Carbon\Carbon::parse($event->event_date)->format('F Y') }}</span>
+                    <h5>{{ $event->title }}</h5>
               </div>
               <div class="timeline-body">
-                {{-- <h4>{{ $event->title }}</h4> --}}
+                    <p class="mt-0 ">{{ \Carbon\Carbon::parse($event->event_date)->format('F Y') }}</p>
                 <p>{{ $event->description }}</p>
               </div>
           </li>
@@ -282,10 +258,10 @@
               <div class="timeline-image" style="background-image: url('{{ $event->image_url ? asset($event->image_url) : asset('inv/img/gpt2.png') }}');"></div>
               <div class="timeline-panel">
                   <div class="timeline-heading">
-                    <span>{{ \Carbon\Carbon::parse($event->event_date)->format('F Y') }}</span>
+                    <h5>{{ $event->title }}</h5>
                   </div>
                   <div class="timeline-body">
-                    {{-- <h4>{{ $event->title }}</h4> --}}
+                    <p class="mt-0 ">{{ \Carbon\Carbon::parse($event->event_date)->format('F Y') }}</p>
                     <p>{{ $event->description }}</p>
                   </div>
               </div>

@@ -32,6 +32,12 @@ h4 {
     font-family: var(--font-preheading);
 }
 
+h5 {
+    font-size: 1.2rem;
+    font-family: var(--font-preheading);
+    color: var(--bg);
+}
+
 section {
     min-height: 100vh;
     display: flex;
