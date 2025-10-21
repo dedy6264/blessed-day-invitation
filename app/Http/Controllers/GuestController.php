@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class GuestController extends CrudController
 {
@@ -98,6 +99,14 @@ class GuestController extends CrudController
 
         return redirect()->route($this->getRoutePrefix().'.index')
             ->with('success', 'Guest created successfully.');
+    }
+
+    /**
+     * Download sample Excel file for guest import
+     */
+    public function downloadSample()
+    {
+        return \Maatwebsite\Excel\Facades\Excel::download(new \App\Exports\SampleGuestsExport, 'sample-guests.xlsx');
     }
 
     /**
@@ -214,7 +223,130 @@ class GuestController extends CrudController
     }
     
     /**
+     * Generate guest index based on couple ID and phone number
+     */
+    private function generateGuestIndex($coupleId, $phone)
+    {
+        $guestIndex = null;
+        if ($phone) {
+            $guestIndex = $coupleId . '_' . preg_replace('/[^0-9]/', '', $phone);
+        }
+        return $guestIndex;
+    }
+    
+    /**
      * Display the attendant page for a specific wedding event
      */
-   
+    
+    /**
+     * Show the import form
+     */
+    public function showImport(): View
+    {
+        $title = 'Import Guests';
+        
+        $query = Couple::query();
+        if (auth()->user()->isClient()) {
+            $query->where('client_id', auth()->user()->client_id);
+        }
+        $couples = $query->with('weddingEvents')->get();
+        
+        return view('guests.import', [
+            'title' => $title,
+            'couples' => $couples,
+            'indexRoute' => route($this->getRoutePrefix().'.index'),
+        ]);
+    }
+
+    /**
+     * Import guests from Excel file
+     */
+    public function import(Request $request)
+    {
+        // dd($request->all());
+        $request->validate([
+            'couple_id' => 'required|exists:couples,id',
+            'wedding_event_id' => 'required|exists:wedding_events,id',
+            'file' => 'required|mimes:xlsx,xls,csv'
+        ]);
+
+        // Check if the authenticated user can access the specified couple
+        if (auth()->user()->isClient()) {
+            $couple = Couple::find($request->couple_id);
+            if (!$couple || $couple->client_id != auth()->user()->client_id) {
+                abort(403, 'You do not have permission to import guests for this couple.');
+            }
+            
+            // Check if the wedding event belongs to the selected couple
+            $weddingEvent = \App\Models\WeddingEvent::find($request->wedding_event_id);
+            if (!$weddingEvent || $weddingEvent->couple_id != $request->couple_id) {
+                abort(403, 'You do not have permission to import guests for this event.');
+            }
+        }
+
+        $file = $request->file('file');
+        
+        // Import the Excel file to create guests
+        $import = new \App\Imports\GuestsImport($request->couple_id, $request->wedding_event_id);
+        
+        // Parse the file to get the data first, then process manually
+        $rows = \Maatwebsite\Excel\Facades\Excel::toArray($import, $file);
+        
+        // Process each row to create guest and invitation
+        $importedCount = 0;
+        foreach ($rows as $worksheet) {
+            
+            foreach ($worksheet as $row) {
+                // Skip header row if it matches the expected format
+                if (strtolower($row[0] ?? '') === 'name' && strtolower($row[1] ?? '') === 'email' && strtolower($row[2] ?? '') === 'phone') {
+                    continue; // Skip header row
+                }
+                
+                // Extract the values from the row and trim them
+                $name = trim($row['name'] ?? '') !== '' ? trim($row['name'] ?? '') : null;
+                $email = trim($row['email'] ?? '') !== '' ? trim($row['email'] ?? '') : null;
+                $phone = trim($row['phone'] ?? '') !== '' ? trim($row['phone'] ?? '') : null;
+                // foreach($row as $dt){
+                    // }
+                        // dd("sampe sini",$row['name']);
+                // Skip if name is empty since it's required
+                if (empty($name)) {
+                    continue; // Skip rows with empty names
+                }
+                
+                // Create guest record
+                $guest = \App\Models\Guest::create([
+                    'couple_id' => $request->couple_id,
+                    'name' => $name,
+                    'email' => $email,
+                    'phone' => $phone,
+                    'guest_index' => $this->generateGuestIndex($request->couple_id, $phone),
+                ]);
+
+                // Create invitation for the guest for the selected wedding event
+                \App\Models\Invitation::create([
+                    'guest_id' => $guest->id,
+                    'wedding_event_id' => $request->wedding_event_id,
+                    // 'invitation_code' => Str::random(10), // Generate a unique invitation code
+            'invitation_code' => "INVTW" . (string)$guest->id . (string)$request->wedding_event_id,
+                ]);
+
+                $importedCount++;
+            }
+        }
+
+        if($request->has('redirect_to_invitations') && $request->redirect_to_invitations == '1') {
+            // Redirect to invitations for the selected wedding event
+            if (auth()->user()->isClient()) {
+                return redirect()->route('my-invitations.index')
+                    ->with('success', 'Guests imported successfully. ' . $importedCount . ' guests were added and invitations created.');
+            } else {
+                return redirect()->route('invitations.index')
+                    ->with('success', 'Guests imported successfully. ' . $importedCount . ' guests were added and invitations created.');
+            }
+        } else {
+            return redirect()->route($this->getRoutePrefix().'.index')
+                ->with('success', 'Guests imported successfully. ' . $importedCount . ' guests were added.');
+        }
+    }
 }

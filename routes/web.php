@@ -37,6 +37,7 @@ Route::get('/welcome', function() {
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 Route::post('invitations/{invitation}/send', [InvitationController::class, 'sendInvitation'])->name('invitations.send');
+Route::post('invitations/broadcast-whatsapp', [InvitationController::class, 'broadcastWhatsApp'])->name('invitations.broadcast-whatsapp');
 Route::get('invitation/{id}', [InvitationController::class, 'showInvitation'])->name('invitation.show');
 Route::post('/api/guest-messages', [GuestMessageController::class, 'store'])->name('api.guest-messages.store');
 Route::post('/api/invitations/rsvp', [InvitationController::class, 'rsvp'])->name('api.invitations.rsvp');
@@ -78,6 +79,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('gallery-images', GalleryImageController::class);
     Route::resource('timeline-events', TimelineEventController::class);
     Route::resource('gifts', GiftController::class);
+    Route::get('guests/import', [GuestController::class, 'showImport'])->name('guests.import');
+    Route::post('guests/import', [GuestController::class, 'import'])->name('guests.import.post');
+    Route::get('guests/download-sample', [GuestController::class, 'downloadSample'])->name('guests.download-sample');
     Route::resource('guests', GuestController::class);
     Route::resource('guest-attendants', GuestAttendantController::class)->only(['index', 'destroy']);
     Route::resource('invitations', InvitationController::class);
@@ -118,6 +122,9 @@ Route::middleware(['auth', 'client'])->group(function () {
     Route::resource('my-gallery-images', GalleryImageController::class);
     Route::resource('my-timeline-events', TimelineEventController::class);
     Route::resource('my-gifts', GiftController::class);
+    Route::get('my-guests/import', [GuestController::class, 'showImport'])->name('my-guests.import');
+    Route::post('my-guests/import', [GuestController::class, 'import'])->name('my-guests.import.post');
+    Route::get('my-guests/download-sample', [GuestController::class, 'downloadSample'])->name('my-guests.download-sample');
     Route::resource('my-guests', GuestController::class);
     // Route::get('my-guests-present/{id}',[InvitationController::class, 'present'])->name('my-invitation.present');
     // Route::post('my-guests-present',[InvitationController::class, 'present'])->name('my-invitation.present');
@@ -126,6 +133,7 @@ Route::middleware(['auth', 'client'])->group(function () {
     Route::post('my-guests-attendant', [CoupleController::class, 'recordAttendant'])->name('my-guests.attendant.record');
     Route::resource('my-guest-attendants', GuestAttendantController::class)->only(['index', 'destroy']);
     Route::resource('my-invitations', InvitationController::class);
+    Route::post('my-invitations/broadcast-whatsapp', [InvitationController::class, 'broadcastWhatsApp'])->name('my-invitations.broadcast-whatsapp');
     Route::resource('my-guest-messages', GuestMessageController::class);
     Route::resource('my-transactions', TransactionController::class);
     Route::resource('my-locations', LocationController::class);

@@ -3,6 +3,8 @@
 /public/storage
 /public/qr_codes
 /public/images/gallery
+/public/images/people
+/public/images/timeline
 /storage/*.key
 /vendor
 .env

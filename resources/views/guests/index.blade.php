@@ -6,11 +6,22 @@
 <!-- Page Heading -->
 <div class="mb-4 d-sm-flex align-items-center justify-content-between">
     <h1 class="mb-0 text-gray-800 h3">{{ $title ?? 'Guests' }}</h1>
-    @if(isset($createRoute))
-    <a href="{{ $createRoute}}" class="shadow-sm d-sm-inline-block btn btn-sm btn-primary">
-        <i class="fas fa-plus fa-sm text-white-50"></i> Add New Guest
-    </a>
-    @endif
+    <div class="d-flex gap-2">
+        @if(isset($createRoute))
+        <a href="{{ $createRoute}}" class="shadow-sm d-sm-inline-block btn btn-sm btn-primary">
+            <i class="fas fa-plus fa-sm text-white-50"></i> Add New Guest
+        </a>
+        @endif
+        @if(request()->routeIs('my-guests.*'))
+        <a href="{{ route('my-guests.import') }}" class="shadow-sm d-sm-inline-block btn btn-sm btn-success">
+            <i class="fas fa-file-import fa-sm text-white-50"></i> Import Guests
+        </a>
+        @else
+        <a href="{{ route('guests.import') }}" class="shadow-sm d-sm-inline-block btn btn-sm btn-success">
+            <i class="fas fa-file-import fa-sm text-white-50"></i> Import Guests
+        </a>
+        @endif
+    </div>
 </div>
 
 <div class="row">

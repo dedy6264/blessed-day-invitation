@@ -29,7 +29,6 @@ class InvitationController extends CrudController
      */
     public function index(): View
     {
-
         $title = 'Invitations';
         $query=Invitation::join('guests','invitations.guest_id','=','guests.id')
         ->join('wedding_events','invitations.wedding_event_id','=','wedding_events.id')
@@ -39,9 +38,19 @@ class InvitationController extends CrudController
             $query->where('couples.client_id', auth()->user()->client_id);
         }   
         $invitations=$query->latest()->paginate(10);
+        
+        // Get wedding events for the broadcast modal
+        $weddingEventQuery = WeddingEvent::join('couples','wedding_events.couple_id','=','couples.id')
+            ->select('wedding_events.*', 'couples.bride_name', 'couples.groom_name')
+            ->with('couple');
+        if (auth()->user()->isClient()) {
+            $weddingEventQuery->where('couples.client_id', auth()->user()->client_id);
+        }
+        $weddingEvents = $weddingEventQuery->get();
 
         return view('invitations.index', [
             'invitations' => $invitations,
+            'weddingEvents' => $weddingEvents,
             'title' => $title,
             'createRoute' => route($this->getRoutePrefix().'.create'),
             'editRoute' => $this->getRoutePrefix().'.edit',
@@ -474,5 +483,121 @@ class InvitationController extends CrudController
                 'message' => 'Error fetching attendance stats: ' . $e->getMessage()
             ], 500);
         }
+    }
+    
+    /**
+     * Broadcast WhatsApp invitations to all guests for a selected wedding event
+     */
+    public function broadcastWhatsApp(Request $request)
+    {
+        // dd($request->all());
+        $request->validate([
+            'wedding_event_id' => 'required|exists:wedding_events,id',
+            // 'message' => 'required|string|max:1000',
+        ]);
+
+        // Get the wedding event and check authorization
+        $weddingEvent = WeddingEvent::with('couple')->findOrFail($request->wedding_event_id);
+
+        // Check if the authenticated user can access this event
+        if (auth()->user()->isClient()) {
+            if ($weddingEvent->couple->client_id != auth()->user()->client_id) {
+                abort(403, 'You do not have permission to broadcast to this event.');
+            }
+        }
+
+        // Get all invitations for this wedding event that have a guest with a phone number
+        $invitations = Invitation::with(['guest'])
+            ->where('wedding_event_id', $request->wedding_event_id)
+            ->whereHas('guest', function($q) {
+                $q->whereNotNull('phone')
+                  ->where('phone', '!=', '');
+            })
+            ->get();
+
+        $processedCount = 0;
+        $failedCount = 0;
+        $dataMsg =collect();
+        // Process each invitation with random delay
+        foreach ($invitations as $invitation) {
+            // Check if guest has a phone number
+            if (!$invitation->guest || !$invitation->guest->phone) {
+                $failedCount++;
+                continue;
+            }
+            
+            // Generate the invitation link
+            $invitationLink = route('invitation.show', ['id' => $invitation->id]);
+            
+             $message = "Hai! 🌸\n\n".
+                "Dengan penuh sukacita kami mengundangmu ".$invitation->guest->name.", untuk hadir di hari bahagia kami:\n\n" . 
+                "💍 ".$invitation->weddingEvent->event_name."\n".
+                "🗓️ ".\Carbon\Carbon::parse($invitation->weddingEvent->event_date)->locale('id')->translatedFormat('l, d F Y')."\n".
+                "Invitation Code : ".$invitation->invitation_code."\n\n".
+                // "📍 {{ Lokasi Acara }}".
+                // "Kepada: " . $invitation->guest->name . "\n" .
+                // "Acara: " . $invitation->weddingEvent->event_name . "\n\n" .
+                "Kehadiran dan doa restumu sangat berarti bagi kami.\n".
+                "Klik tautan di bawah ini untuk melihat undangan lengkapnya 👇:\n\n" .
+                $invitationLink . "\n\n" .
+                "Terima kasih atas doa dan kasihnya 💕\n".
+                "Sampai jumpa di hari istimewa kami.\n\n\n".
+                "Invitation by ".env('APP_NAME','MAKARIOS')." Invitation\n".
+                "invitation.mimogo.sbs";
+        
+            // Prepare request to Fonnte API
+            $delay = rand(10, 30);
+            $data = [
+                'target' => $invitation->guest->phone,
+                'message' => $message,
+                'delay' => (string)$delay,
+            ];
+            $dataMsg->push($data);
+            // Initialize cURL
+            // Add random delay between 15 seconds to 1 minute
+            // $delay = rand(2, 20);
+            // sleep($delay);
+        }
+        $this->SendNotification($dataMsg);
+        return response()->json([
+            'success' => true,
+            'message' => "WhatsApp broadcast completed. $processedCount messages sent successfully, $failedCount failed.",
+            'processed_count' => $processedCount,
+            'failed_count' => $failedCount,
+        ]);
+    }
+    public function SendNotification( $datas){
+        // dd($datas);
+        foreach($datas as $data){
+            $curl = curl_init();
+            
+            curl_setopt_array($curl, [
+                CURLOPT_URL => 'https://api.fonnte.com/send',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30, // Increased timeout
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => $data,
+                CURLOPT_HTTPHEADER => [
+                    'Authorization: LyfkJ2o1LA8wER8RiMBe' // Your Fonnte token
+                ],
+            ]);
+            
+            $response = curl_exec($curl);
+            $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+            curl_close($curl);
+            // $responseData = json_decode($response, true);
+            
+            // Check if the message was sent successfully
+            // if ($httpCode === 200 && isset($responseData['status']) && $responseData['status'] == true) {
+            //     $processedCount++;
+            // } else {
+            //     $failedCount++;
+            // }
+        }
+        
     }
 }
