@@ -363,8 +363,8 @@
       
       <!-- Card Gift -->
       <!-- Card Informasi -->
+      @if($gifts && $gifts->count() > 0)
       <p class="mb-5 text-center">Doa restu Anda sudah merupakan hadiah terbaik bagi kami. Namun jika ingin memberikan tanda kasih, dapat melalui rekening atau alamat berikut:</p>
-     @if($gifts && $gifts->count() > 0)
       <div class="mb-5 text-center border-0 shadow-lg card" style="border-radius:20px;">
         <div class="card-body">
           @foreach($gifts as $gift)
