@@ -143,7 +143,7 @@
 
             <div class="col-md-6 d-none d-md-block text-start">
               <h3>{{ $bride->full_name ?? $couple->bride_name ?? 'Bride' }}</h3>
-              <p>{{ $bride->additional_info ? $bride->additional_info : 'Daughter of Mr. and Mrs.' }}</p>
+              <p>{{ $bride->additional_info ? $bride->additional_info : '' }}</p>
               @if($bride->personParent)
               <p>Daughter of Mr.{{ $bride->personParent->father_name ?? 'Father' }} & Mrs.{{ $bride->personParent->mother_name ?? 'Mother' }}</p>
               @endif
@@ -360,10 +360,10 @@
   <section id="gift" class="fade-section">
     <div class="container">
       <h2 class="mb-4 text-center" style="">Wedding Gift</h2>
-      <p class="mb-5 text-center">Doa restu Anda sudah merupakan hadiah terbaik bagi kami. Namun jika ingin memberikan tanda kasih, dapat melalui rekening atau alamat berikut:</p>
-
+      
       <!-- Card Gift -->
       <!-- Card Informasi -->
+      <p class="mb-5 text-center">Doa restu Anda sudah merupakan hadiah terbaik bagi kami. Namun jika ingin memberikan tanda kasih, dapat melalui rekening atau alamat berikut:</p>
      @if($gifts && $gifts->count() > 0)
       <div class="mb-5 text-center border-0 shadow-lg card" style="border-radius:20px;">
         <div class="card-body">
