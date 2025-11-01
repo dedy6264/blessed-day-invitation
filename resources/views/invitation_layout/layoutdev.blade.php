@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/png" href="{{ asset('images/root/thumbnail_blessed_day.png') }}">
-  <title>{{ $couple->groom_name ?? 'Groom' }} & {{ $couple->bride_name ?? 'Bride' }} Intimate Wedding | {{ $brand }}</title>
+  <title>{{ $couple->groom_name ?? 'Groom' }} & {{ $couple->bride_name ?? 'Bride' }} Intimate Wedding </title><!--| {{ $brand }}</title-->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="{{url('simplycountdown/dist/themes/dark.css')}}" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
