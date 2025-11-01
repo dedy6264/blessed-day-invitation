@@ -261,10 +261,8 @@ Jika link tidak bisa dibuka, silahkan copy link kemudian paste di Chrome atau Br
 Untuk tampilan terbaik, silahkan akses melalui Browser Chrome / Safari dan non-aktifkan Dark Mode / Mode Gelap.\n
 Terima kasih banyak atas perhatiannya.\n\n
 
-Hormat kami,\n
-Bp.Stefanus Puji Siswanto &\n
-Ibu Dorotea Astuti Budiyani\n
-        ";
+Hormat kami,\n".
+$invitation->weddingEvent->couple->groom_name." & ".$invitation->weddingEvent->couple->bride_name;
         // Prepare request to Fonnte API
         $data = [
             'target' => $target,
@@ -581,10 +579,8 @@ Jika link tidak bisa dibuka, silahkan copy link kemudian paste di Chrome atau Br
 Untuk tampilan terbaik, silahkan akses melalui Browser Chrome / Safari dan non-aktifkan Dark Mode / Mode Gelap.\n
 Terima kasih banyak atas perhatiannya.\n\n
 
-Hormat kami,\n
-Bp.Stefanus Puji Siswanto &\n
-Ibu Dorotea Astuti Budiyani\n
-        ";
+Hormat kami,\n".
+$invitation->weddingEvent->couple->groom_name." & ".$invitation->weddingEvent->couple->bride_name;
             // Prepare request to Fonnte API
             $delay = rand(10, 30);
             $data = [
