@@ -257,11 +257,11 @@ $invitationLink."\n\n".
 "Mohon maaf perihal undangan hanya di bagikan melalui pesan ini.\n\n
 
 Note :\n
-<i>Jika link tidak bisa dibuka, silahkan copy link kemudian paste di Chrome atau Browser lainnya.\n
+*Jika link tidak bisa dibuka, silahkan copy link kemudian paste di Chrome atau Browser lainnya.\n
 Untuk tampilan terbaik, silahkan akses melalui Browser Chrome / Safari dan non-aktifkan Dark Mode / Mode Gelap.\n
-Terima kasih banyak atas perhatiannya.</i>\n\n
+Terima kasih banyak atas perhatiannya.*\n\n
 
-Hormat kami,\n".
+_Hormat kami_,\n".
 $invitation->weddingEvent->couple->groom_name." & ".$invitation->weddingEvent->couple->bride_name;
         // Prepare request to Fonnte API
         $data = [
@@ -575,11 +575,11 @@ $invitationLink."\n\n".
 "Mohon maaf perihal undangan hanya di bagikan melalui pesan ini.\n\n
 
 Note :\n
-<i>ika link tidak bisa dibuka, silahkan copy link kemudian paste di Chrome atau Browser lainnya.\n
+*ika link tidak bisa dibuka, silahkan copy link kemudian paste di Chrome atau Browser lainnya.\n
 Untuk tampilan terbaik, silahkan akses melalui Browser Chrome / Safari dan non-aktifkan Dark Mode / Mode Gelap.\n
-Terima kasih banyak atas perhatiannya</i>.\n\n
+Terima kasih banyak atas perhatiannya*.\n\n
 
-Hormat kami,\n".
+_Hormat kami_,\n".
 $invitation->weddingEvent->couple->groom_name." & ".$invitation->weddingEvent->couple->bride_name;
             // Prepare request to Fonnte API
             $delay = rand(10, 30);
