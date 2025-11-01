@@ -246,7 +246,10 @@ class InvitationController extends CrudController
         //         "invitation.mimogo.sbs";
         $message="Yth. Sdr/Sdri ".$invitation->guest->name."\n\n".
         "Tanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami :\n\n".
-$invitation->weddingEvent->couple->groom_name." & ".$invitation->weddingEvent->couple->bride_name."\n\n".
+// $invitation->weddingEvent->couple->groom_name." & ".$invitation->weddingEvent->couple->bride_name."\n\n".
+  "💍 ".$invitation->weddingEvent->event_name."\n".
+                "🗓️ ".\Carbon\Carbon::parse($invitation->weddingEvent->event_date)->locale('id')->translatedFormat('l, d F Y')."\n".
+                "Invitation Code : ".$invitation->invitation_code."\n\n".
 
 "Berikut link undangan kami, untuk info lengkap dari acara bisa kunjungi :\n\n".
 
@@ -564,7 +567,10 @@ $invitation->weddingEvent->couple->groom_name." & ".$invitation->weddingEvent->c
             //     "invitation.mimogo.sbs";
         $message="Yth. Sdr/Sdri ".$invitation->guest->name."\n\n".
         "Tanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami :\n\n".
-$invitation->weddingEvent->couple->groom_name." & ".$invitation->weddingEvent->couple->bride_name."\n\n".
+// $invitation->weddingEvent->couple->groom_name." & ".$invitation->weddingEvent->couple->bride_name."\n\n".
+  "💍 ".$invitation->weddingEvent->event_name."\n".
+                "🗓️ ".\Carbon\Carbon::parse($invitation->weddingEvent->event_date)->locale('id')->translatedFormat('l, d F Y')."\n".
+                "Invitation Code : ".$invitation->invitation_code."\n\n".
 
 "Berikut link undangan kami, untuk info lengkap dari acara bisa kunjungi :\n\n".
 
