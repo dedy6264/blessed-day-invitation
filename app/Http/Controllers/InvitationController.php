@@ -245,7 +245,7 @@ class InvitationController extends CrudController
         //         "Invitation by ".env('APP_NAME','MAKARIOS')." Invitation\n".
         //         "invitation.mimogo.sbs";
         $message="Yth. Sdr/Sdri ".$invitation->guest->name."\n\n".
-        "Tanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan anak kami :\n\n".
+        "Tanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami :\n\n".
 $invitation->weddingEvent->couple->groom_name." & ".$invitation->weddingEvent->couple->bride_name."\n\n".
 
 "Berikut link undangan kami, untuk info lengkap dari acara bisa kunjungi :\n\n".
@@ -563,7 +563,7 @@ $invitation->weddingEvent->couple->groom_name." & ".$invitation->weddingEvent->c
             //     "Invitation by ".env('APP_NAME','MAKARIOS')." Invitation\n".
             //     "invitation.mimogo.sbs";
         $message="Yth. Sdr/Sdri ".$invitation->guest->name."\n\n".
-        "Tanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan anak kami :\n\n".
+        "Tanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami :\n\n".
 $invitation->weddingEvent->couple->groom_name." & ".$invitation->weddingEvent->couple->bride_name."\n\n".
 
 "Berikut link undangan kami, untuk info lengkap dari acara bisa kunjungi :\n\n".
