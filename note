@@ -335,4 +335,14 @@ CREATE TABLE payment_transactions (
     FOREIGN KEY (transaction_id) REFERENCES transactions(id) ON DELETE CASCADE,
     FOREIGN KEY (payment_method_id) REFERENCES payment_methods(id) ON DELETE CASCADE
 );
+CREATE TABLE package_segments (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    package_id INT NOT NULL,               -- duplikasi untuk log cepat
+    price DECIMAL(12,2) DEFAULT 0.00,
+    status VARCHAR(20),        
+    period INT NOT NULL, -- masa aktif dalam hari                 -- kode dari payment gateway
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (package_id) REFERENCES packages(id) ON DELETE CASCADE,
+);
 

@@ -19,6 +19,7 @@ use App\Http\Controllers\{
     QrCodeController,
     GuestMessageController,
     PackageController,
+    PackageSegmentController,
     TransactionController,
     PaymentMethodController,
     PaymentTransactionController,
@@ -92,6 +93,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::resource('qr-codes', QrCodeController::class)->only(['index']);
     Route::resource('guest-messages', GuestMessageController::class);
     Route::resource('packages', PackageController::class);
+    Route::resource('package-segments', PackageSegmentController::class);
     Route::resource('transactions', TransactionController::class);
     Route::resource('payment-methods', PaymentMethodController::class);
     Route::resource('payment-transactions', PaymentTransactionController::class);

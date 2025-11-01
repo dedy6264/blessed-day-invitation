@@ -360,7 +360,7 @@
   <section id="gift" class="fade-section">
     <div class="container">
       <h2 class="mb-4 text-center" style="">Wedding Gift</h2>
-      
+
       <!-- Card Gift -->
       <!-- Card Informasi -->
       @if($gifts && $gifts->count() > 0)
