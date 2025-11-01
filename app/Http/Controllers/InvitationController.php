@@ -257,9 +257,9 @@ $invitationLink."\n\n".
 "Mohon maaf perihal undangan hanya di bagikan melalui pesan ini.\n\n
 
 Note :\n
-Jika link tidak bisa dibuka, silahkan copy link kemudian paste di Chrome atau Browser lainnya.\n
+<i>Jika link tidak bisa dibuka, silahkan copy link kemudian paste di Chrome atau Browser lainnya.\n
 Untuk tampilan terbaik, silahkan akses melalui Browser Chrome / Safari dan non-aktifkan Dark Mode / Mode Gelap.\n
-Terima kasih banyak atas perhatiannya.\n\n
+Terima kasih banyak atas perhatiannya.</i>\n\n
 
 Hormat kami,\n".
 $invitation->weddingEvent->couple->groom_name." & ".$invitation->weddingEvent->couple->bride_name;
@@ -575,9 +575,9 @@ $invitationLink."\n\n".
 "Mohon maaf perihal undangan hanya di bagikan melalui pesan ini.\n\n
 
 Note :\n
-Jika link tidak bisa dibuka, silahkan copy link kemudian paste di Chrome atau Browser lainnya.\n
+<i>ika link tidak bisa dibuka, silahkan copy link kemudian paste di Chrome atau Browser lainnya.\n
 Untuk tampilan terbaik, silahkan akses melalui Browser Chrome / Safari dan non-aktifkan Dark Mode / Mode Gelap.\n
-Terima kasih banyak atas perhatiannya.\n\n
+Terima kasih banyak atas perhatiannya</i>.\n\n
 
 Hormat kami,\n".
 $invitation->weddingEvent->couple->groom_name." & ".$invitation->weddingEvent->couple->bride_name;
