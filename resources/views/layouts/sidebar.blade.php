@@ -182,21 +182,18 @@
 
     <!-- Nav Item - Business Management Collapse Menu -->
     <li class="nav-item {{ request()->routeIs('packages.*') ||
-     request()->routeIs('package-segments.*') ||
      request()->routeIs('transactions.*') ||
      request()->routeIs('payment-methods.*') ||
      request()->routeIs('payment-transactions.*') ||
      request()->routeIs('create-order.*') ||
      request()->routeIs('my-transactions.*') ? 'active' : '' }}">
         <a class="nav-link {{ request()->routeIs('packages.*') ||
-         request()->routeIs('package-segments.*') ||
          request()->routeIs('transactions.*') ||
          request()->routeIs('payment-methods.*') ||
          request()->routeIs('payment-transactions.*') ||
          request()->routeIs('create-order.*') ||
          request()->routeIs('my-transactions.*') ? '' : 'collapsed' }}" href="#" data-toggle="collapse" data-target="#collapseBusiness"
             aria-expanded="{{ request()->routeIs('packages.*') ||
-             request()->routeIs('package-segments.*') ||
              request()->routeIs('transactions.*') ||
              request()->routeIs('payment-methods.*') ||
              request()->routeIs('payment-transactions.*') ||
@@ -206,7 +203,6 @@
             <span>Business Management</span>
         </a>
         <div id="collapseBusiness" class="collapse {{ request()->routeIs('packages.*') ||
-         request()->routeIs('package-segments.*') ||
          request()->routeIs('transactions.*') ||
          request()->routeIs('payment-methods.*') ||
          request()->routeIs('payment-transactions.*') ||
@@ -215,7 +211,6 @@
             <div class="py-2 bg-white rounded collapse-inner">
                  @if(auth()->user()->role=="admin")
                 <a class="collapse-item {{ request()->routeIs('packages.*') ? 'active' : '' }}" href="{{ route('packages.index') }}">Packages</a>
-                <a class="collapse-item {{ request()->routeIs('package-segments.*') ? 'active' : '' }}" href="{{ route('package-segments.index') }}">Package Segments</a>
                 @endif
                 <a class="collapse-item {{ request()->routeIs('create-order.*') ? 'active' : '' }}" href="{{ route('create-order.step1') }}">Create Order</a>
                 @if(auth()->user()->role=="admin")

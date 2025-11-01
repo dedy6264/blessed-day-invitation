@@ -52,7 +52,7 @@ class OrderController extends Controller
      */
     public function processStep1(Request $request): RedirectResponse
     {
-        dd(session());
+        // dd(session());
         // Get the authenticated user
         $user = $request->user();
         

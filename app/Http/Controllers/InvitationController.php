@@ -229,22 +229,42 @@ class InvitationController extends CrudController
         $invitationLink = route('invitation.show', ['id' => $invitation->id]);
         
         // Create the message
-        $message = "Hai! 🌸\n\n".
-                "Dengan penuh sukacita kami mengundangmu ".$invitation->guest->name.", untuk hadir di hari bahagia kami:\n\n" . 
-                "💍 ".$invitation->weddingEvent->event_name."\n".
-                "🗓️ ".\Carbon\Carbon::parse($invitation->weddingEvent->event_date)->locale('id')->translatedFormat('l, d F Y')."\n".
-                "Invitation Code : ".$invitation->invitation_code."\n\n".
-                // "📍 {{ Lokasi Acara }}".
-                // "Kepada: " . $invitation->guest->name . "\n" .
-                // "Acara: " . $invitation->weddingEvent->event_name . "\n\n" .
-                "Kehadiran dan doa restumu sangat berarti bagi kami.\n".
-                "Klik tautan di bawah ini untuk melihat undangan lengkapnya 👇:\n\n" .
-                $invitationLink . "\n\n" .
-                "Terima kasih atas doa dan kasihnya 💕\n".
-                "Sampai jumpa di hari istimewa kami.\n\n\n".
-                "Invitation by ".env('APP_NAME','MAKARIOS')." Invitation\n".
-                "invitation.mimogo.sbs";
-        
+        // $message = "Hai! 🌸\n\n".
+        //         "Dengan penuh sukacita kami mengundangmu ".$invitation->guest->name.", untuk hadir di hari bahagia kami:\n\n" . 
+        //         "💍 ".$invitation->weddingEvent->event_name."\n".
+        //         "🗓️ ".\Carbon\Carbon::parse($invitation->weddingEvent->event_date)->locale('id')->translatedFormat('l, d F Y')."\n".
+        //         "Invitation Code : ".$invitation->invitation_code."\n\n".
+        //         // "📍 {{ Lokasi Acara }}".
+        //         // "Kepada: " . $invitation->guest->name . "\n" .
+        //         // "Acara: " . $invitation->weddingEvent->event_name . "\n\n" .
+        //         "Kehadiran dan doa restumu sangat berarti bagi kami.\n".
+        //         "Klik tautan di bawah ini untuk melihat undangan lengkapnya 👇:\n\n" .
+        //         $invitationLink . "\n\n" .
+        //         "Terima kasih atas doa dan kasihnya 💕\n".
+        //         "Sampai jumpa di hari istimewa kami.\n\n\n".
+        //         "Invitation by ".env('APP_NAME','MAKARIOS')." Invitation\n".
+        //         "invitation.mimogo.sbs";
+        $message="Yth. Sdr/Sdri ".$invitation->guest->name."\n\n".
+        "Tanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan anak kami :\n\n".
+$invitation->weddingEvent->couple->groom_name." & ".$invitation->weddingEvent->couple->bride_name."\n\n".
+
+"Berikut link undangan kami, untuk info lengkap dari acara bisa kunjungi :\n\n".
+
+$invitationLink."\n\n".
+
+"Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.\n\n".
+
+"Mohon maaf perihal undangan hanya di bagikan melalui pesan ini.\n\n
+
+Note :\n
+Jika link tidak bisa dibuka, silahkan copy link kemudian paste di Chrome atau Browser lainnya.\n
+Untuk tampilan terbaik, silahkan akses melalui Browser Chrome / Safari dan non-aktifkan Dark Mode / Mode Gelap.\n
+Terima kasih banyak atas perhatiannya.\n\n
+
+Hormat kami,\n
+Bp.Stefanus Puji Siswanto &\n
+Ibu Dorotea Astuti Budiyani\n
+        ";
         // Prepare request to Fonnte API
         $data = [
             'target' => $target,
