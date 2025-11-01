@@ -249,7 +249,6 @@ class InvitationController extends CrudController
 // $invitation->weddingEvent->couple->groom_name." & ".$invitation->weddingEvent->couple->bride_name."\n\n".
   "💍 ".$invitation->weddingEvent->event_name."\n".
                 "🗓️ ".\Carbon\Carbon::parse($invitation->weddingEvent->event_date)->locale('id')->translatedFormat('l, d F Y')."\n".
-                 "📍 Alamat : ".$invitation->venue_name."\n".$invitation->address."\n".
                 "Invitation Code : ".$invitation->invitation_code."\n\n".
 
 "Berikut link undangan kami, untuk info lengkap dari acara bisa kunjungi :\n\n".
@@ -571,7 +570,6 @@ $invitation->weddingEvent->couple->groom_name." & ".$invitation->weddingEvent->c
 // $invitation->weddingEvent->couple->groom_name." & ".$invitation->weddingEvent->couple->bride_name."\n\n".
   "💍 ".$invitation->weddingEvent->event_name."\n".
                 "🗓️ ".\Carbon\Carbon::parse($invitation->weddingEvent->event_date)->locale('id')->translatedFormat('l, d F Y')."\n".
-                "📍 Alamat : ".$invitation->venue_name."\n".$invitation->address."\n".
                 "Invitation Code : ".$invitation->invitation_code."\n\n".
 
 "Berikut link undangan kami, untuk info lengkap dari acara bisa kunjungi :\n\n".
