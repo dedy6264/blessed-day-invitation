@@ -514,11 +514,22 @@
   <script src="https://cdn.jsdelivr.net/npm/bs5-lightbox@1.8.5/dist/index.bundle.min.js"></script>
   <script src="{{url('simplycountdown/dist/simplyCountdown.umd.js')}}"></script>
   <script>//countdown
+        // Extract date from $weddingEvent->event_date and time from $weddingEvent->event_time
+        // event_date is in format like "2026-12-20 00:00:00", we need to replace the time part with event_time
+          const rawDate = "{{ $weddingEvent->event_date }}"; // "2025-11-29 00:00:00"
+          const eventTime = "{{ $weddingEvent->event_time }}"; // "17:30:00"
+
+          // Ambil hanya tanggal (sebelum spasi)
+          const eventDateOnly = rawDate.split(' ')[0]; // hasil: "2025-11-29"
+
+          // Gabungkan dengan huruf T
+          const eventDate = new Date(`${eventDateOnly}T${eventTime}`);
+// console.log("Event Date:", rawDate);
         simplyCountdown(".countdown", {
-            year: 2025,
-            month: 12,
-            day: 25,
-            hours: 9,
+            year: eventDate.getFullYear(),
+            month: eventDate.getMonth() + 1, // JavaScript months are 0-indexed
+            day: eventDate.getDate(),
+            hours: eventDate.getHours(),
             words: {
                 days: {
                     lambda: (root, count) => (count === 1 ? "Hari" : "Hari"),
