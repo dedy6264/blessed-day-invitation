@@ -34,7 +34,7 @@
   <section id="cover" style="--background-image: url('{{ asset($backgroundImages) ?? asset('inv/img/tushar-ranjan-GqpGd6NtUoI-unsplash.jpg') }}');">
     <div class="text-center content">
       <h2 class="fw-light">Wedding Invitation</h2>
-      <h1 class="fw-bold display-3">{{ $couple->groom_name ?? 'Groom' }} & {{ $couple->bride_name ?? 'Bride' }}</h1>
+      <h1 class="fw-bold display-3">{{ $couple->bride_name ?? 'Bride' }} & {{ $couple->groom_name ?? 'Groom' }} </h1>
       <h3 class="fw-light ">Dear Our Honored Guest <br> {{ $guestName ?? 'Guest' }}</h2>
       <button id="openBtn" class="px-4 py-2 mt-4 openbtn btn btn-light rounded-pill fw-bold">
         Open Invitation
@@ -47,7 +47,7 @@
     {{-- <div class="fade-content"> --}}
         <div class="head-top fade-content">
             <h2 class="fw-light">Wedding Invitation</h2>
-            <h1 class="fw-bold display-3">{{ $couple->groom_name ?? 'Groom' }} & {{ $couple->bride_name ?? 'Bride' }}'s</h1>
+            <h1 class="fw-bold display-3">{{ $couple->bride_name ?? 'Bride' }} & {{ $couple->groom_name ?? 'Groom' }}</h1>
             <p class="fw-light">{{ \Carbon\Carbon::parse($couple->wedding_date)->format('l, d F Y') }}</p>
         </div>
         <div class="head-bottom fade-content" id="playMusic">
