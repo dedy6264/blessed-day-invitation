@@ -265,7 +265,9 @@ _Untuk tampilan terbaik, silahkan akses melalui Browser Chrome / Safari dan non-
 _Terima kasih banyak atas perhatiannya._\n\n
 
 Hormat kami,\n".
-$invitation->weddingEvent->couple->groom_name." & ".$invitation->weddingEvent->couple->bride_name;
+$invitation->weddingEvent->couple->groom_name." & ".$invitation->weddingEvent->couple->bride_name."\n\n".
+"Invitation by ".env('APP_NAME','MAKARIOS')." Invitation\n".
+"invitation.mimogo.sbs";
         // Prepare request to Fonnte API
         $data = [
             'target' => $target,
@@ -586,7 +588,9 @@ _Untuk tampilan terbaik, silahkan akses melalui Browser Chrome / Safari dan non-
 _Terima kasih banyak atas perhatiannya_.\n\n
 
 Hormat kami,\n".
-$invitation->weddingEvent->couple->groom_name." & ".$invitation->weddingEvent->couple->bride_name;
+$invitation->weddingEvent->couple->groom_name." & ".$invitation->weddingEvent->couple->bride_name."\n\n".
+"Invitation by ".env('APP_NAME','MAKARIOS')." Invitation\n".
+"invitation.mimogo.sbs";
             // Prepare request to Fonnte API
             $delay = rand(10, 30);
             $data = [
