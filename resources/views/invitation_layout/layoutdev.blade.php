@@ -37,12 +37,12 @@
     }
 
 @keyframes slideImgGroom {
-    0%   { transform: translateX(5); }
-    100% { transform: translateX(-5%); }
+    0%   { transform: translateX(20%); } /* mulai dari kanan */
+    100% { transform: translateX(0); }   /* kembali ke tengah */
 }
 @keyframes slideImgBride {
-    0%   { transform: translateX(-5); }
-    100% { transform: translateX(5%); }
+    0%   { transform: translateX(-20%); } /* mulai dari kiri */
+    100% { transform: translateX(0); }
 }
 
   </style>
