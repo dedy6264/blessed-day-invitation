@@ -27,7 +27,7 @@
     }
 
     #info .portrait-animate-groom {
-  animation: slideImg 8s ease-in-out infinite alternate;
+  animation: slideImgGroom 8s ease-in-out infinite alternate;
     will-change: transform;
     }
 
@@ -36,9 +36,13 @@
     will-change: transform;
     }
 
-@keyframes slideImg {
+@keyframes slideImgGroom {
     0%   { transform: translateX(0); }
-    100% { transform: translateX(-6%); }
+    100% { transform: translateX(-10%); }
+}
+@keyframes slideImgBride {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(10%); }
 }
 
   </style>
