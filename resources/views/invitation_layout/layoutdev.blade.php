@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta property="og:image" content="url('{{ asset($backgroundImages) ?? asset('inv/img/gpt1.png') }}')">
   <link rel="icon" type="image/png" href="{{ asset('images/root/thumbnail_blessed_day.png') }}">
   <title>{{ $couple->groom_name ?? 'Groom' }} & {{ $couple->bride_name ?? 'Bride' }} Intimate Wedding </title><!--| {{ $brand }}</title-->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -84,7 +85,7 @@
             <div class="col-12 d-block d-md-none position-relative portrait-4-5">
               <img src="{{ $groom->image_url ? asset($groom->image_url) : asset('inv/img/gpt2.png') }}"
                   alt="{{ $groom->full_name ?? $couple->groom_name ?? 'Groom' }}"
-                  class="rounded img-fluid w-100" style="object-position:70% center;">
+                  class="rounded img-fluid w-100 portrait-animate-groom" style="object-position:70% center;">
               <div class="text-center overlay-info">
                 <h3>{{ $groom->full_name ?? $couple->groom_name ?? 'Groom' }}</h3>
               <hr>
@@ -107,7 +108,7 @@
             <div class="col-md-6 d-none d-md-block portrait-4-5">
               <img src="{{ $groom->image_url ? asset($groom->image_url) : asset('inv/img/gpt2.png') }}"
                   alt="{{ $groom->full_name ?? $couple->groom_name ?? 'Groom' }}"
-                  class="rounded img-fluid w-100" style="object-position:70% center;">
+                  class="rounded img-fluid w-100 portrait-animate-groom" style="object-position:70% center;">
             </div>
 
           </div>
@@ -123,7 +124,7 @@
             <div class="col-12 d-block d-md-none position-relative portrait-4-5">
               <img src="{{ $bride->image_url ? url($bride->image_url) : url('inv/img/gpt3.png') }}"
                   alt="{{ $bride->full_name ?? $couple->bride_name ?? 'Bride' }}"
-                  class="rounded img-fluid w-100" style="object-position:20% center;">
+                  class="rounded img-fluid w-100 portrait-animate-bride" style="object-position:20% center;">
               <div class="text-center overlay-info">
                 <h3>{{ $bride->full_name ?? $couple->bride_name ?? 'Bride' }}</h3>
                 <hr>
@@ -138,7 +139,7 @@
             <div class="col-md-6 d-none d-md-block portrait-4-5">
               <img src="{{ $bride->image_url ? url($bride->image_url) : url('inv/img/gpt3.png') }}"
                   alt="{{ $bride->full_name ?? $couple->bride_name ?? 'Bride' }}"
-                  class="rounded img-fluid w-100" style="object-position:20% center;">
+                  class="rounded img-fluid w-100 portrait-animate-bride" style="object-position:20% center;">
             </div>
 
             <div class="col-md-6 d-none d-md-block text-start">
@@ -305,7 +306,7 @@
                 
                 <div class="mb-3">
                   <label for="guest_count" class="form-label">Number of guests attending (including yourself)</label>
-                  <input type="number" class="form-control" id="guest_count" name="guest_count" min="1" max="10" value="1" required>
+                  <input type="number" class="form-control" id="guest_count" name="guest_count" min="1" max="10" value="{{ $invitation->guest_count }}" readonly required> 
                 </div>
                 
                 {{-- <div class="mb-3">

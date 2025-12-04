@@ -68,6 +68,13 @@
                     </div>
                     
                     <div class="mb-3 form-group">
+                        <label for="guest_count" class="form-label">Jumlah Undangan</label>
+                        <input type="number" name="guest_count" id="guest_count" class="form-control" value="{{ old('guest_count') }}" required>
+                        @error('guest_count')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+                    {{-- <div class="mb-3 form-group">
                         <label for="is_attending" class="form-label">Is Attending</label>
                         <select name="is_attending" id="is_attending" class="form-control">
                             <option value="">Not Responded</option>
@@ -77,15 +84,15 @@
                         @error('is_attending')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
-                    </div>
+                    </div> --}}
                     
-                    <div class="mb-3 form-group">
+                    {{-- <div class="mb-3 form-group">
                         <label for="responded_at" class="form-label">Responded At</label>
                         <input type="datetime-local" name="responded_at" id="responded_at" class="form-control" value="{{ old('responded_at') }}">
                         @error('responded_at')
                             <div class="text-danger">{{ $message }}</div>
                         @enderror
-                    </div>
+                    </div> --}}
                     
                     <button type="submit" class="btn btn-primary">
                         <i class="fas fa-save"></i> Create Invitation

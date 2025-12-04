@@ -96,8 +96,8 @@ class InvitationController extends CrudController
             'guest_id' => 'required|exists:guests,id',
             'wedding_event_id' => 'required|exists:wedding_events,id',
             'invitation_code' => 'required|string|unique:invitations,invitation_code|max:50',
-            'is_attending' => 'nullable|boolean',
-            'responded_at' => 'nullable|date',
+            'guest_count' => 'nullable|integer|min:1|max:10',
+            // 'responded_at' => 'nullable|date',
         ]);
         $request->merge([
             'invitation_code' => "INVTW" . (string)$request->guest_id . (string)$request->wedding_event_id
@@ -193,8 +193,8 @@ class InvitationController extends CrudController
             'guest_id' => 'required|exists:guests,id',
             'wedding_event_id' => 'required|exists:wedding_events,id',
             'invitation_code' => 'required|string|unique:invitations,invitation_code,' . $record->id . '|max:50',
-            'is_attending' => 'nullable|boolean',
-            'responded_at' => 'nullable|date',
+            'guest_count' => 'nullable|integer|min:1|max:10',
+            // 'responded_at' => 'nullable|date',
         ]);
 
         $record->update($request->all());
@@ -228,46 +228,24 @@ class InvitationController extends CrudController
         // Generate the invitation link
         $invitationLink = route('invitation.show', ['id' => $invitation->id]);
         
-        // Create the message
-        // $message = "Hai! 🌸\n\n".
-        //         "Dengan penuh sukacita kami mengundangmu ".$invitation->guest->name.", untuk hadir di hari bahagia kami:\n\n" . 
-        //         "💍 ".$invitation->weddingEvent->event_name."\n".
-        //         "🗓️ ".\Carbon\Carbon::parse($invitation->weddingEvent->event_date)->locale('id')->translatedFormat('l, d F Y')."\n".
-        //         "Invitation Code : ".$invitation->invitation_code."\n\n".
-        //         // "📍 {{ Lokasi Acara }}".
-        //         // "Kepada: " . $invitation->guest->name . "\n" .
-        //         // "Acara: " . $invitation->weddingEvent->event_name . "\n\n" .
-        //         "Kehadiran dan doa restumu sangat berarti bagi kami.\n".
-        //         "Klik tautan di bawah ini untuk melihat undangan lengkapnya 👇:\n\n" .
-        //         $invitationLink . "\n\n" .
-        //         "Terima kasih atas doa dan kasihnya 💕\n".
-        //         "Sampai jumpa di hari istimewa kami.\n\n\n".
-        //         "Invitation by ".env('APP_NAME','MAKARIOS')." Invitation\n".
-        //         "invitation.mimogo.sbs";
-        $message="Yth. Sdr/Sdri ".$invitation->guest->name."\n\n".
+        $message="Yth. ".$invitation->guest->name."\n\n".
         "Tanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami :\n\n".
-// $invitation->weddingEvent->couple->groom_name." & ".$invitation->weddingEvent->couple->bride_name."\n\n".
-  "💍 ".$invitation->weddingEvent->event_name."\n".
-                "🗓️ ".\Carbon\Carbon::parse($invitation->weddingEvent->event_date)->locale('id')->translatedFormat('l, d F Y')."\n".
-                "Invitation Code : ".$invitation->invitation_code."\n\n".
-
-"Berikut link undangan kami, untuk info lengkap dari acara bisa kunjungi :\n\n".
-
-$invitationLink."\n\n".
-
-"Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.\n\n".
-
-"Mohon maaf perihal undangan hanya di bagikan melalui pesan ini.\n\n
-
-Note :\n
-_Jika link tidak bisa dibuka, silahkan copy link kemudian paste di Chrome atau Browser lainnya_.\n
-_Untuk tampilan terbaik, silahkan akses melalui Browser Chrome / Safari dan non-aktifkan Dark Mode / Mode Gelap_.\n
-_Terima kasih banyak atas perhatiannya._\n\n
-
-Hormat kami,\n".
-$invitation->weddingEvent->couple->groom_name." & ".$invitation->weddingEvent->couple->bride_name."\n\n".
-"Invitation by ".env('APP_NAME','MAKARIOS')." \n".
-"invitation.mimogo.sbs";
+        "💍 ".$invitation->weddingEvent->event_name."\n".
+        "🗓️ ".\Carbon\Carbon::parse($invitation->weddingEvent->event_date)->locale('id')->translatedFormat('l, d F Y')."\n".
+        "Invitation Code : ".$invitation->invitation_code."\n\n".
+        "Berikut link undangan kami, untuk info lengkap dari acara bisa kunjungi :\n\n".
+        $invitationLink."\n\n".
+        "Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.\n\n".
+        "Mohon maaf perihal undangan hanya di bagikan melalui pesan ini.\n\n
+        Note :\n
+        _Jika link tidak bisa dibuka, silahkan copy link kemudian paste di Chrome atau Browser lainnya_.\n
+        _Untuk tampilan terbaik, silahkan akses melalui Browser Chrome / Safari dan non-aktifkan Dark Mode / Mode Gelap_.\n
+        _Terima kasih banyak atas perhatiannya._\n\n
+        Hormat kami,\n".
+        $invitation->weddingEvent->couple->groom_name." & ".$invitation->weddingEvent->couple->bride_name."\n\n".
+        "Invitation by ".env('APP_NAME','MAKARIOS')." \n".
+        "invitation.mimogo.sbs";
+        
         // Prepare request to Fonnte API
         $data = [
             'target' => $target,
@@ -567,7 +545,7 @@ $invitation->weddingEvent->couple->groom_name." & ".$invitation->weddingEvent->c
             //     "Sampai jumpa di hari istimewa kami.\n\n\n".
             //     "Invitation by ".env('APP_NAME','MAKARIOS')." Invitation\n".
             //     "invitation.mimogo.sbs";
-        $message="Yth. Sdr/Sdri ".$invitation->guest->name."\n\n".
+        $message="Yth. ".$invitation->guest->name."\n\n".
         "Tanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara pernikahan kami :\n\n".
 // $invitation->weddingEvent->couple->groom_name." & ".$invitation->weddingEvent->couple->bride_name."\n\n".
   "💍 ".$invitation->weddingEvent->event_name."\n".
@@ -635,6 +613,41 @@ $invitation->weddingEvent->couple->groom_name." & ".$invitation->weddingEvent->c
             $response = curl_exec($curl);
             $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
             curl_close($curl);
+            $responseData = json_decode($response, true);
+            
+            // Check if the message was sent successfully
+            if ($httpCode === 200 && isset($responseData['status']) && $responseData['status'] == true) {
+                // $processedCount++;
+                 $this->SendNotification($data);
+            } ///else {
+            //     $failedCount++;
+            // }
+        }
+        
+    }
+    public function SingleSendNotification( $data){
+        // dd($datas);
+       
+            $curl = curl_init();
+            
+            curl_setopt_array($curl, [
+                CURLOPT_URL => 'https://api.fonnte.com/send',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 30, // Increased timeout
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => $data,
+                CURLOPT_HTTPHEADER => [
+                    'Authorization: LyfkJ2o1LA8wER8RiMBe' // Your Fonnte token
+                ],
+            ]);
+            
+            $response = curl_exec($curl);
+            $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+            curl_close($curl);
             // $responseData = json_decode($response, true);
             
             // Check if the message was sent successfully
@@ -643,7 +656,7 @@ $invitation->weddingEvent->couple->groom_name." & ".$invitation->weddingEvent->c
             // } else {
             //     $failedCount++;
             // }
-        }
+        
         
     }
 }

@@ -102,7 +102,7 @@
                                                 <span class="badge badge-danger">Not Attending</span>
                                             @endif
                                         </td>
-                                        <td>{{ $invitation->count }}</td>
+                                        <td>{{ $invitation->guest_count }}</td>
                                         <td>{{ $invitation->responded_at ? $invitation->responded_at->format('d M Y, H:i') : 'N/A' }}</td>
                                         <td>
                                             @if(isset($showRoute))

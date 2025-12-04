@@ -224,8 +224,8 @@
         <i class="fas fa-home"></i>
       </button>
       <div class="header-content">
-        <h1>Guest Attendance Scanner</h1>
-        <h2>{{ $weddingEvent->event_name }}</h2>
+        <h3>Guest Attendance Scanner</h3>
+        <h4>{{ $weddingEvent->event_name }}</h4>
       </div>
       <div style="width: 50px;"></div>
     </div>
@@ -234,18 +234,18 @@
     <div class="scanner-attendance-wrapper">
       <!-- Scanner -->
       <div class="scanner-box">
-        <h2 class="scanner-title">QR Scanner</h2>
+        <p class="scanner-title">QR Scanner</p>
         <video id="preview" autoplay playsinline muted></video>
         <input type="text" id="manualInput" class="manual-input" placeholder="Masukkan kode tamu secara manual" />
         <div class="response-box" id="responseBox">
-          <h3 class="response-title"><i class="fas fa-user-circle"></i> Data Tamu</h3>
+          <h4 class="response-title"><i class="fas fa-user-circle"></i> Data Tamu</h4>
           <p id="responseData">Belum ada data</p>
         </div>
       </div>
 
       <!-- Attendance -->
       <div class="attendance-section">
-        <h3 class="attendance-title"><i class="fas fa-list-check"></i> Daftar Presensi</h3>
+        <h4 class="attendance-title"><i class="fas fa-list-check"></i> Daftar Presensi</h4>
         <div class="attendance-list">
           <ul id="attendanceList">
             @foreach($presentGuests as $presentGuest)
