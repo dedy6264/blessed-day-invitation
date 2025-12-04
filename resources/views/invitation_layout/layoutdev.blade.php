@@ -27,33 +27,19 @@
     }
 
     #info .portrait-animate-groom {
-        animation: softMoveGroom 8s ease-in-out infinite alternate;
+  animation: slideImg 8s ease-in-out infinite alternate;
+    will-change: transform;
     }
 
     #info .portrait-animate-bride {
-        animation: softMoveBride 8s ease-in-out infinite alternate;
+  animation: slideImg 8s ease-in-out infinite alternate;
+    will-change: transform;
     }
 
-    @keyframes softMoveBride {
-        0% {
-            object-position: 10% center;
-        }
-
-        100% {
-            object-position: 80% center;
-        }
-    }
-
-    @keyframes softMoveGroom {
-        0% {
-            object-position: 80% center;
-        }
-
-        100% {
-            object-position: 10% center;
-        }
-    }
-
+@keyframes slideImg {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-6%); }
+}
 
   </style>
 
