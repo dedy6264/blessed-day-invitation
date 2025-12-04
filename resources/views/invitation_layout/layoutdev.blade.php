@@ -26,6 +26,35 @@
         width: 100%;
     }
 
+    #info .portrait-animate-groom {
+        animation: softMoveGroom 8s ease-in-out infinite alternate;
+    }
+
+    #info .portrait-animate-bride {
+        animation: softMoveBride 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes softMoveBride {
+        0% {
+            object-position: 10% center;
+        }
+
+        100% {
+            object-position: 80% center;
+        }
+    }
+
+    @keyframes softMoveGroom {
+        0% {
+            object-position: 80% center;
+        }
+
+        100% {
+            object-position: 10% center;
+        }
+    }
+
+
   </style>
 
 </head>
