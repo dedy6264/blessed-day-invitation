@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta property="og:image" content="{{ asset($backgroundImages) ?? asset('inv/img/gpt1.png') }}">
+  <meta property="og:image" content="{{ $backgroundImages ? asset($backgroundImages) : asset('inv/img/gpt1.png') }}">
   <link rel="icon" type="image/png" href="{{ asset('images/root/thumbnail_blessed_day.png') }}">
   <title>{{ $couple->groom_name ?? 'Groom' }} & {{ $couple->bride_name ?? 'Bride' }} Intimate Wedding </title><!--| {{ $brand }}</title-->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
