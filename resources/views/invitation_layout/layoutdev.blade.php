@@ -32,7 +32,7 @@
     }
 
     #info .portrait-animate-bride {
-  animation: slideImg 8s ease-in-out infinite alternate;
+  animation: slideImgBride 8s ease-in-out infinite alternate;
     will-change: transform;
     }
 
