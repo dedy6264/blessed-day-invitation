@@ -243,8 +243,8 @@ class InvitationController extends CrudController
         _Terima kasih banyak atas perhatiannya._\n\n
         Hormat kami,\n".
         $invitation->weddingEvent->couple->groom_name." & ".$invitation->weddingEvent->couple->bride_name."\n\n".
-        "Invitation by ".env('APP_NAME','MAKARIOS')." \n".
-        "invitation.mimogo.sbs";
+        "Invitation by ".env('APP_NAME','MAKARIOS')." \n";
+        // "invitation.mimogo.sbs";
         
         // Prepare request to Fonnte API
         $data = [
@@ -567,8 +567,8 @@ _Terima kasih banyak atas perhatiannya_.\n\n
 
 Hormat kami,\n".
 $invitation->weddingEvent->couple->groom_name." & ".$invitation->weddingEvent->couple->bride_name."\n\n".
-"Invitation by ".env('APP_NAME','MAKARIOS')." \n".
-"invitation.mimogo.sbs";
+"Invitation by ".env('APP_NAME','MAKARIOS')." \n";
+// "invitation.mimogo.sbs";
             // Prepare request to Fonnte API
             $delay = rand(10, 30);
             $data = [
