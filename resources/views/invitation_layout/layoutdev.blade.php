@@ -38,11 +38,11 @@
 
 @keyframes slideImgGroom {
     0%   { transform: translateX(8%); } /* mulai dari kanan */
-    100% { transform: translateX(0); }   /* kembali ke tengah */
+    100% { transform: translateX(-8%); }   /* kembali ke tengah */
 }
 @keyframes slideImgBride {
     0%   { transform: translateX(-8%); } /* mulai dari kiri */
-    100% { transform: translateX(0); }
+    100% { transform: translateX(8%); }
 }
 
   </style>
