@@ -126,7 +126,7 @@ section {
     display: flex;
     justify-content: space-between;
     /* atur atas & bawah */
-    padding: 70px 20px;
+    padding: 60px 20px;
     /* beri jarak biar tidak mepet layar */
     align-items: center;
     /* justify-content: center; */
