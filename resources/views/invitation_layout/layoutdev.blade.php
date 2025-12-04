@@ -37,12 +37,12 @@
     }
 
 @keyframes slideImgGroom {
-    0%   { transform: translateX(5); }
-    100% { transform: translateX(-5%); }
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-8%); }
 }
 @keyframes slideImgBride {
-    0%   { transform: translateX(-5); }
-    100% { transform: translateX(5%); }
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(8%); }
 }
 
   </style>
